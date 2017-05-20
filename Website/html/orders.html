@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<!--Zack Direen CIT194730 29th May 2015-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel= "stylesheet" type="text/css" href="../css/animate.css">
+<title>Orders</title>
+<script src = ../javascript.js>
+</script>
+
+<link rel="stylesheet" type="text/css" href="../css/main.css"/>
+<link rel="stylesheet" type="text/css" href="../css/alt.css"/>
+</head>
+
+<body>
+
+<div id="wrapper">
+			<div id="header">
+			<h1> Zacks Game Store! </h1>
+				<ul class="nav">
+				<li><a href="../index.html">Back to Home</a>
+				</li>
+				
+				</ul>
+			<h2> Orders! </h2>
+			
+			 
+			 
+			 </div>
+			 
+			 
+			 
+			 
+				<div id="body" class = "body rubberBand animated">
+				
+								
+								<form>
+								  <p class = 'orderlabels'>First Name:</p> 
+								<input type="text" name="fname" id="fname">
+								<p class = 'orderlabels'>Last Name:</p>
+								<input type="text" name="lname" id="lname">
+								<p class = 'orderlabels'>Postal address:</p>
+								<input type="text" name="address" id="address">
+								<p class = 'orderlabels'>City or suburb:</p>
+								<input type="text" name="cityorsuburb" id="cityorsuburb">
+								<p class = 'orderlabels'>
+								State/Territory:
+								</p>
+								<select name = "stateSelection" id = "stateSelection">
+								<option value="Canberra">ACT</option>
+								<option value="New South Wales">NSW</option>
+								<option value="Victoria">VIC</option>
+								<option value="South Australia">SA</option>
+								<option value="Northen Terrority">NT</option>
+								<option value="Westeren Australia">WA</option>
+								<option value="Tasmania">TAS</option>
+								</select>
+								<br>
+								<p class = 'orderlabels'> Post Code: </p>
+								<input type="text" name  = "postcode" id="postcode">
+								<p class = 'orderlabels'> Credit Card Number:</p>
+								<input type="text" name="ccardno" id="ccardno">
+								<p class = 'orderlabels'>Credit Card Expiry Date: </p>
+								<input type="text" name="ccardexpiry" id="ccardexpiry">
+								<br>
+								<br>
+								
+								
+								
+								
+								
+								<input class = 'button' type="button" value="Submit" onclick = "readData()">
+								<input class = 'button' type="reset" value="Reset">
+								</form> <br>
+				
+				
+				
+				</div>
+			 
+			 
+		<table style="width: 300px;">
+        <tr>
+		<th>Zack's Text Tips©</th>    
+        </tr>
+			<tr style ="text-align:center;">
+                <td><img style="width: 350px; height: 233px;" alt="" src="../Photos/logo.jpg"></td>
+            </tr>
+        </table>
+</div>
+</body>
+</html>

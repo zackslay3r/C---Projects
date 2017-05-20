@@ -1,0 +1,42 @@
+/* Website */ 
+ /* Zack Direen CIT194730 29th May 2015 */
+ body{
+ color: white;
+background: rgb(0, 0, 0) ;
+font-family: 'Roboto', sans-serif;
+text-align:center;
+
+
+}
+h1, h2{
+text-align: center;
+font-weight: normal;
+font-family: 'Roboto', sans-serif;
+width: 100%;
+}
+h1{
+font-size:4.5em;}
+h2{
+font-size:2.5em;}
+p{
+text-align: center;
+font-weight: normal;
+font-family: 'Roboto', sans-serif;
+font-size: 1.2em;
+
+.maintext {
+text-align: center;
+width: 60%;
+margin-left: auto;
+margin-right: auto;
+font-size:2.3em;
+font-family: 'Roboto', sans-serif;
+font-weight: normal;
+}
+
+.orderlabels
+{
+font-size: 3.5em;
+font-family: 'Roboto', sans-serif;
+font-weight: normal;
+}

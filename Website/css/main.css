@@ -1,0 +1,133 @@
+/* Zack Direen CIT194730 29th May 2015 */
+body{
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	display: block;
+}
+
+#body{
+	margin-top: 50px;	
+}
+
+
+/*
+ *	Global styles
+ */
+
+a:link {
+    color: #FF0000;
+	text-decoration: none;
+	list-style-type: none;
+}
+
+/* visited link */
+a:visited {
+    color: #00FF00;
+}
+
+/* mouse over link */
+a:hover {
+    color: #FF00FF;
+}
+
+/* selected link */
+a:active {
+    color: #0000FF;
+}
+
+p{
+	text-align: left;
+	font-weight: normal;
+	font-family: Comic Sans MS;
+	font-size: 1.2em;	 
+}
+
+#header h2{
+	padding: 0px;
+	margin: 0px;
+	margin-top: 120px;
+	border-bottom: 2px solid white;
+	font-family: 'Roboto', sans-serif;
+}
+
+
+/* table */
+table{
+	margin-left: auto;	
+	margin-right: auto;	
+}
+
+
+/* style the copyright inside here*/
+table td{
+	background: white; /* changes background of copyright */
+	color: black;
+	text-align:center;	
+}
+
+
+ 
+/* this wrapper contains every element on the site */
+#wrapper{
+	width: 1024px;
+	margin: 0 auto;	
+	postion: relative;
+}
+
+#header{
+	
+}
+
+.nav{
+	text-align: center;	
+	width: 1024px;
+	margin-left: -40px;
+
+}
+
+.nav li{
+	display: inline-block;
+	
+	background: white;
+	width: 200px;
+	margin: 5px;
+	
+			
+}
+
+.nav a{
+	display: inline-block;
+	padding: 10px;	
+	text-transform: uppercase;
+}
+
+
+
+/*  
+ * Body
+ */
+#header p{
+	border-bottom: 1px solid white;
+}
+
+
+.button {
+    background-color: #DC4900;
+    border: 1px;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+	border-radius:8px;
+
+}
+.orderlabels
+{
+font-size: 1.5em;
+font-family: 'Roboto', sans-serif;
+font-weight: normal;
+bottom: 80px;
+}
