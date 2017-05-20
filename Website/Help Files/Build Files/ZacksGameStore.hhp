@@ -1,0 +1,32 @@
+
+[INFOTYPES]
+
+[OPTIONS]
+Auto Index=No
+Binary Index=Yes
+Binary TOC=No
+Compatibility=1.1 or later
+Compiled File=ZacksGameStore.chm
+Contents File=ZacksGameStore.hhc
+Index File=ZacksGameStore.hhk
+Error log file=ZacksGameStore.log.txt
+Full-text search=Yes
+Language=0x409 English (United States)
+Title=Title
+Default Topic=Introduction.html
+Default Window=
+Default Font=Arial, 9, 000
+Create CHI file=No
+Full text search stop list file=
+Display compile notes=Yes
+Display compile progress=Yes
+
+[FILES]
+Introduction.html
+ContactUs.html
+Browsing.html
+Complete.html
+Details.html
+PrivacyPolicy.html
+TandC.html
+Warranty.html
