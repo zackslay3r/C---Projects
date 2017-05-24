@@ -47,18 +47,18 @@
 	
 	var getUrlParameter = function getUrlParameter(sParam) 
 	{
-	var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-	sURLVariables = sPageURL.split('&'),
-	sParameterName,
+	var URL = decodeURIComponent(window.location.search.substring(1)),
+	URLVariables = URL.split('&'),
+	parameterTitle,
 	i;
 
-		for (i = 0; i < sURLVariables.length; i++) 
+		for (i = 0; i < URLVariables.length; i++) 
 		{
-			sParameterName = sURLVariables[i].split('=');
+			parameterTitle = URLVariables[i].split('=');
 
-			if (sParameterName[0] === sParam) 
+			if (parameterTitle[0] === sParam) 
 			{
-			return sParameterName[1] === undefined ? true : sParameterName[1];
+			return parameterTitle[1] === undefined ? true : parameterTitle[1];
 			}
 		}
 	};
