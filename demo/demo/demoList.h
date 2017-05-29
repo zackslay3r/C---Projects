@@ -150,11 +150,20 @@ public:
 	// This function should remove the first item.
 	void popFront()
 	{
+		ListNode<T> *ptr = head;
+		ptr->pPrev->pNext = ptr->pNext;
+		ptr->pNext->pPrev = ptr->pPrev;
+
+		delete ptr;
 	}
 	
 	// This function should remove the last item.
 	void popBack()
 	{
+		Node *ptr = head->prev;
+		ptr->prev->next = ptr->next;
+		ptr->next->prev = ptr->prev;
+		delete ptr;
 	}
 	ListIterator<T> List<T>::begin()
 	{
