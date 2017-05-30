@@ -21,8 +21,10 @@ int main()
 
 
 	a.pushFront(4);
+	a.erase(2);
 
-	a.popFront();
+	
+	
 	Data::interator pos;
 
 	for (pos = a.begin(); pos != a.end(); pos++)

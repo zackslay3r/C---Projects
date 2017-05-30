@@ -150,21 +150,118 @@ public:
 	// This function should remove the first item.
 	void popFront()
 	{
-		ListNode<T> *ptr = head;
-		ptr->pPrev->pNext = ptr->pNext;
-		ptr->pNext->pPrev = ptr->pPrev;
+		ListNode<T> *ptr = head->pNext;
+		delete head;
+		ptr->pPrev = nullptr;
+		head = ptr;
+		listLength--;
 
-		delete ptr;
 	}
 	
 	// This function should remove the last item.
 	void popBack()
 	{
-		Node *ptr = head->prev;
-		ptr->prev->next = ptr->next;
-		ptr->next->prev = ptr->prev;
-		delete ptr;
+		ListNode<T> *ptr = tail->pPrev;
+		delete tail;
+		ptr->pNext = nullptr;
+		tail = ptr;
+		listLength--;
 	}
+	// this function should insert a value before the node parameter.
+	void insert(int position, T insertedValue)
+	{
+		if (position == 0)
+		{
+			pushFront();
+		}
+		else if (position == listLength)
+		{
+			pushBack();
+		}
+		else if (position < 0 || position > listLength)
+		{
+			throw("Error: tried to enter a value outside of the list.");
+		}
+		else
+		{
+			ListNode<T> *holder = head;
+			for (int i = 1; i <= position; i++)
+			{
+				if (i == position)
+				{
+					ListNode<T> *ptr = new ListNode<T>;
+					ptr->pNext = holder->pNext;
+					ptr->pPrev = holder;
+					holder->pNext->pPrev = ptr;
+					holder->pNext = ptr;
+					ptr->value = insertedValue;
+					listLength++;
+				}
+				else
+				{
+					holder = holder->pNext;
+				}
+			
+			}
+		
+		}
+		
+	}
+
+	void erase(int position)
+	{
+		if (position == 0)
+		{
+			popFront();
+		}
+		else if (position == listLength)
+		{
+			popBack();
+		}
+		else if (position < 0 || position > listLength)
+		{
+			throw("Error: tried to delete a value outside of the list.");
+		}
+		else
+		{
+			ListNode<T> *holder = head;
+			for (int i = 1; i <= position; i++)
+			{
+				if (i == position)
+				{
+					holder->pNext->pPrev = holder->pPrev;
+					holder->pPrev->pNext = holder->pNext;
+					delete holder;
+					listLength--;
+				}
+				else
+				{
+					holder = holder->pNext;
+				}
+
+			}
+
+		}
+
+	}
+	
+	void remove(T value)
+	{
+		ListNode<T> *ptr = head->next;
+		while (ptr != head) {
+			Node *next = ptr->next;
+			if (ptr->value == value) {
+				ptr->prev->next = p->next;
+				ptr->next->prev = p->prev;
+				delete p;
+			}
+			p = next;
+		}
+	}
+
+
+
+
 	ListIterator<T> List<T>::begin()
 	{
 		return ListIterator<T>(head);
