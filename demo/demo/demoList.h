@@ -47,18 +47,29 @@ public:
 
 	//preincrement operator
 	ListIterator& operator++() { nodePtr = nodePtr->pNext; return *this; }
+	
+	ListIterator& operator+=(int position) { 
+	
+		for (int i = 0; i < position; i++)
+		{
+			nodePtr = nodePtr->pNext; 
+			return *this;
+		}
+	
+	}
 
 	ListIterator& operator++(int) { nodePtr = nodePtr->pNext; return *this; }
 
 	// return value associated with iterator
 	T& operator*() const { return nodePtr->value; }
 
+	ListNode<T>* nodePtr;
 
 	// Destructor.
 	~ListIterator() {};
 
 private:
-	ListNode<T>* nodePtr;
+	
 
 };
 
@@ -172,11 +183,11 @@ public:
 	{
 		if (position == 0)
 		{
-			pushFront();
+			pushFront(insertedValue);
 		}
 		else if (position == listLength)
 		{
-			pushBack();
+			pushBack(insertedValue);
 		}
 		else if (position < 0 || position > listLength)
 		{
@@ -184,25 +195,18 @@ public:
 		}
 		else
 		{
-			ListNode<T> *holder = head;
-			for (int i = 1; i <= position; i++)
-			{
-				if (i == position)
-				{
-					ListNode<T> *ptr = new ListNode<T>;
-					ptr->pNext = holder->pNext;
-					ptr->pPrev = holder;
-					holder->pNext->pPrev = ptr;
-					holder->pNext = ptr;
-					ptr->value = insertedValue;
-					listLength++;
-				}
-				else
-				{
-					holder = holder->pNext;
-				}
+			List<T>::interator holder = begin();
+			holder += (position);
+			ListNode<T> *ptr = new ListNode<T>;
+			ptr->pNext = (holder.nodePtr)->pNext;
+			ptr->pPrev = (holder.nodePtr);
+			(holder.nodePtr)->pNext->pPrev = ptr;
+			(holder.nodePtr)->pNext = ptr;
+			ptr->value = insertedValue;
 			
-			}
+			listLength++;
+			
+			
 		
 		}
 		
@@ -224,22 +228,12 @@ public:
 		}
 		else
 		{
-			ListNode<T> *holder = head;
-			for (int i = 1; i <= position; i++)
-			{
-				if (i == position)
-				{
-					holder->pNext->pPrev = holder->pPrev;
-					holder->pPrev->pNext = holder->pNext;
-					delete holder;
-					listLength--;
-				}
-				else
-				{
-					holder = holder->pNext;
-				}
-
-			}
+			List<T>::interator holder = begin();
+			holder += (position);
+			(holder.nodePtr)->pNext->pPrev = (holder.nodePtr)->pPrev;
+			(holder.nodePtr)->pPrev->pNext = (holder.nodePtr)->pNext;
+			delete (holder.nodePtr);
+			listLength--;
 
 		}
 
