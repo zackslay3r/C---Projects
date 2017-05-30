@@ -198,10 +198,10 @@ public:
 			List<T>::interator holder = begin();
 			holder += (position);
 			ListNode<T> *ptr = new ListNode<T>;
-			ptr->pNext = (holder.nodePtr)->pNext;
-			ptr->pPrev = (holder.nodePtr);
-			(holder.nodePtr)->pNext->pPrev = ptr;
-			(holder.nodePtr)->pNext = ptr;
+			ptr->pNext = (holder.nodePtr);
+			ptr->pPrev = (holder.nodePtr)->pPrev;
+			(holder.nodePtr)->pPrev->pNext = ptr;
+			//(holder.nodePtr)->pNext = ptr;
 			ptr->value = insertedValue;
 			
 			listLength++;

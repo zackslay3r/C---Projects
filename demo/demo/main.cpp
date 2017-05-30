@@ -22,7 +22,7 @@ int main()
 
 	a.pushFront(4);
 	
-	a.erase(2);
+	a.insertBefore(2, 54);
 
 	
 	
