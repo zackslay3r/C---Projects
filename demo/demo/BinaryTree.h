@@ -2,6 +2,8 @@
 template <class T, class U>
 class BinaryTree
 {
+	
+
 	struct TreeNode
 	{
 		T key;
@@ -36,9 +38,13 @@ private:
 		{
 			Insert(newKey, newValue, theRoot->left);
 		}
-		else
+		else if(newKey > theRoot->key)
 		{
 			Insert(newKey, newValue, theRoot->right);
+		}
+		else
+		{
+			theRoot->value = newValue;
 		}
 
 	}
@@ -52,6 +58,39 @@ private:
 			PrintTree(theRoot->right);
 		}
 
+	}
+
+
+	void RemoveTree(TreeNode* theRoot)
+	{
+		if (theRoot != NULL)
+		{
+			RemoveTree(theRoot->left);
+			RemoveTree(theRoot->right);
+			delete theRoot;
+		}
+		
+	}
+
+
+	U &Search(TreeNode *theRoot, const T &key)
+	{
+		
+		
+
+		if (theRoot->key == key)
+		{
+			return theRoot->value;
+		}
+		else if (key < theRoot->key)
+		{
+			return Search(theRoot->left, key);
+		}
+		else if (key > theRoot->key)
+		{
+			return Search(theRoot->right, key);
+		}
+	
 	}
 
 public:
@@ -70,6 +109,16 @@ public:
 		PrintTree(root);
 	}
 
+	U &operator [] (T newKey)
+	{
+		return Search(root, newKey);
+	
+	}
 
+	void clear()
+	{
+		RemoveTree(root);
+		root = nullptr;
+	}
 
 };

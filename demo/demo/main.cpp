@@ -43,13 +43,19 @@ int main()
 		std::cout << *pos << std::endl;
 	}
 
-	
-	BinaryTree<int, int> *myBT = new BinaryTree<int, int>();
-	myBT->AddItem(1, 1);
-	myBT->AddItem(2, 7);
-	myBT->AddItem(3, 1);
-	myBT->AddItem(4, 10);
-	myBT->AddItem(5, 4);
-	myBT->PrintTree();
+	int fred = 6;
+
+	BinaryTree<int, int> myBT = BinaryTree<int, int>();
+	myBT.AddItem(1, 1);
+	myBT.AddItem(2, 7);
+	myBT.AddItem(3, 1);
+	myBT.AddItem(4, 10);
+	myBT.AddItem(5, 4);
+	myBT[2] = fred;
+	fred = myBT[3];
+	myBT.AddItem(4, 5);
+	myBT.PrintTree();
+
+	myBT.clear();
 
 }
