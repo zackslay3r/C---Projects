@@ -1,0 +1,22 @@
+Microsoft HTML Help Compiler 4.74.8702
+
+Compiling c:\Users\user\Documents\Sourcetree\Website\Help Files\Build Files\ZacksGameStore.chm
+
+Introduction.html
+ContactUs.html
+Browsing.html
+Complete.html
+Details.html
+PrivacyPolicy.html
+TandC.html
+Warranty.html
+
+Compile time: 0 minutes, 0 seconds
+8	Topics
+8	Local links
+0	Internet links
+0	Graphics
+
+
+Created c:\Users\user\Documents\Sourcetree\Website\Help Files\Build Files\ZacksGameStore.chm, 28,667 bytes
+Compression increased file by 6,601 bytes.
