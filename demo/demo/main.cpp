@@ -33,7 +33,13 @@ int main()
 		std::cout << *pos << std::endl;
 	}
 	
+	a.deleteList();
+	
 
+	for (pos = a.begin(); pos != a.end(); pos++)
+	{
+		std::cout << *pos << std::endl;
+	}
 
 
 }

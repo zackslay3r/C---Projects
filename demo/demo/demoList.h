@@ -179,7 +179,39 @@ public:
 		listLength--;
 	}
 	// this function should insert a value before the node parameter.
-	void insert(int position, T insertedValue)
+	void insertBefore(int position, T insertedValue)
+	{
+		if (position == 0)
+		{
+			pushFront(insertedValue);
+		}
+		else if (position == listLength)
+		{
+			pushBack(insertedValue);
+		}
+		else if (position < 0 || position > listLength)
+		{
+			throw("Error: tried to enter a value outside of the list.");
+		}
+		else
+		{
+			List<T>::interator holder = begin();
+			holder += (position);
+			ListNode<T> *ptr = new ListNode<T>;
+			ptr->pNext = (holder.nodePtr)->pNext;
+			ptr->pPrev = (holder.nodePtr);
+			(holder.nodePtr)->pNext->pPrev = ptr;
+			(holder.nodePtr)->pNext = ptr;
+			ptr->value = insertedValue;
+			
+			listLength++;
+			
+			
+		
+		}
+		
+	}
+	void insertAfter(int position, T insertedValue)
 	{
 		if (position == 0)
 		{
@@ -203,13 +235,13 @@ public:
 			(holder.nodePtr)->pPrev->pNext = ptr;
 			//(holder.nodePtr)->pNext = ptr;
 			ptr->value = insertedValue;
-			
+
 			listLength++;
-			
-			
-		
+
+
+
 		}
-		
+
 	}
 
 	void erase(int position)
@@ -253,8 +285,40 @@ public:
 		}
 	}
 
+	////Deletes the list by first referencing the head
+	//void deleteList(ListNode<T>* head_ref)
+	//{
+	//	// Dereference head_ref to get the real head of the list.
+	//	ListNode<T>* current = head_ref;
+	//	ListNode<T>* next;
 
+	//	while (current != NULL)
+	//	{
+	//		next = current->pNext;
+	//		delete current;
+	//		current = next;
+	//	}
+	//	// deref head_ref to affect the real head back in the caller.
+	//	*head_ref = NULL;
 
+	//}
+
+	void deleteList()
+	{
+		ListNode<T> *pDel = head;
+
+		while (pDel != NULL)
+		{
+			head = head->pNext;
+			delete pDel;
+
+			pDel = head;
+		
+		}
+	
+		tail = head = NULL;
+	
+	}
 
 	ListIterator<T> List<T>::begin()
 	{
