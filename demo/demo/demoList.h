@@ -48,6 +48,11 @@ public:
 	//preincrement operator
 	ListIterator& operator++() { nodePtr = nodePtr->pNext; return *this; }
 	
+
+	// decrement operator
+	ListIterator& operator--() { nodePtr = nodePtr->pPrev; return *this; }
+
+
 	ListIterator& operator+=(int position) { 
 	
 		for (int i = 0; i < position; i++)
@@ -185,10 +190,10 @@ public:
 		{
 			pushFront(insertedValue);
 		}
-		else if (position == listLength)
+		/*else if (position == listLength)
 		{
 			pushBack(insertedValue);
-		}
+		}*/
 		else if (position < 0 || position > listLength)
 		{
 			throw("Error: tried to enter a value outside of the list.");
@@ -330,7 +335,7 @@ public:
 	{
 		return ListIterator<T>();
 	}
-private:
+protected:
 	ListNode<T> *head;
 	ListNode<T> *tail;
 };
