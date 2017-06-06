@@ -78,34 +78,97 @@ bool runUnittest()
 	
 	
 	
-
+	// Deletes the list.
 	a.deleteList();
 	
+	//makes the iterator the begin of the list
 	test = a.begin();
 
-	if (*test != NULL)
+	// if the value in the beginning of the list has a value, fail
+	if (test.nodePtr != nullptr)
 	{
 		std::cout << "Fail! the list was not fully deleted.";
 		return false;
 	}
-
+	
+	// all tests sucessful.
 	std::cout << "Linked list tests were sucessful!";
 
 
+	std::cout << "Moving onto binary tree...";
 
-	int fred = 6;
 
+	// Creates the binary tree. Key and value are both ints.
 	BinaryTree<int, int> myBT = BinaryTree<int, int>();
-	myBT.AddItem(1, 1);
+	myBT.AddItem(5, 1);
 	myBT.AddItem(2, 7);
-	myBT.AddItem(3, 1);
-	myBT.AddItem(4, 10);
-	myBT.AddItem(5, 4);
+	myBT.AddItem(7, 1);
+	myBT.AddItem(3, 10);
+	myBT.AddItem(6, 4);
+
+	// Test the make sure the input's were correctly filled.
+	if (myBT[5] != 1 )
+	{
+		std::cout << "Fail, the first key does not contain the correct value.";
+		return false;
+	}
+
+	if (myBT[2] != 7)
+	{
+		std::cout << "Fail, the second key does not contain the correct value.";
+		return false;
+	}
+
+	if (myBT[7] != 1)
+	{
+		std::cout << "Fail, the third key does not contain the correct value.";
+		return false;
+	}
+
+	if (myBT[3] != 10)
+	{
+		std::cout << "Fail, the fourth key does not contain the correct value.";
+		return false;
+	}
+
+	if (myBT[6] != 4)
+	{
+		std::cout << "Fail, the fifth key does not contain the correct value.";
+		return false;
+	}
+
+	// Will now test to ensure that you can overwrite a value.
+	myBT[2] = 3;
+
+	if (myBT[2] != 3)
+	{
+		std::cout << "Fail, the value was not correctly changed.";
+		return false;
+	}
+
+	//Will now test to see to make sure that if a key that is already being used is attempted to be inserted, it overrides instead of creates a new node 
+	// with the same key.
+
+	myBT.AddItem(2, 7);
+
+	if (myBT[2] != 7)
+	{
+		std::cout << "Fail, the value was not overwritten.";
+		return false;
+	}
+	
+	myBT.clear();
+	std::cout << "Binary tree tests complete." << std::endl;
+
+	return true;
+
+
+	/*int fred = 6;
 	myBT[2] = fred;
 	fred = myBT[3];
 	myBT.AddItem(4, 5);
 	myBT.PrintTree();
 
 	myBT.clear();
-
+*/
 }
