@@ -26,7 +26,7 @@ public:
 
 
 private:
-	std::map<int, IGameState*> m_regesteredStates;
+	std::map<int, IGameState*> m_registeredStates;
 	stateLL myStates;
 
 	void processCommands();
