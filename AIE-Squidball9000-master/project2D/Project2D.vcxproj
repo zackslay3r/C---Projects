@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\Actor.cpp" />
+    <ClCompile Include="source\AI.cpp" />
+    <ClCompile Include="source\aieException.cpp" />
+    <ClCompile Include="source\aieLock.cpp" />
+    <ClCompile Include="source\aieLog.cpp" />
+    <ClCompile Include="source\aieMutex.cpp" />
+    <ClCompile Include="source\aieTimer.cpp" />
+    <ClCompile Include="source\AIHard.cpp" />
+    <ClCompile Include="source\AIMedium.cpp" />
+    <ClCompile Include="source\AISimple.cpp" />
+    <ClCompile Include="source\Application2D.cpp" />
+    <ClCompile Include="source\AssetManager.cpp" />
+    <ClCompile Include="source\Ball.cpp" />
+    <ClCompile Include="source\BasicShape.cpp" />
+    <ClCompile Include="Source\Can.cpp" />
+    <ClCompile Include="Source\Cleaver.cpp" />
+    <ClCompile Include="source\CollisionDetector.cpp" />
+    <ClCompile Include="Source\Computer.cpp" />
+    <ClCompile Include="Source\DrawPlayState.cpp" />
+    <ClCompile Include="source\Entity.cpp" />
+    <ClCompile Include="Source\EntityPool.cpp" />
+    <ClCompile Include="source\Factory.cpp" />
+    <ClCompile Include="source\GameClock.cpp" />
+    <ClCompile Include="Source\GameCore.cpp" />
+    <ClCompile Include="Source\GameStateManager.cpp" />
+    <ClCompile Include="source\Goalkeeper.cpp" />
+    <ClCompile Include="source\Human.cpp" />
+    <ClCompile Include="source\HumanLeft.cpp" />
+    <ClCompile Include="source\HumanRight.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\Menu.cpp" />
+    <ClCompile Include="Source\MenuMainState.cpp" />
+    <ClCompile Include="Source\MonaLisa.cpp" />
+    <ClCompile Include="source\Multiball.cpp" />
+    <ClCompile Include="Source\Paperball1.cpp" />
+    <ClCompile Include="source\PhysicsCalculator.cpp" />
+    <ClCompile Include="Source\Pizza1.cpp" />
+    <ClCompile Include="source\Player.cpp" />
+    <ClCompile Include="Source\Ruler.cpp" />
+    <ClCompile Include="source\ScoreKeeper.cpp" />
+    <ClCompile Include="Source\Settings.cpp" />
+    <ClCompile Include="Source\Snack.cpp" />
+    <ClCompile Include="Source\Soccerball.cpp" />
+    <ClCompile Include="source\Squid.cpp" />
+    <ClCompile Include="Source\State.cpp" />
+    <ClCompile Include="Source\UpdatePlayState.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\Actor.h" />
+    <ClInclude Include="source\AI.h" />
+    <ClInclude Include="source\aieException.h" />
+    <ClInclude Include="source\aieLock.h" />
+    <ClInclude Include="source\aieLog.h" />
+    <ClInclude Include="source\aieMutex.h" />
+    <ClInclude Include="source\aieNonCopyable.h" />
+    <ClInclude Include="source\aieTimer.h" />
+    <ClInclude Include="source\AIHard.h" />
+    <ClInclude Include="source\AIMedium.h" />
+    <ClInclude Include="source\AISimple.h" />
+    <ClInclude Include="source\Application2D.h" />
+    <ClInclude Include="source\AssetManager.h" />
+    <ClInclude Include="source\Ball.h" />
+    <ClInclude Include="source\BasicShape.h" />
+    <ClInclude Include="Source\Can.h" />
+    <ClInclude Include="Source\Cleaver.h" />
+    <ClInclude Include="source\CollisionDetector.h" />
+    <ClInclude Include="Source\Computer.h" />
+    <ClInclude Include="Source\DrawPlayState.h" />
+    <ClInclude Include="source\Entity.h" />
+    <ClInclude Include="Source\EntityPool.h" />
+    <ClInclude Include="source\Factory.h" />
+    <ClInclude Include="source\GameClock.h" />
+    <ClInclude Include="Source\GameCore.h" />
+    <ClInclude Include="Source\GameStateManager.h" />
+    <ClInclude Include="source\Goalkeeper.h" />
+    <ClInclude Include="source\Human.h" />
+    <ClInclude Include="source\HumanLeft.h" />
+    <ClInclude Include="source\HumanRight.h" />
+    <ClInclude Include="source\Menu.h" />
+    <ClInclude Include="Source\MenuMainState.h" />
+    <ClInclude Include="Source\MonaLisa.h" />
+    <ClInclude Include="source\Multiball.h" />
+    <ClInclude Include="Source\Paperball1.h" />
+    <ClInclude Include="source\PhysicsCalculator.h" />
+    <ClInclude Include="Source\Pizza1.h" />
+    <ClInclude Include="source\Player.h" />
+    <ClInclude Include="Source\Ruler.h" />
+    <ClInclude Include="source\ScoreKeeper.h" />
+    <ClInclude Include="Source\Settings.h" />
+    <ClInclude Include="Source\Snack.h" />
+    <ClInclude Include="Source\Soccerball.h" />
+    <ClInclude Include="source\Squid.h" />
+    <ClInclude Include="Source\State.h" />
+    <ClInclude Include="Source\UpdatePlayState.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3F428D0C-1CC8-47C3-818A-A3C2972C74C9}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Project2D</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)\bin\</OutDir>
+    <IntDir>$(ProjectDir)\build\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)/ContainersLib/source/;$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)\MathsLib\source\;$(SolutionDir)bootstrap;$(ProjectDir)\include\;$(SolutionDir)dependencies/imgui;$(SolutionDir)dependencies/glm;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(SolutionDir)/ContainersLib/lib/;$(SolutionDir)\MathsLib\lib\;$(SolutionDir)\bootstrap\lib\;$(ProjectDir)\lib\;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+    <TargetName>$(ProjectName)_DEBUG</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)\bin\</OutDir>
+    <IntDir>$(ProjectDir)\build\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)/ContainersLib/source/;$(SolutionDir)dependencies/GLFW/include;$(SolutionDir)\MathsLib\source\;$(SolutionDir)bootstrap;$(ProjectDir)\include\;$(SolutionDir)dependencies/imgui;$(SolutionDir)dependencies/glm;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(SolutionDir)/ContainersLib/lib/;$(SolutionDir)\MathsLib\lib\;$(SolutionDir)\bootstrap\lib\;$(ProjectDir)\lib\;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>MathsLib_DEBUG.lib;bootstrap_DEBUG.lib;MersenneLib_DEBUG.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutioinDir)/ContainersLib/source/</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>MathsLib.lib;bootstrap.lib;MersenneLib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy $(ProjectDir)\dependencies_copy\* $(ProjectDir)\bin\ /E /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
