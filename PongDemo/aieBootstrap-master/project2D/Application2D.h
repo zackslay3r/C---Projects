@@ -1,8 +1,15 @@
 #pragma once
 
-#include "Application.h"
-#include "Renderer2D.h"
-#include "Audio.h"
+
+#include <Application.h>
+#include <Renderer2D.h>
+#include <memory>
+
+
+
+class aie::Font;
+class IGameState;
+class GameStateManager;
 
 class Application2D : public aie::Application {
 public:
@@ -18,12 +25,7 @@ public:
 
 protected:
 
-	aie::Renderer2D*	m_2dRenderer;
-	aie::Texture*		m_texture;
-	aie::Texture*		m_shipTexture;
-	aie::Font*			m_font;
-	aie::Audio*			m_audio;
+	std::unique_ptr<aie::Renderer2D> m_renderer;
+	std::unique_ptr<GameStateManager> m_gameStateManager;
 
-	float m_cameraX, m_cameraY;
-	float m_timer;
 };

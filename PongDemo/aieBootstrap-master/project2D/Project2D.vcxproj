@@ -95,25 +95,24 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="Pause.cpp" />
+    <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PongApp.cpp" />
     <ClCompile Include="SplashState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application2D.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="IGameState.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="Menu.h" />
-    <ClInclude Include="Pause.h" />
+    <ClInclude Include="PauseState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PongApp.h" />
+    <ClInclude Include="Settings.h" />
     <ClInclude Include="SplashState.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Pong.vcxproj" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

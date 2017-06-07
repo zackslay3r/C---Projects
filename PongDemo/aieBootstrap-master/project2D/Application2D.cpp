@@ -13,7 +13,12 @@ Application2D::~Application2D() {
 
 bool Application2D::startup() {
 	
-	m_2dRenderer = new aie::Renderer2D();
+	
+	
+	
+	
+	
+	/*m_2dRenderer = new aie::Renderer2D();
 
 	m_texture = new aie::Texture("./textures/numbered_grid.tga");
 	m_shipTexture = new aie::Texture("./textures/ship.png");
@@ -26,7 +31,7 @@ bool Application2D::startup() {
 	m_cameraY = 0;
 	m_timer = 0;
 
-	return true;
+	return true;*/
 }
 
 void Application2D::shutdown() {
