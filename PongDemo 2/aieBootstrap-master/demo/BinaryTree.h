@@ -90,7 +90,10 @@ private:
 		{
 			return Search(theRoot->right, key);
 		}
-	
+		else
+		{
+			throw("Out of bounds.");
+		}
 	}
 
 public:
