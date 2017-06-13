@@ -19,7 +19,7 @@ public:
 	function as "Pure Virtual", meaning: This class will not have the definition.
 	Definition will be provided by children of this class*/
 	virtual void update(float dt) = 0;
-	virtual void render() = 0;
+	virtual void render(aie::Renderer2D*	m_2dRenderer) = 0;
 
 	// I want the states to act as 'mini applications', so they will have their own render and update
 	// Bear in mind that this is for the GAME. AI state managers may not have an update or render function, for example

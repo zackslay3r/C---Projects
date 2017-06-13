@@ -3,6 +3,7 @@
 #include <vector>
 #include <../demo/demoList.h>
 #include <../demo/BinaryTree.h>
+#include <../bootstrap/Renderer2D.h>
 
 // Forward declare to let us use the type in this namespace
 class Application2D;
@@ -14,7 +15,7 @@ public:
 	~GSM();
 
 	void updateStates(float deltaTime);
-	void renderStates();
+	void renderStates(aie::Renderer2D*	m_2dRenderer);
 
 
 	void registerState(int ID, IState* state);

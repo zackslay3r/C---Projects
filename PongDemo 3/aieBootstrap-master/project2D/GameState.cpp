@@ -19,10 +19,12 @@ void GameState::update(float dt)
 {
 }
 
-void GameState::render()
+void GameState::render(aie::Renderer2D*	m_2dRenderer)
 {
 	m_renderer->begin();
 	m_renderer->drawText(m_font.get(), "Game State", 300, 300);
+	m_renderer->drawBox(300, 300, 5, 250);
 	m_renderer->end();
+
 
 }

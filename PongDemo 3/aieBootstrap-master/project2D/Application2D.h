@@ -3,7 +3,7 @@
 
 #include <Application.h>
 #include "Renderer2D.h"
-
+#include "Player.h"
 #include "GSM.h"
 
 
@@ -34,7 +34,8 @@ public:
 
 
 protected:
-
+	aie::Renderer2D*	m_2dRenderer;
 	GSM *gsm;
+	Player* m_playerLeft;
 
 };

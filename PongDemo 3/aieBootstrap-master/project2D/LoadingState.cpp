@@ -26,7 +26,7 @@ void LoadState::update(float deltaTime) {
 	updateStateTimer(deltaTime);
 }
 
-void LoadState::render() {
+void LoadState::render(aie::Renderer2D*	m_2dRenderer) {
 	char buffer[32];
 	sprintf_s(buffer, "%2.2f", switchStateTimer);
 

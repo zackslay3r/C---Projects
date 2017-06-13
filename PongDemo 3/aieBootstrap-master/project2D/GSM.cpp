@@ -28,10 +28,10 @@ void GSM::updateStates(float deltaTime) {
 		(*iter)->update(deltaTime);
 }
 
-void GSM::renderStates() {
+void GSM::renderStates(aie::Renderer2D*	m_2dRenderer) {
 	// and then we are going to run the render function on all the active states.
 	for (auto iter = m_activeStates.begin(); iter != m_activeStates.end(); iter++)
-		(*iter)->render();
+		(*iter)->render(m_2dRenderer);
 }
 
 void GSM::registerState(int ID, IState* state) {

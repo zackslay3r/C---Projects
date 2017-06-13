@@ -6,6 +6,7 @@
 #include "GameState.h"
 #include "LoadingState.h"
 
+
 using namespace StateMangement;
 
 Application2D::Application2D() {
@@ -20,7 +21,8 @@ bool Application2D::startup() {
 	
 	
 	
-	
+	m_2dRenderer = new aie::Renderer2D();
+	m_playerLeft = new Player();
 	// makes the game state manager pointer equal to a new instance of a Game State Manager
 	gsm = new GSM();
 
@@ -50,12 +52,14 @@ void Application2D::update(float deltaTime) {
 
 	// Update the states
 	gsm->updateStates(deltaTime);
+
 }
 
 void Application2D::draw() {
-
+	m_2dRenderer->begin();
 	// wipe the screen to the background colour
 	clearScreen();
 	//Render the states.
-	gsm->renderStates();
+	gsm->renderStates(m_2dRenderer);
+	m_2dRenderer->end();
 }

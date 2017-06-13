@@ -16,7 +16,7 @@ public:
 	~GameState();
 
 	virtual void update(float dt);
-	virtual void render();
+	virtual void render(aie::Renderer2D*	m_2dRenderer);
 
 
 private:

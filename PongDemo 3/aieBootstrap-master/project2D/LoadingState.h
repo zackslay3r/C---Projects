@@ -10,7 +10,7 @@ public:
 
 	// Since we inherit from the GameState interface, we must override the functions
 	virtual void update(float dt);
-	virtual void render();
+	virtual void render(aie::Renderer2D*	m_2dRenderer);
 
 private:
 	char *loadText;
