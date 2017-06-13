@@ -90,24 +90,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application2D.cpp" />
-    <ClCompile Include="DrawGameState.cpp" />
-    <ClCompile Include="IState.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="GSM.cpp" />
     <ClCompile Include="LoadingState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="SplashState.cpp" />
-    <ClCompile Include="UpdateGameState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application2D.h" />
-    <ClInclude Include="DrawGameState.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="Global.h" />
+    <ClInclude Include="GSM.h" />
     <ClInclude Include="IState.h" />
     <ClInclude Include="LoadingState.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="SplashState.h" />
-    <ClInclude Include="UpdateGameState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

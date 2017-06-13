@@ -2,6 +2,11 @@
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
+#include "Global.h"
+#include "GameState.h"
+#include "LoadingState.h"
+
+using namespace StateMangement;
 
 Application2D::Application2D() {
 
@@ -16,22 +21,17 @@ bool Application2D::startup() {
 	
 	
 	
-	
-	
-	/*m_2dRenderer = new aie::Renderer2D();
+	// makes the game state manager pointer equal to a new instance of a Game State Manager
+	gsm = new GSM();
 
-	m_texture = new aie::Texture("./textures/numbered_grid.tga");
-	m_shipTexture = new aie::Texture("./textures/ship.png");
+	// Register the states into the m_registeredStates map. these should be registered based upon the enum value on GameStateID for the id and the state should be based on a new instance of the given state (in this case, LoadState.)
+	gsm->registerState(LOADING, new LoadState(this));
+	gsm->registerState(GAME_STATE, new GameState(this));
+	// Then we want to push the state we want to use as the state we start on. 
+	gsm->pushState(LOADING);
 
-	m_font = new aie::Font("./font/consolas.ttf", 32);
-
-	m_audio = new aie::Audio("./audio/powerup.wav");
-
-	m_cameraX = 0;
-	m_cameraY = 0;
-	m_timer = 0;
-
-	return true;*/
+	// and return true. this will then run the program as it has sucessfully initialized. 
+	return true;
 }
 
 void Application2D::shutdown() {

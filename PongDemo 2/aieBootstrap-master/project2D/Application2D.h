@@ -2,14 +2,11 @@
 
 
 #include <Application.h>
-#include <Renderer2D.h>
-#include <memory>
+#include "Renderer2D.h"
+
+#include "GSM.h"
 
 
-
-class aie::Font;
-class IGameState;
-class GameStateManager;
 
 class Application2D : public aie::Application {
 public:
@@ -32,14 +29,12 @@ public:
 	
 	//draws the objects.
 	virtual void draw();
+	GSM *getGSM() { return gsm; }
 
 
-	//Scene renderer.
-	aie::Renderer2D m_renderer;
 
 protected:
 
-	// Camera position
-	float m_cameraX, m_cameraY;
+	GSM *gsm;
 
 };

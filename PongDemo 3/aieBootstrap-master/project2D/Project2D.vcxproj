@@ -91,31 +91,22 @@
   <ItemGroup>
     <ClCompile Include="Application2D.cpp" />
     <ClCompile Include="GameState.cpp" />
-    <ClCompile Include="GameStateManager.cpp" />
+    <ClCompile Include="GSM.cpp" />
+    <ClCompile Include="LoadingState.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainMenuState.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="MenuBtn.cpp" />
+    <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="PauseState.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PongApp.cpp" />
     <ClCompile Include="SplashState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application2D.h" />
-    <ClInclude Include="ErrorManager.h" />
-    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
-    <ClInclude Include="GameStateManager.h" />
-    <ClInclude Include="IGameState.h" />
-    <ClInclude Include="MainMenuState.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="MenuBtn.h" />
+    <ClInclude Include="Global.h" />
+    <ClInclude Include="GSM.h" />
+    <ClInclude Include="IState.h" />
+    <ClInclude Include="LoadingState.h" />
+    <ClInclude Include="MenuState.h" />
     <ClInclude Include="PauseState.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PongApp.h" />
-    <ClInclude Include="ResourceManager.h" />
-    <ClInclude Include="Settings.h" />
     <ClInclude Include="SplashState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

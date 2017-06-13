@@ -126,7 +126,7 @@ public:
 			ptr->pPrev = nullptr;
 			listLength++;
 			head = ptr;
-			tail = ptr;
+			tail = head;
 		}
 		else
 		{

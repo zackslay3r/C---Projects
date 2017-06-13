@@ -2,30 +2,39 @@
 
 
 #include <Application.h>
-#include <Renderer2D.h>
-#include <memory>
+#include "Renderer2D.h"
+
+#include "GSM.h"
 
 
-
-class aie::Font;
-class IGameState;
-class GameStateManager;
 
 class Application2D : public aie::Application {
 public:
 
+	//Constructor
 	Application2D();
+
+
+	// Destructor
 	virtual ~Application2D();
 
+	//Startup
 	virtual bool startup();
+	
+	//Shutdown
 	virtual void shutdown();
 
+	// Update via deltatime
 	virtual void update(float deltaTime);
+	
+	//draws the objects.
 	virtual void draw();
+	GSM *getGSM() { return gsm; }
+
+
 
 protected:
 
-	std::unique_ptr<aie::Renderer2D> m_renderer;
-	std::unique_ptr<GameStateManager> m_gameStateManager;
+	GSM *gsm;
 
 };
