@@ -91,6 +91,7 @@
   <ItemGroup>
     <ClCompile Include="Application2D.cpp" />
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Factory.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GSM.cpp" />
     <ClCompile Include="IState.cpp" />
@@ -106,6 +107,7 @@
   <ItemGroup>
     <ClInclude Include="Application2D.h" />
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="Factory.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="GSM.h" />
