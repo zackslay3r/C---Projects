@@ -12,7 +12,7 @@ namespace aie {
 class GameState : public IState
 {
 public:
-	GameState(Application2D * _app);
+	GameState(Application2D *_app, GSM *_gsm);
 	~GameState();
 
 	virtual void update(float dt);

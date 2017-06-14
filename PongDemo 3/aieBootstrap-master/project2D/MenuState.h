@@ -1,26 +1,30 @@
-//#pragma once
-//#include "IState.h"
-//
-//class MenuState : public IState
-//{
-//	// Constructor
-//	MenuState();
-//	
-//	// Destructor
-//	~MenuState();
-//
-//	// State name return, this tells the manager this is the MenuState
-//	inline std::string getName() { return "MainMenu"; };
-//
-//	// Enter this menu state
-//	void enterState();
-//
-//	// Leave the menu state.
-//	void leaveState();
-//
-//	//update the state.
-//	void updateState();
-//
-//	// Draw the state
-//	void drawState();
-//};
+#pragma once
+#include "IState.h"
+
+#include <Font.h>
+#include <memory>
+#include <Input.h>
+namespace aie {
+
+	class Font;
+	class Renderer2D;
+}
+
+class MenuState : public IState
+{
+public:
+	MenuState::MenuState(Application2D *_app, GSM *_gsm);
+	~MenuState();
+
+	virtual void update(float dt);
+	virtual void render(aie::Renderer2D*	m_2dRenderer);
+	
+
+private:
+	std::unique_ptr<aie::Font> m_font;
+	aie::Renderer2D* m_renderer;
+	int WhatsSelected, maxMenuOption;
+	void newGame();
+	aie::Input *input;
+
+};

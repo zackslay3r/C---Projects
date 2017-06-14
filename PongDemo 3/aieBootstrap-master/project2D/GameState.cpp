@@ -3,7 +3,7 @@
 
 
 
-GameState::GameState(Application2D * _app) : IState(_app)
+GameState::GameState(Application2D *_app, GSM *_gsm) : IState(_app, _gsm)
 {
 	m_renderer = new aie::Renderer2D();
 	m_font = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 32));

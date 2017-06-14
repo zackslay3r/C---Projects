@@ -5,7 +5,7 @@
 class LoadState :
 	public IState {
 public:
-	LoadState(Application2D * _app);
+	LoadState(Application2D *_app, GSM *_gsm);
 	virtual ~LoadState();
 
 	// Since we inherit from the GameState interface, we must override the functions

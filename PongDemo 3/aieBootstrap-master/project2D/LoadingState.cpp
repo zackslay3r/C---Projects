@@ -7,7 +7,7 @@
 using namespace StateMangement;
 
 
-LoadState::LoadState(Application2D * _app) : IState(_app) {
+LoadState::LoadState(Application2D *_app, GSM *_gsm) : IState(_app, _gsm) {
 	m_renderer = new aie::Renderer2D();
 	m_font = new aie::Font("./font/consolas.ttf", 16);
 	switchStateTimer = 0.0f;
@@ -67,12 +67,14 @@ void LoadState::updateLoadText(float deltaTime)
 void LoadState::updateStateTimer(float deltaTime)
 {
 	switchStateTimer += deltaTime;
-	if (switchStateTimer < 5)
+	//change back to 5
+	if (switchStateTimer < 1)
 	{
 		return;
 	}
 
 	app->getGSM()->popState();
-	app->getGSM()->pushState(GAME_STATE);
+	app->getGSM()->pushState(MENU_STATE);
+
 
 }

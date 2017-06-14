@@ -5,7 +5,7 @@
 #include "Global.h"
 #include "GameState.h"
 #include "LoadingState.h"
-
+#include "MenuState.h"
 
 using namespace StateMangement;
 
@@ -27,8 +27,9 @@ bool Application2D::startup() {
 	gsm = new GSM();
 
 	// Register the states into the m_registeredStates map. these should be registered based upon the enum value on GameStateID for the id and the state should be based on a new instance of the given state (in this case, LoadState.)
-	gsm->registerState(LOADING, new LoadState(this));
-	gsm->registerState(GAME_STATE, new GameState(this));
+	gsm->registerState(LOADING, new LoadState(this,gsm));
+	gsm->registerState(GAME_STATE, new GameState(this,gsm));
+	gsm->registerState(MENU_STATE, new MenuState(this,gsm));
 	// Then we want to push the state we want to use as the state we start on. 
 	gsm->pushState(LOADING);
 

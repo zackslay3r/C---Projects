@@ -4,7 +4,7 @@
 other class objects will interact with it - Cannot be instantiated, must
 have a child class inherit from it to use*/
 class Application2D;
-
+class GSM;
 namespace aie {
 	class Renderer2D;
 	class Font;
@@ -12,7 +12,7 @@ namespace aie {
 
 class IState {
 public:
-	IState(Application2D *_app) : app(_app) {};
+	IState(Application2D *_app, GSM *_gsm) : app(_app), gsm(_gsm) {};
 	virtual ~IState() = default;
 
 	/** only virtual functions can '= 0'. What this does is it describes this
@@ -29,5 +29,6 @@ protected:
 	aie::Renderer2D *m_renderer;
 	aie::Font *m_font;
 	Application2D *app;
+	GSM *gsm;
 
 };

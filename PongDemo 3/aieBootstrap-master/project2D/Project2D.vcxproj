@@ -93,6 +93,7 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GSM.cpp" />
+    <ClCompile Include="IState.cpp" />
     <ClCompile Include="LoadingState.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuState.cpp" />
