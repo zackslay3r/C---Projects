@@ -3,6 +3,8 @@
 
 #include <Font.h>
 #include <memory>
+#include "Object.h"
+#include <Input.h>
 namespace aie {
 
 	class Font;
@@ -16,11 +18,10 @@ public:
 	~GameState();
 
 	virtual void update(float dt);
-	virtual void render(aie::Renderer2D*	m_2dRenderer);
-
+	virtual void render();
+	
 
 private:
-	std::unique_ptr<aie::Font> m_font;
-	aie::Renderer2D* m_renderer;
+
 };
 

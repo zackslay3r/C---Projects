@@ -15,7 +15,7 @@ public:
 	~GSM();
 
 	void updateStates(float deltaTime);
-	void renderStates(aie::Renderer2D*	m_2dRenderer);
+	void renderStates();
 
 
 	void registerState(int ID, IState* state);

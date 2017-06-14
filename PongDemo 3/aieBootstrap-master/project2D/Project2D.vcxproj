@@ -100,6 +100,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayLoop.cpp" />
     <ClCompile Include="SplashState.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +115,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayLoop.h" />
     <ClInclude Include="SplashState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

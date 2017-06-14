@@ -1,30 +1,31 @@
 #include "GameState.h"
-#include <Renderer2D.h>
 
-
-
+#include "Application2D.h"
+#include <string>
+#include "Global.h"
+#include "PlayLoop.h"
+using namespace StateMangement;
 GameState::GameState(Application2D *_app, GSM *_gsm) : IState(_app, _gsm)
 {
-	m_renderer = new aie::Renderer2D();
-	m_font = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 32));
-
+	
 }
 
 
 GameState::~GameState()
 {
+	
+	
 }
 
 void GameState::update(float dt)
 {
+	PLAY->update(dt,gsm);
 }
 
-void GameState::render(aie::Renderer2D*	m_2dRenderer)
+void GameState::render()
 {
-	m_renderer->begin();
-	m_renderer->drawText(m_font.get(), "Game State", 300, 300);
-	m_renderer->drawBox(300, 300, 5, 250);
-	m_renderer->end();
-
-
+	PLAY->render();
 }
+
+
+

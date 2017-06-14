@@ -17,12 +17,12 @@ public:
 	~MenuState();
 
 	virtual void update(float dt);
-	virtual void render(aie::Renderer2D*	m_2dRenderer);
+	virtual void render();
 	
 
 private:
 	std::unique_ptr<aie::Font> m_font;
-	aie::Renderer2D* m_renderer;
+
 	int WhatsSelected, maxMenuOption;
 	void newGame();
 	aie::Input *input;

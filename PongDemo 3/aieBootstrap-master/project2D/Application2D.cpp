@@ -6,11 +6,13 @@
 #include "GameState.h"
 #include "LoadingState.h"
 #include "MenuState.h"
+#include "PauseState.h"
+#include "PlayLoop.h"
 
 using namespace StateMangement;
 
 Application2D::Application2D() {
-
+	
 }
 
 Application2D::~Application2D() {
@@ -20,9 +22,9 @@ Application2D::~Application2D() {
 bool Application2D::startup() {
 	
 	
-	
+	PLAY->app = this;
 	m_2dRenderer = new aie::Renderer2D();
-	m_playerLeft = new Player();
+//	m_playerLeft = new Player();
 	// makes the game state manager pointer equal to a new instance of a Game State Manager
 	gsm = new GSM();
 
@@ -30,11 +32,13 @@ bool Application2D::startup() {
 	gsm->registerState(LOADING, new LoadState(this,gsm));
 	gsm->registerState(GAME_STATE, new GameState(this,gsm));
 	gsm->registerState(MENU_STATE, new MenuState(this,gsm));
+	gsm->registerState(PAUSE_STATE, new PauseState(this, gsm));
 	// Then we want to push the state we want to use as the state we start on. 
 	gsm->pushState(LOADING);
-
+	
 	// and return true. this will then run the program as it has sucessfully initialized. 
 	return true;
+	
 }
 
 void Application2D::shutdown() {
@@ -57,10 +61,10 @@ void Application2D::update(float deltaTime) {
 }
 
 void Application2D::draw() {
-	m_2dRenderer->begin();
-	// wipe the screen to the background colour
 	clearScreen();
+	// wipe the screen to the background colour
+	m_2dRenderer->begin();
 	//Render the states.
-	gsm->renderStates(m_2dRenderer);
+	gsm->renderStates();
 	m_2dRenderer->end();
 }

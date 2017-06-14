@@ -3,11 +3,12 @@
 #include "GSM.h"
 #include "Application2D.h"
 #include "Global.h"
+#include "PlayLoop.h"
 
 using namespace StateMangement;
 MenuState::MenuState(Application2D *_app, GSM *_gsm) : IState(_app, _gsm)
 {
-	m_renderer = new aie::Renderer2D();
+	
 	m_font = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 32));
 	WhatsSelected = 0;
 	maxMenuOption = 1;
@@ -51,39 +52,38 @@ void MenuState::update(float dt)
 	}
 }
 
-void MenuState::render(aie::Renderer2D*	m_2dRenderer)
+void MenuState::render()
 {
 	
-	m_renderer->begin();
-	m_renderer->setRenderColour(0.1f, 0.1f, 0.1f, 1.0f);
-	m_renderer->drawBox(590, 520, 300, 60);
+	
+	PLAY->app->m_2dRenderer->setRenderColour(0.1f, 0.1f, 0.1f, 1.0f);
+	PLAY->app->m_2dRenderer->drawBox(590, 520, 300, 60);
 
-	m_renderer->setRenderColour(0.5f, 0.5f, 0.5f, 1.0f);
-	m_renderer->drawText(m_font.get(), "Zack's Game", 500, 500);
+	PLAY->app->m_2dRenderer->setRenderColour(0.5f, 0.5f, 0.5f, 1.0f);
+	PLAY->app->m_2dRenderer->drawText(m_font.get(), "Zack's Game", 500, 500);
 	if (WhatsSelected == 0)
 	{
-		m_renderer->setRenderColour(1.0f, 0.0f, 0.0f, 1.0f);
+		PLAY->app->m_2dRenderer->setRenderColour(1.0f, 0.0f, 0.0f, 1.0f);
 		
 	}
 	else
 	{
-		m_renderer->setRenderColour(0.0f, 1.0f, 0.0f, 1.0f);
+		PLAY->app->m_2dRenderer->setRenderColour(0.0f, 1.0f, 0.0f, 1.0f);
 	}
-	m_renderer->drawText(m_font.get(), "Play Game", 500, 400);
+	PLAY->app->m_2dRenderer->drawText(m_font.get(), "Play Game", 500, 400);
 
 	if (WhatsSelected == 1)
 	{
-		m_renderer->setRenderColour(1.0f, 0.0f, 0.0f, 1.0f);
+		PLAY->app->m_2dRenderer->setRenderColour(1.0f, 0.0f, 0.0f, 1.0f);
 
 	}
 	else
 	{
-		m_renderer->setRenderColour(0.0f, 1.0f, 0.0f, 1.0f);
+		PLAY->app->m_2dRenderer->setRenderColour(0.0f, 1.0f, 0.0f, 1.0f);
 	}
-	m_renderer->drawText(m_font.get(), "Quit", 500, 350);
+	PLAY->app->m_2dRenderer->drawText(m_font.get(), "Quit", 500, 350);
 	
-	
-	m_renderer->end();
+
 
 
 }

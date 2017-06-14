@@ -31,11 +31,11 @@ public:
 	virtual void draw();
 	GSM *getGSM() { return gsm; }
 
-
+	aie::Renderer2D*	m_2dRenderer;
 
 protected:
-	aie::Renderer2D*	m_2dRenderer;
+	
 	GSM *gsm;
-	Player* m_playerLeft;
+	//Player* m_playerLeft;
 
 };

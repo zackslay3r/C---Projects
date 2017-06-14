@@ -7,14 +7,14 @@ class Object
 public:
 	float posX, posY;
 	float velocityX, velocityY;
-	float widith, height;
+	float width, height;
 	
-	Object();
+	Object(float PosX, float PosY, float width, float height,float veloX, float veloY);
 
-	void SetUp( aie::Renderer2D Renderer, float PosX = 0, float PosY = 0, float velocityX = 0, float velocityY = 0);
+	void SetUp(float PosX = 0, float PosY = 0, float velocityX = 0, float velocityY = 0);
 	virtual void Update(float DT);
-	virtual void Draw(aie::Renderer2D* m_2dRenderer);
-
+	virtual void Draw();
+	
 
 
 	~Object();
