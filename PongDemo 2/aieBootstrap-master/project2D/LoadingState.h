@@ -14,7 +14,7 @@ public:
 
 private:
 	char *loadText;
-	const float delayTime = 0.3;
+	const float delayTime = 0.3f;
 	float switchStateTimer;
 	void updateLoadText(float dt);
 	void updateStateTimer(float dt);

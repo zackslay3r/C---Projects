@@ -1,6 +1,8 @@
 #pragma once
 #include <map>
 #include <vector>
+#include <../demo/demoList.h>
+#include <../demo/BinaryTree.h>
 
 // Forward declare to let us use the type in this namespace
 class Application2D;
@@ -22,8 +24,8 @@ public:
 	IState* getTopState();
 
 private:
-	std::map<int, IState*> m_registeredStates;
-	std::vector<IState*> m_activeStates;
+	BinaryTree<int, IState*> m_registeredStates;
+	List<IState*> m_activeStates;
 
 
 	// This is an enum class that will have the 3 commands we want. 
@@ -37,7 +39,7 @@ private:
 		IState* c_state;
 
 	};
-	std::vector<ICommand> m_commands;
+	List<ICommand> m_commands;
 	// this command will happen at the beginning of the update to be able to swap states when needed.
 
 	void processCommands();

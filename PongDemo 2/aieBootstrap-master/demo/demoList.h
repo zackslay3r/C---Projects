@@ -17,8 +17,8 @@ private:
 	ListNode<T>* pNext;
 	ListNode<T>* pPrev;
 	
-	ListNode<T>() { pNext = nullptr; pPrev = nullptr; value = NULL; }
-	ListNode<T>(T val) { value = val; pNext = NULL; }
+	ListNode<T>() { pNext = nullptr; pPrev = nullptr; }
+	ListNode<T>(T val) { value = val; pNext = nullptr; }
 	ListNode<T>(T val, ListNode<T>* next) { value(val); pNext(next); }
 	ListNode<T>(T first, T last, T valuePassed) { next = first; prev = last; value = valuePassed; }
 
@@ -38,12 +38,20 @@ public:
 	ListIterator() { nodePtr = 0; };
 	// constructer that is given a node pointer.
 	ListIterator(ListNode<T> *ptr) { nodePtr = ptr; };
+
+
+	ListIterator(const ListIterator<T> &iter) { nodePtr = iter.nodePtr; };
+
+	ListIterator &operator = (const ListIterator<T> &iter) { nodePtr = iter.nodePtr; return *this; };
 	
 	// converting an iterator to Node*
 	operator ListNode<T>*() const { return nodePtr; }
 
 	//testing two iternators to see if they are not equal.
 	bool operator !=(const ListIterator& x) const { return nodePtr != x.nodePtr; }
+
+
+	bool operator ==(const ListIterator& x) const { return nodePtr == x.nodePtr; }
 
 	//preincrement operator
 	ListIterator& operator++() { nodePtr = nodePtr->pNext; return *this; }
@@ -60,6 +68,7 @@ public:
 			nodePtr = nodePtr->pNext; 
 			return *this;
 		}
+		return *this;
 	
 	}
 
@@ -82,15 +91,14 @@ template<typename T>
 class List
 {
 public:
-	ListNode<T>* firstPos;
-	ListNode<T>* lastPos;
+	//ListNode<T>* firstPos;
+	//ListNode<T>* lastPos;
 	int listLength;
 	typedef ListIterator<T> interator;
 
 	List<T>()
 	{
-		head = new ListNode<T>();
-		head->pNext = head->pPrev = head;
+		tail = head = nullptr;
 		listLength = 0;
 	}
 
@@ -120,11 +128,8 @@ public:
 		
 		ListNode<T> *ptr = new ListNode<T>;
 		ptr->value = value;
-		if (listLength == 0)
-		{
-			ptr->pNext = nullptr;
-			ptr->pPrev = nullptr;
-			listLength++;
+		if (this->listLength == 0)
+		{	
 			head = ptr;
 			tail = ptr;
 		}
@@ -134,21 +139,22 @@ public:
 			ptr->pPrev = nullptr;
 			head->pPrev = ptr;
 			head = ptr;
-			listLength++;
+			
 		}
+
+
+		listLength++;
 	}
 	
 	// This function should add a value to the end of the list.
 	void pushBack(T value)
 	{
 
-		ListNode<T> *ptr = new ListNode<T>;
+		ListNode<T> *ptr = new ListNode<T>();
 		ptr->value = value;
-		if (listLength == 0)
+		if (this->listLength == 0)
 		{
-			ptr->pNext = nullptr;
-			ptr->pPrev = nullptr;
-			listLength++;
+			
 			head = ptr;
 			tail = ptr;
 		}
@@ -158,8 +164,11 @@ public:
 			ptr->pPrev = tail;
 			tail->pNext = ptr;
 			tail = ptr;
-			listLength++;
+			
 		}
+	
+
+		listLength++;
 	}
 	
 	
@@ -179,10 +188,18 @@ public:
 	{
 		ListNode<T> *ptr = tail->pPrev;
 		delete tail;
-		ptr->pNext = nullptr;
-		tail = ptr;
+		if (ptr)
+		{
+			ptr->pNext = nullptr;
+			tail = ptr;
+		}
+		else
+		{
+			head = tail = nullptr;
+		}
 		listLength--;
 	}
+
 	// this function should insert a value before the node parameter.
 	void insertBefore(int position, T insertedValue)
 	{
@@ -208,7 +225,7 @@ public:
 			(holder.nodePtr)->pNext->pPrev = ptr;
 			(holder.nodePtr)->pNext = ptr;
 			ptr->value = insertedValue;
-			
+			head = ptr;
 			listLength++;
 			
 			
@@ -240,7 +257,7 @@ public:
 			(holder.nodePtr)->pPrev->pNext = ptr;
 			//(holder.nodePtr)->pNext = ptr;
 			ptr->value = insertedValue;
-
+			tail = ptr;
 			listLength++;
 
 
@@ -322,7 +339,7 @@ public:
 		}
 	
 		tail = head = NULL;
-	
+		listLength = 0;
 	}
 
 	ListIterator<T> List<T>::begin()
@@ -334,6 +351,16 @@ public:
 	ListIterator<T> List<T>::end()
 	{
 		return ListIterator<T>();
+	}
+
+	T& first()
+	{
+		return head->value;
+	}
+
+	T& last()
+	{
+		return tail->value;
 	}
 protected:
 	ListNode<T> *head;

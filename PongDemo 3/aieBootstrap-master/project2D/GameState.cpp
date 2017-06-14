@@ -21,10 +21,17 @@ void GameState::update(float dt)
 
 void GameState::render(aie::Renderer2D*	m_2dRenderer)
 {
+	char buffer[32];
+	sprintf_s(buffer, "%2.2f", m_elaspedTime);
 	m_renderer->begin();
 	m_renderer->drawText(m_font.get(), "Game State", 300, 300);
 	m_renderer->drawBox(300, 300, 5, 250);
 	m_renderer->end();
 
 
+}
+
+void GameState::updateElaspedTime(float deltaTime)
+{
+	m_elaspedTime += deltaTime;
 }

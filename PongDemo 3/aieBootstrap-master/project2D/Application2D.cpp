@@ -31,7 +31,7 @@ bool Application2D::startup() {
 	gsm->registerState(GAME_STATE, new GameState(this,gsm));
 	gsm->registerState(MENU_STATE, new MenuState(this,gsm));
 	// Then we want to push the state we want to use as the state we start on. 
-	gsm->pushState(LOADING);
+	gsm->pushState(GAME_STATE);
 
 	// and return true. this will then run the program as it has sucessfully initialized. 
 	return true;

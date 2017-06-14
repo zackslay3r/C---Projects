@@ -22,5 +22,7 @@ public:
 private:
 	std::unique_ptr<aie::Font> m_font;
 	aie::Renderer2D* m_renderer;
+	float m_elaspedTime;
+	void updateElaspedTime(float dt);
 };
 

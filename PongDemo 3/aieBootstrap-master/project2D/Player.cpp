@@ -1,10 +1,14 @@
 #include "Player.h"
+#include "PlayerController.h"
 
 
-
-Player::Player()
+Player::Player(Object *_parent) : Object(_parent)
 {
-	
+	addComponent(new CPlayerController(this));
+}
+
+Player::Player(Object * _parent)
+{
 }
 
 void Player::SetUp(aie::Renderer2D Renderer, float PosX, float PosY, float widith, float height,float velocityX, float velocityY)
@@ -14,6 +18,7 @@ void Player::SetUp(aie::Renderer2D Renderer, float PosX, float PosY, float widit
 
 void Player::Update(float DT)
 {
+	Object::Update(DT);
 }
 
 void Player::Draw(aie::Renderer2D*	m_2dRenderer)

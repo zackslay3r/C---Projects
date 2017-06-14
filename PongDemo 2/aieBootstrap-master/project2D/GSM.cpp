@@ -1,4 +1,4 @@
-#include "GSM.h"
+
 
 
 #include "GSM.h"
@@ -11,10 +11,12 @@ GSM::GSM() {
 
 
 GSM::~GSM() {
+	
+	
 	// This will clear all the registered states within m_registeredStates
-	for (auto iter = m_registeredStates.begin(); iter != m_registeredStates.end(); iter++)
-		delete iter->second;
-	m_registeredStates.clear();
+	//for (auto iter = m_registeredStates.begin(); iter != m_registeredStates.end(); iter++)
+	//	delete iter->second;
+	//m_registeredStates.clear();
 }
 
 void GSM::updateStates(float deltaTime) {
@@ -38,7 +40,7 @@ void GSM::registerState(int ID, IState* state) {
 	command.c_id = ID;
 	command.c_command = ECommand::REGISTER;
 	command.c_state = state;
-	m_commands.push_back(command);
+	m_commands.pushBack(command);
 }
 
 void GSM::pushState(int ID) {
@@ -46,8 +48,8 @@ void GSM::pushState(int ID) {
 
 	command.c_id = ID;
 	command.c_command = ECommand::PUSH;
-	m_commands.push_back(command);
 	command.c_state = nullptr;
+	m_commands.pushBack(command);
 }
 
 void GSM::popState() {
@@ -56,17 +58,17 @@ void GSM::popState() {
 
 
 	command.c_command = ECommand::POP;
-	m_commands.push_back(command);
+	
 	command.c_id = -1;
 	command.c_state = nullptr;
-
+	m_commands.pushBack(command);
 }
 
 IState * GSM::getTopState() {
-	if (m_activeStates.size() > 0)
+	if (m_activeStates.listLength > 0)
 	{
 		// If we have states on the stack, the 'top' state will be the one at the back
-		return m_activeStates.back();
+		return m_activeStates.last();
 	}
 	return nullptr;
 }
@@ -74,10 +76,10 @@ IState * GSM::getTopState() {
 void GSM::processCommands()
 {
 
-	for (int i = 0; i < m_commands.size(); ++i) {
+	for (auto &var: m_commands) {
 		/* Since an iterator points to the memory location of each item in the list, we'll dereference this
 		to get the item itself and make the code easier to read*/
-		ICommand &command = m_commands[i];
+		ICommand &command = var;
 
 		switch (command.c_command) {
 		case ECommand::REGISTER:	proceesRegisterState(command.c_id, command.c_state); break;
@@ -92,43 +94,36 @@ void GSM::processCommands()
 		}
 	}
 	// Clear the command queue after we're done so we don't re-execute old commands
-	m_commands.clear();
+	m_commands.deleteList();
 }
 
 void GSM::proceesRegisterState(int ID, IState * state)
 {
-	// Returns a pointer to the matching key, if no match will return a pointer to the end of the container
-	auto iter = m_registeredStates.find(ID);
 
-	if (iter != m_registeredStates.end())
-	{
-		// if the iter is matched and its not the end of the container, delete it so that it can get replaced
-		delete iter->second;
-	}
 	// assign the state to the id.
-	m_registeredStates[ID] = state;
+	m_registeredStates.AddItem(ID, state);
 }
 
 void GSM::processPushState(int ID)
 {
 
 
-	auto iter = m_registeredStates.find(ID);
+	//auto iter = m_registeredStates.begin();
 
-	if (iter != m_registeredStates.end())
-	{
+	//if (iter != m_registeredStates.end())
+	//{
 		// if the iter is matched and its not the end of the container, delete it so that it can get replaced
-		m_activeStates.push_back(iter->second);
-	}
+		m_activeStates.pushBack(m_registeredStates[ID]);
+	/*}
 	else
-		assert((iter != m_registeredStates.end()) && ID && "could not find a state with ID!");
+		assert((iter != m_registeredStates.end()) && ID && "could not find a state with ID!");*/
 
 }
 
 void GSM::processPopState()
 {
-	if (m_activeStates.size() > 0)
+	if (m_activeStates.listLength > 0)
 	{
-		m_activeStates.pop_back();
+		m_activeStates.popBack();
 	}
 }
