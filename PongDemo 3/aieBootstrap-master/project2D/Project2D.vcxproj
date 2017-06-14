@@ -96,32 +96,24 @@
     <ClCompile Include="IState.cpp" />
     <ClCompile Include="LoadingState.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="MenuButton.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="SplashState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application2D.h" />
     <ClInclude Include="Ball.h" />
-    <ClInclude Include="Colour.h" />
-    <ClInclude Include="Component.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="GSM.h" />
     <ClInclude Include="IState.h" />
     <ClInclude Include="LoadingState.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="MenuButton.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerController.h" />
     <ClInclude Include="SplashState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
