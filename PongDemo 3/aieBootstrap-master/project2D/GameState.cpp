@@ -19,13 +19,21 @@ GameState::~GameState()
 
 void GameState::update(float dt)
 {
+	
 	PLAY->update(dt,gsm);
+	
+	
 }
 
 void GameState::render()
-{
+{	
+	
+	
+	
 	PLAY->render();
 }
+
+
 
 
 

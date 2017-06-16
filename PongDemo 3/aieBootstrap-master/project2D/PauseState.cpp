@@ -36,7 +36,7 @@ void PauseState::update(float dt)
 
 void PauseState::render()
 {
-	PLAY->app->m_2dRenderer->drawText(m_font.get(), "Zack's Game", PLAY->app->getWindowWidth() / 2, PLAY->app->getWindowHeight() / 2);
+	PLAY->app->m_2dRenderer->drawText(m_font.get(), "Paused!", 580, 360);
 	PLAY->render();
 
 }

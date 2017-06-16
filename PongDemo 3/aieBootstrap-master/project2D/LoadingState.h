@@ -14,8 +14,10 @@ public:
 
 private:
 	char *loadText;
+	char *playerControls;
 	const float delayTime = 0.3f;
 	float switchStateTimer;
 	void updateLoadText(float dt);
 	void updateStateTimer(float dt);
+	aie::Font *m_instructFont;
 };

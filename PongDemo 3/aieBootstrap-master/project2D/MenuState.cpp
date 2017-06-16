@@ -13,6 +13,7 @@ MenuState::MenuState(Application2D *_app, GSM *_gsm) : IState(_app, _gsm)
 	WhatsSelected = 0;
 	maxMenuOption = 1;
 	input = aie::Input::getInstance();
+	switchStateTimer = 0.0f;
 
 }
 
@@ -23,7 +24,7 @@ MenuState::~MenuState()
 
 void MenuState::update(float dt)
 {
-
+	updateStateTimer(dt);
 	if (input->wasKeyPressed(aie::INPUT_KEY_DOWN))
 	{
 		WhatsSelected++;
@@ -34,12 +35,13 @@ void MenuState::update(float dt)
 		WhatsSelected--;
 		if (WhatsSelected < 0) WhatsSelected = 0;
 	}
+
 	if (input->wasKeyPressed(aie::INPUT_KEY_ENTER))
 	{
 		if (WhatsSelected == 0) 
 		{
 			gsm->popState();
-			gsm->pushState(GAME_STATE);
+			gsm->pushState(LOADING);
 		};
 		if (WhatsSelected == 1)
 		{
@@ -54,7 +56,13 @@ void MenuState::update(float dt)
 
 void MenuState::render()
 {
-	
+	char buffer[32];
+	sprintf_s(buffer, "%2.2f", switchStateTimer);
+
+
+	PLAY->app->m_2dRenderer->drawText(m_font.get(), buffer, 10, 50);
+	PLAY->app->m_2dRenderer->drawText(m_font.get(), "Menu State", 10, 10);
+
 	
 	PLAY->app->m_2dRenderer->setRenderColour(0.1f, 0.1f, 0.1f, 1.0f);
 	PLAY->app->m_2dRenderer->drawBox(590, 520, 300, 60);
@@ -86,5 +94,10 @@ void MenuState::render()
 
 
 
+}
+
+void MenuState::updateStateTimer(float dt)
+{
+	switchStateTimer += dt;
 }
 

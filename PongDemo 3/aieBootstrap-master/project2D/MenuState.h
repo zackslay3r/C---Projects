@@ -22,9 +22,10 @@ public:
 
 private:
 	std::unique_ptr<aie::Font> m_font;
-
+	float switchStateTimer;
+	void updateStateTimer(float dt);
 	int WhatsSelected, maxMenuOption;
-	void newGame();
+
 	aie::Input *input;
 
 };

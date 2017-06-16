@@ -8,6 +8,7 @@
 #include "MenuState.h"
 #include "PauseState.h"
 #include "PlayLoop.h"
+#include "SplashState.h"
 
 using namespace StateMangement;
 
@@ -29,12 +30,13 @@ bool Application2D::startup() {
 	gsm = new GSM();
 
 	// Register the states into the m_registeredStates map. these should be registered based upon the enum value on GameStateID for the id and the state should be based on a new instance of the given state (in this case, LoadState.)
+	gsm->registerState(SPLASH_STATE, new SplashState(this, gsm));
 	gsm->registerState(LOADING, new LoadState(this,gsm));
 	gsm->registerState(GAME_STATE, new GameState(this,gsm));
 	gsm->registerState(MENU_STATE, new MenuState(this,gsm));
 	gsm->registerState(PAUSE_STATE, new PauseState(this, gsm));
 	// Then we want to push the state we want to use as the state we start on. 
-	gsm->pushState(LOADING);
+	gsm->pushState(SPLASH_STATE);
 	
 	// and return true. this will then run the program as it has sucessfully initialized. 
 	return true;

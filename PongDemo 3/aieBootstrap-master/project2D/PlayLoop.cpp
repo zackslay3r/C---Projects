@@ -9,6 +9,7 @@ playLoop::playLoop()
 {
 
 	m_font = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 32));
+	m_stateFont = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 16));
 	/*paddleLeft = new Object(50, 250, 5, 300, 0,0);
 	paddleRight = new Object(1230, 250, 5, 300, 0, 0);
 	Ball = new Object(360, 640, 20, 20, 200, 200);*/
@@ -18,6 +19,7 @@ playLoop::playLoop()
 	input = aie::Input::getInstance();
 	ScoreOne = 0;
 	ScoreTwo = 0;
+	playerWinnerText = " ";
 }
 playLoop::~playLoop()
 {
@@ -35,6 +37,9 @@ playLoop * playLoop::getInstance()
 
 void playLoop::update(float dt, GSM* gsm)
 {
+	
+	updateStateTimer(dt);
+	
 	if (input->isKeyDown(aie::INPUT_KEY_W))
 	{
 		paddleLeft->posY += 100 * dt;
@@ -115,7 +120,39 @@ void playLoop::update(float dt, GSM* gsm)
 		gsm->pushState(PAUSE_STATE);
 	}
 
+	if (ScoreOne == 5)
+	{
+		winnerTimer = 0.0f;
+		playerWinnerText = "Player One Wins!";
+		static float updateClock;
+		updateClock += dt;
 
+		if (updateClock >= 3.0f)
+		{
+			gsm->popState();
+			gsm->pushState(MENU_STATE);
+			ScoreOne = ScoreTwo = 0;
+			updateClock = 0.0f;
+			playerWinnerText = " ";
+		}
+	}
+
+	if (ScoreTwo == 5)
+	{
+		winnerTimer = 0.0f;
+		playerWinnerText = "Player Two Wins!";
+		static float updateClock;
+		updateClock += dt;
+		if (updateClock >= 3.0f)
+		{
+			gsm->popState();
+			gsm->pushState(MENU_STATE);
+			//gsm->registerState(GAME_STATE, new GameState(, gsm));
+			ScoreOne = ScoreTwo = 0;
+			updateClock = 0.0f;
+			playerWinnerText = " ";
+		}
+	}
 }
 
 
@@ -124,9 +161,17 @@ void playLoop::render()
 {
 	std::string scoreoneString = std::to_string(ScoreOne);
 	std::string scoretwoString = std::to_string(ScoreTwo);
+	
+	char buffer[32];
+	sprintf_s(buffer, "%2.2f", switchStateTimer);
+	PLAY->app->m_2dRenderer->drawText(m_stateFont.get(), buffer, 10, 50);
+	PLAY->app->m_2dRenderer->drawText(m_stateFont.get(), "Game State", 10, 10);
+
 
 	PLAY->app->m_2dRenderer->drawText(m_font.get(), scoreoneString.c_str(), 60, 650);
 	PLAY->app->m_2dRenderer->drawText(m_font.get(), scoretwoString.c_str(), 1200, 650);
+	PLAY->app->m_2dRenderer->setRenderColour(1.0f, 0.0f, 0.0f);
+	PLAY->app->m_2dRenderer->drawText(m_font.get(), playerWinnerText, 360, 640);
 	PLAY->app->m_2dRenderer->setRenderColour(1.0f, 1.0f, 1.0f, 1.0f);
 	paddleLeft->Draw();
 	paddleRight->Draw();
@@ -152,4 +197,9 @@ bool playLoop::checkCollide(float x1, float y1, float width1, float height1, flo
 	if (y1Max < y2Min || y1Min > y2Max) return false;
 
 	return true;
+}
+
+void playLoop::updateStateTimer(float dt)
+{
+	switchStateTimer += dt;
 }
