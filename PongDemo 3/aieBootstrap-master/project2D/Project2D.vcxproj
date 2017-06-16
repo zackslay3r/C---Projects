@@ -99,6 +99,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Paddle.cpp" />
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayLoop.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="LoadingState.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Paddle.h" />
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayLoop.h" />

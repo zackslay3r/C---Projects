@@ -3,14 +3,18 @@
 #include "GSM.h"
 #include "Global.h"
 #include <string>
+#include "Factory.h"
 using namespace StateMangement;
 playLoop::playLoop()
 {
 
 	m_font = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 32));
-	paddleLeft = new Object(50, 250, 5, 300, 0, 0);
+	/*paddleLeft = new Object(50, 250, 5, 300, 0,0);
 	paddleRight = new Object(1230, 250, 5, 300, 0, 0);
-	Ball = new Object(360, 640, 20, 20, 200, 200);
+	Ball = new Object(360, 640, 20, 20, 200, 200);*/
+	paddleLeft = Factory::makePaddle(50, 250);
+	paddleRight = Factory::makePaddle(1230, 250);
+	Ball = Factory::makeBall(360, 640);
 	input = aie::Input::getInstance();
 	ScoreOne = 0;
 	ScoreTwo = 0;
@@ -33,19 +37,19 @@ void playLoop::update(float dt, GSM* gsm)
 {
 	if (input->isKeyDown(aie::INPUT_KEY_W))
 	{
-		paddleLeft->posY += 10;
+		paddleLeft->posY += 100 * dt;
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_S))
 	{
-		paddleLeft->posY -= 10;
+		paddleLeft->posY -= 100 * dt;
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_UP))
 	{
-		paddleRight->posY += 10;
+		paddleRight->posY += 100 * dt;
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_DOWN))
 	{
-		paddleRight->posY -= 10;
+		paddleRight->posY -= 100 * dt;
 	}
 
 	if (paddleLeft->posY > 570)

@@ -2,6 +2,9 @@
 #include "PlayLoop.h"
 #include "Application2D.h"
 
+Object::Object()
+{}
+
 
 Object::Object(float positionx = 0, float positiony = 0, float wid = 0, float hei = 0, float veloX = 0, float veloY = 0)
 {

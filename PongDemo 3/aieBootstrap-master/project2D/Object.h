@@ -9,6 +9,7 @@ public:
 	float velocityX, velocityY;
 	float width, height;
 	
+	Object();
 	Object(float PosX, float PosY, float width, float height,float veloX, float veloY);
 
 	void SetUp(float PosX = 0, float PosY = 0, float velocityX = 0, float velocityY = 0);
