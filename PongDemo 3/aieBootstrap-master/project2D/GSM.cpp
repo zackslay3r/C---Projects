@@ -49,6 +49,8 @@ void GSM::pushState(int ID) {
 	command.c_id = ID;
 	command.c_command = ECommand::PUSH;
 	command.c_state = nullptr;
+	
+	
 	m_commands.pushBack(command);
 }
 
