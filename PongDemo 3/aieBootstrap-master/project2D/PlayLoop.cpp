@@ -92,12 +92,14 @@ void playLoop::update(float dt, GSM* gsm)
 		ScoreTwo++;
 		Ball->posX = app->getWindowHeight() / 2;
 		Ball->posY = app->getWindowWidth() / 2;
+		Ball->velocityY = -Ball->velocityY;
 	}
 	if (Ball->posX > app->getWindowWidth())
 	{
 		ScoreOne++;
 		Ball->posX = app->getWindowHeight() / 2;
 		Ball->posY = app->getWindowWidth() / 2;
+		Ball->velocityY = -Ball->velocityY;
 	}
 
 	if (checkCollide(paddleLeft->posX, paddleLeft->posY, paddleLeft->width, paddleLeft->height, Ball->posX, Ball->posY, Ball->width, Ball->height) == true)
@@ -120,7 +122,7 @@ void playLoop::update(float dt, GSM* gsm)
 		gsm->pushState(PAUSE_STATE);
 	}
 
-	if (ScoreOne == 5)
+	if (ScoreOne >= 5)
 	{
 		winnerTimer = 0.0f;
 		playerWinnerText = "Player One Wins!";
@@ -134,10 +136,20 @@ void playLoop::update(float dt, GSM* gsm)
 			ScoreOne = ScoreTwo = 0;
 			updateClock = 0.0f;
 			playerWinnerText = " ";
+			
+			paddleLeft->posX = 50;
+			paddleLeft->posY = 250;
+
+			paddleRight->posX = 1230;
+			paddleRight->posY = 250;
+
+			Ball->posX = 360;
+			Ball->posY = 640;
+
 		}
 	}
 
-	if (ScoreTwo == 5)
+	if (ScoreTwo >= 5)
 	{
 		winnerTimer = 0.0f;
 		playerWinnerText = "Player Two Wins!";
@@ -147,10 +159,18 @@ void playLoop::update(float dt, GSM* gsm)
 		{
 			gsm->popState();
 			gsm->pushState(MENU_STATE);
-			//gsm->registerState(GAME_STATE, new GameState(, gsm));
 			ScoreOne = ScoreTwo = 0;
 			updateClock = 0.0f;
 			playerWinnerText = " ";
+
+			paddleLeft->posX = 50;
+			paddleLeft->posY = 250;
+
+			paddleRight->posX = 1230;
+			paddleRight->posY = 250;
+
+			Ball->posX = 360;
+			Ball->posY = 640;
 		}
 	}
 }
