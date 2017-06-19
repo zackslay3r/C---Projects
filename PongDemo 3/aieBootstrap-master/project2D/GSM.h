@@ -1,8 +1,8 @@
 #pragma once
 #include <map>
 #include <vector>
-#include <../demo/demoList.h>
-#include <../demo/BinaryTree.h>
+#include "../ContainerLibrary/ContainerLibrary/ContainerLibrary/BinaryTree.h"
+#include "../ContainerLibrary/ContainerLibrary/ContainerLibrary/demoList.h"
 #include <../bootstrap/Renderer2D.h>
 
 // Forward declare to let us use the type in this namespace

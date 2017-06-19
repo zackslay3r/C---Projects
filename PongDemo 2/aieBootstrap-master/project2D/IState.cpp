@@ -1,10 +1,3 @@
 #include "IState.h"
+#include "GSM.h"
 
-
-IState::IState()
-{
-}
-
-IState::~IState()
-{
-}

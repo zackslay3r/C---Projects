@@ -3,21 +3,25 @@
 #include <Font.h>
 #include "Application2D.h"
 #include "Global.h"
+#include "PlayLoop.h"
 
 using namespace StateMangement;
 
 
-LoadState::LoadState(Application2D * _app) : IState(_app) {
-	m_renderer = new aie::Renderer2D();
+LoadState::LoadState(Application2D *_app, GSM *_gsm) : IState(_app, _gsm) {
+	
 	m_font = new aie::Font("./font/consolas.ttf", 16);
+	m_instructFont = new aie::Font("./font/consolas.ttf", 22);
 	switchStateTimer = 0.0f;
 	loadText = "Loading";
+	playerControls = "Left Player = W for Up, S for Down, Right Player = Up Key for Up, Down Key for down. First to 5 Wins!";
 }
 
 
 LoadState::~LoadState() {
-	delete m_renderer;
+
 	delete m_font;
+	delete m_instructFont;
 }
 
 void LoadState::update(float deltaTime) {
@@ -30,10 +34,11 @@ void LoadState::render() {
 	char buffer[32];
 	sprintf_s(buffer, "%2.2f", switchStateTimer);
 
-	m_renderer->begin();
-	m_renderer->drawText(m_font, buffer, 10, 50);
-	m_renderer->drawText(m_font, loadText, 10, 10);
-	m_renderer->end();
+	
+	PLAY->app->m_2dRenderer->drawText(m_font, buffer, 10, 50);
+	PLAY->app->m_2dRenderer->drawText(m_font, loadText, 10, 10);
+	PLAY->app->m_2dRenderer->drawText(m_instructFont, playerControls, 0, 360);
+	
 }
 
 void LoadState::updateLoadText(float deltaTime)
@@ -67,12 +72,15 @@ void LoadState::updateLoadText(float deltaTime)
 void LoadState::updateStateTimer(float deltaTime)
 {
 	switchStateTimer += deltaTime;
-	if (switchStateTimer < 5)
-	{
-		return;
-	}
 
+	if (switchStateTimer >= 5)
+	{
+		//return;
 	app->getGSM()->popState();
 	app->getGSM()->pushState(GAME_STATE);
+	}
+
+	
+
 
 }

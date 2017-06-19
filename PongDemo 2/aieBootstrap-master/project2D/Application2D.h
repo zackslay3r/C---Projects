@@ -3,7 +3,7 @@
 
 #include <Application.h>
 #include "Renderer2D.h"
-
+#include "Player.h"
 #include "GSM.h"
 
 
@@ -31,10 +31,11 @@ public:
 	virtual void draw();
 	GSM *getGSM() { return gsm; }
 
-
+	aie::Renderer2D*	m_2dRenderer;
 
 protected:
-
+	
 	GSM *gsm;
+	//Player* m_playerLeft;
 
 };

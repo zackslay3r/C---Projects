@@ -3,6 +3,7 @@
 #include <vector>
 #include <../demo/demoList.h>
 #include <../demo/BinaryTree.h>
+#include <../bootstrap/Renderer2D.h>
 
 // Forward declare to let us use the type in this namespace
 class Application2D;
