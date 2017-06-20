@@ -96,7 +96,7 @@ private:
 		}
 		else
 		{
-			throw("Out of bounds.");
+			eTHROW("Tried to access a value in the list that is not avalible.");
 		}
 	}
 
