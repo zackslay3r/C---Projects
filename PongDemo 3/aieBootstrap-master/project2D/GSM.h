@@ -1,6 +1,4 @@
 #pragma once
-#include <map>
-#include <vector>
 #include "../ContainerLibrary/ContainerLibrary/ContainerLibrary/BinaryTree.h"
 #include "../ContainerLibrary/ContainerLibrary/ContainerLibrary/demoList.h"
 #include <../bootstrap/Renderer2D.h>
