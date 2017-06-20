@@ -4,6 +4,7 @@
 #include "GSM.h"
 #include "IState.h"
 #include "assert.h"
+#include "Exeception.h"
 
 
 GSM::GSM() {
@@ -37,18 +38,30 @@ void GSM::renderStates() {
 void GSM::registerState(int ID, IState* state) {
 	ICommand command;
 
+	
 	command.c_id = ID;
+	if (ID <= 0 && ID )
+	{
+		eTHROW("A state you tried to register has a null ID.");
+	}
 	command.c_command = ECommand::REGISTER;
+	if (state == NULL)
+	{
+		eTHROW("A state you tried to register has a null state.");
+	}
 	command.c_state = state;
+
 	m_commands.pushBack(command);
 }
 
 void GSM::pushState(int ID) {
 	ICommand command;
+	
 
-	command.c_id = ID;
-	command.c_command = ECommand::PUSH;
-	command.c_state = nullptr;
+	
+		command.c_id = ID;
+		command.c_command = ECommand::PUSH;
+		command.c_state = nullptr;
 	
 	
 	m_commands.pushBack(command);
@@ -72,7 +85,12 @@ IState * GSM::getTopState() {
 		// If we have states on the stack, the 'top' state will be the one at the back
 		return m_activeStates.last();
 	}
-	return nullptr;
+	else
+	{
+		eTHROW("You tired to get a top state when one does not exist.");
+		return nullptr;
+	}
+	
 }
 
 void GSM::processCommands()
@@ -83,11 +101,36 @@ void GSM::processCommands()
 		to get the item itself and make the code easier to read*/
 		ICommand &command = var;
 
-		switch (command.c_command) {
-		case ECommand::REGISTER:	proceesRegisterState(command.c_id, command.c_state); break;
-		case ECommand::PUSH:		processPushState(command.c_id); break;
-		case ECommand::POP:			processPopState(); break;
-
+		switch (command.c_command) 
+		{
+		case ECommand::REGISTER:
+		{
+			proceesRegisterState(command.c_id, command.c_state); 
+			break;
+		}
+		case ECommand::PUSH:
+		{
+			try
+			{
+				IState* temp = m_registeredStates[command.c_id];
+			}
+			catch
+				(...)
+			{
+				eTHROW("You tried to push a state that doesnt register.");
+			}
+			processPushState(command.c_id); 
+			break;
+		}
+		case ECommand::POP:
+		{
+			processPopState(); 
+			break;
+		}
+		default :
+		{
+			eTHROW("You tried to use a command that does not exist.");
+		}
 			// we could have some error checking here if you like
 			//default:
 			//throw (Exception... - we could make a custom exception type)

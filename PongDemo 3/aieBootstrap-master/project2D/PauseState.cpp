@@ -13,9 +13,9 @@ PauseState::PauseState(Application2D *_app, GSM *_gsm) : IState(_app, _gsm)
 	//paddleLeft = new Object(50, 250, 5, 300,0,0);
 	//paddleRight = new Object(1230, 250, 5, 300,0,0);
 	//Ball = new Object((float)app->getWindowWidth() / 2, (float)app->getWindowHeight() / 2, 20, 20, 200, 200);
-	paddleLeft = Factory::makePaddle(50, 250);
-	paddleRight = Factory::makePaddle(1230, 250);
-	Ball = Factory::makeBall(360, 640);
+	//paddleLeft = Factory::makePaddle(50, 250);
+	//paddleRight = Factory::makePaddle(1230, 250);
+	//Ball = Factory::makeBall(360, 640);
 	input = aie::Input::getInstance();
 }
 
@@ -23,9 +23,9 @@ PauseState::PauseState(Application2D *_app, GSM *_gsm) : IState(_app, _gsm)
 PauseState::~PauseState()
 {
 
-	delete paddleLeft;
+	/*delete paddleLeft;
 	delete paddleRight;
-	delete Ball;
+	delete Ball;*/
 }
 
 void PauseState::update(float dt)

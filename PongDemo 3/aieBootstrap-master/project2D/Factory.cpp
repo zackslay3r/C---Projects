@@ -1,5 +1,5 @@
 #include "Factory.h"
-#include "Object.h"
+
 
 // This is the factory constructor.
 Factory::Factory()
@@ -9,13 +9,50 @@ Factory::Factory()
 // at position x,y that is passed in as parameters and creating it at that position.
 Object* Factory::makeBall(float positionX, float positionY)
 {
-	return new Ball(positionX, positionY);
+	Object* tmp = POOL->pullBall();
+	if (!tmp)
+	{
+		tmp = new Ball(positionX, positionY);
+	}
+	else
+	{
+		tmp->posX = positionX;
+		tmp->posY = positionY;
+	}
+	return tmp;
 }
 // This is the makePaddle function that is used to create a paddle object. this is done by returning a new paddle object
 // at position x,y that is passed in as parameters and creating it at that position.
 Object* Factory::makePaddle(float positionX, float positionY)
 {
-	return new Paddle(positionX, positionY);
+	Object* tmp = POOL->pullPaddle();
+	if (!tmp)
+	{
+		tmp = new Paddle(positionX, positionY);
+	}
+	else
+	{
+		tmp->posX = positionX;
+		tmp->posY = positionY;
+	}
+	return tmp;
+}
+
+void Factory::fillBallPool(int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		POOL->pushBall(new Ball(0, 0));
+	}
+
+}
+
+void Factory::fillPaddlePool(int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		POOL->pushPaddle(new Paddle(0, 0));
+	}
 }
 
 // This is the factory destructor.

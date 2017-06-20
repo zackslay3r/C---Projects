@@ -2,7 +2,7 @@
 #include "BinaryTree.h"
 #include "UnitTest.h"
 #include "Stack.h"
-
+#include "Exeception.h"
 typedef List<int> Data;
 
 bool runUnittest()

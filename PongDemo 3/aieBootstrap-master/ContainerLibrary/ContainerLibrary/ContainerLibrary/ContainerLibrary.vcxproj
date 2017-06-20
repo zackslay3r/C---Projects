@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="BinaryTree.h" />
     <ClInclude Include="demoList.h" />
+    <ClInclude Include="Exeception.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="UnitTest.h" />
   </ItemGroup>

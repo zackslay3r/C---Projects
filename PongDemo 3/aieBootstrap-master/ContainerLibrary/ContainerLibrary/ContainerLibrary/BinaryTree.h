@@ -1,4 +1,5 @@
 #pragma once
+#include "Exeception.h"
 template <class T, class U>
 class BinaryTree
 {
@@ -77,7 +78,10 @@ private:
 	{
 		
 		
-
+		if (!theRoot)
+		{
+			eTHROW("Tried to access a list that doesnt exist.");
+		}
 		if (theRoot->key == key)
 		{
 			return theRoot->value;

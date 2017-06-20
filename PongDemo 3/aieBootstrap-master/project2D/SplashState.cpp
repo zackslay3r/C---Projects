@@ -24,6 +24,7 @@ void SplashState::update(float dt)
 	{
 		app->getGSM()->popState();
 		app->getGSM()->pushState(MENU_STATE);
+		
 	}
 }
 

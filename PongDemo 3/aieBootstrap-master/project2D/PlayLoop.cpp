@@ -4,15 +4,20 @@
 #include "Global.h"
 #include <string>
 #include "Factory.h"
+
 using namespace StateMangement;
 playLoop::playLoop()
 {
+
 
 	m_font = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 32));
 	m_stateFont = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 16));
 	/*paddleLeft = new Object(50, 250, 5, 300, 0,0);
 	paddleRight = new Object(1230, 250, 5, 300, 0, 0);
 	Ball = new Object(360, 640, 20, 20, 200, 200);*/
+	Factory::fillBallPool(5);
+	Factory::fillPaddlePool(5);
+	
 	paddleLeft = Factory::makePaddle(50, 250);
 	paddleRight = Factory::makePaddle(1230, 250);
 	Ball = Factory::makeBall(360, 640);
@@ -76,6 +81,8 @@ void playLoop::update(float dt, GSM* gsm)
 	}
 	Ball->posX += Ball->velocityX * dt;
 	Ball->posY += Ball->velocityY * dt;
+	
+	
 	if (Ball->posY + 10 > app->getWindowHeight())
 	{
 		Ball->velocityY = -Ball->velocityY;
@@ -100,6 +107,7 @@ void playLoop::update(float dt, GSM* gsm)
 		Ball->posX = app->getWindowHeight() / 2;
 		Ball->posY = app->getWindowWidth() / 2;
 		Ball->velocityY = -Ball->velocityY;
+		
 	}
 
 	if (checkCollide(paddleLeft->posX, paddleLeft->posY, paddleLeft->width, paddleLeft->height, Ball->posX, Ball->posY, Ball->width, Ball->height) == true)
