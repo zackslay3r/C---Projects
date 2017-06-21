@@ -11,7 +11,7 @@ int main() {
 
 		// deallocation
 		delete app;
-
+		
 		return 0;
 	}
 	catch (const std::exception &e)

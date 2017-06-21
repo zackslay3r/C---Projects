@@ -164,7 +164,14 @@ bool runUnittest()
 	std::cout << "Now starting stack testing." << std::endl;
 
 	// Creates the Stack for testing.
-	Stack<int> stackTest;
+	Stack<int> stackTest(5);
+
+
+	if (stackTest.empty() == false)
+	{
+		std::cout << "Fail! the stack is NOT EMPTY." << std::endl;
+		return false;
+	}
 
 	//Testing push
 	stackTest.push(5);

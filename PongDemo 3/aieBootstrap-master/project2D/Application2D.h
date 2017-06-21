@@ -36,6 +36,6 @@ public:
 protected:
 	
 	GSM *gsm;
-	//Player* m_playerLeft;
+
 
 };

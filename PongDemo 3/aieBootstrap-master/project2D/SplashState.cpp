@@ -43,10 +43,9 @@ void SplashState::update(float dt)
 
 void SplashState::render()
 {
+	// This is the timer, as well as the text saying splash state.
 	char buffer[32];
 	sprintf_s(buffer, "%2.2f", switchStateTimer);
-
-
 	PLAY->app->m_2dRenderer->drawText(m_font, buffer, 10, 50);
 	PLAY->app->m_2dRenderer->drawText(m_font, "Splash State", 10, 10);
 	PLAY->app->m_2dRenderer->drawText(m_font, SplashText, 125, 360);
@@ -54,5 +53,6 @@ void SplashState::render()
 
 void SplashState::updateStateTimer(float dt)
 {
+	// update the state switch timer by dt.
 	switchStateTimer += dt;
 }

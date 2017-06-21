@@ -21,9 +21,7 @@ public:
 	virtual void update(float dt) = 0;
 	virtual void render() = 0;
 
-	// I want the states to act as 'mini applications', so they will have their own render and update
-	// Bear in mind that this is for the GAME. AI state managers may not have an update or render function, for example
-	// How states behave is entirely context sensitive
+
 
 protected:
 	

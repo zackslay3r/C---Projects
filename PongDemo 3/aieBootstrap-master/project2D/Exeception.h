@@ -21,7 +21,7 @@
 *    {
 *        std::cerr << "Unspecified error." << std::endl;
 *    }
-* @This is based off of example code given to us by our teacher, Jeff
+* @This is based off of example code given to us by our teacher, Jeff Cotter.
 */
 
 #define eTHROW( errormessage ) do { \

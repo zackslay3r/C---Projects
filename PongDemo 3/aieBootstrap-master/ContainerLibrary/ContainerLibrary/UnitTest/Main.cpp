@@ -1,7 +1,7 @@
 #include "../ContainerLibrary/UnitTest.h"
 #include "../ContainerLibrary/Stack.h"
 #include <iostream>
-#define default_value 5
+//#define default_value 5
 int main()
 {
 	if (runUnittest() == false)

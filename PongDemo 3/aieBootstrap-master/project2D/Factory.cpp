@@ -38,6 +38,7 @@ Object* Factory::makePaddle(float positionX, float positionY)
 	return tmp;
 }
 
+// This will filled the BallPool with the amount specificed in the parameter. these balls are defaulted.
 void Factory::fillBallPool(int n)
 {
 	for (int i = 0; i < n; i++)
@@ -46,7 +47,7 @@ void Factory::fillBallPool(int n)
 	}
 
 }
-
+// This will filled the PaddlePool with the amount specificed in the parameter. these paddles. are defaulted.
 void Factory::fillPaddlePool(int n)
 {
 	for (int i = 0; i < n; i++)

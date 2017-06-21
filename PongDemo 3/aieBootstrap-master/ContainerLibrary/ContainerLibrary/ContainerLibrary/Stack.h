@@ -13,18 +13,17 @@ public:
 	T tempTop; // this is to store the value of the top of the stack when it is deleted.
 	int top; // this is a index of the amount in the stack.
 	T* myArray;
+	int size;
+
+
 	Stack()
 	{
-		// this creates an empty stack with the amount of spaces previously defined by 'default_value'
-		
-			myArray = new T[default_value];
-		
-		// this defaults the index to be -1 to signifiy the stack is empty of values.
-		top = -1;
+	
 	}
 
 	Stack(int n)
 	{
+		size = n;
 		eASSERT(n > 0);
 		// this creates an empty stack with the amount of spaces previously defined by 'default_value'
 		myArray = new T[n];
@@ -42,14 +41,14 @@ public:
 	void push(T object)
 	{
 		top++;
-		if (top < default_value)
+		if (top < size)
 		{
 			myArray[top] = object;
 		}
 		// if the stack is full, dont allow the user to add to the stack 
 		else
 		{
-			throw;	
+			eTHROW("You tried to push the stack above its set size.");	
 		}
 	}
 
@@ -81,8 +80,14 @@ public:
 	}
 
 protected:
+	// this is here to stop you to create it without a size
 	
-	
+		//// this creates an empty stack with the amount of spaces previously defined by 'default_value'
+		//
+		//	myArray = new T[default_value];
+		//
+		//// this defaults the index to be -1 to signifiy the stack is empty of values.
+		//top = -1;
 	
 
 };

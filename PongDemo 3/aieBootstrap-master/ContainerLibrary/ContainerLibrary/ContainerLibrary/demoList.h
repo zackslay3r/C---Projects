@@ -106,22 +106,7 @@ public:
 	{
 	}
 	
-	//This function should add a value to the beginning of the list.
-	/*void pushFront(T value)
-	{
-		if (firstPos == NULL)
-		{
-			lastPos = firstPos = new ListNode<T>(value);
-			listLength++;
-		}
-		else
-		{
-			ListNode<T> *temp = new ListNode<T>(value);
-			temp->pNext = firstPos;
-			firstPos = temp;
-			listLength++;
-		}
-	}*/
+
 
 	void pushFront(T value)
 	{
