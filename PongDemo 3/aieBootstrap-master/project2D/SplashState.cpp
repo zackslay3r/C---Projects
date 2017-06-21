@@ -7,9 +7,13 @@
 using namespace StateMangement;
 SplashState::SplashState(Application2D * _app, GSM * _gsm) : IState(_app, _gsm) 
 {
+	//This will use one font.
 	m_font = new aie::Font("./font/consolas.ttf", 36);
+	// THis is the timer for saying how long you have been in the state for.
 	switchStateTimer = 0.0f;
+	// The welcoming text.
 	SplashText = "Welcome to Zacks Game! Please press enter to continue!";
+	// And the variable that allows for input.
 	input = aie::Input::getInstance();
 }
 
@@ -19,12 +23,21 @@ SplashState::~SplashState()
 
 void SplashState::update(float dt)
 {
+	// Updates the timer by dt.
 	updateStateTimer(dt);
+	// if Enter was pressed, pop the splash state and push the Menu state into the active states.
+
 	if (input->wasKeyPressed(aie::INPUT_KEY_ENTER))
 	{
 		app->getGSM()->popState();
-		app->getGSM()->pushState(MENU_STATE);
-		
+		try
+		{
+			app->getGSM()->pushState(MENU_STATE);
+		}
+		catch (...)
+		{
+			eTHROW("You tried to push Menu state which doesnt exist.");
+		}
 	}
 }
 

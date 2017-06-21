@@ -10,6 +10,7 @@
 #include "PlayLoop.h"
 #include "SplashState.h"
 
+// Using the namespace for the enums for the 
 using namespace StateMangement;
 
 Application2D::Application2D() {

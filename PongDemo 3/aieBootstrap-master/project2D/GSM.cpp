@@ -117,25 +117,29 @@ void GSM::processCommands()
 			catch
 				(...)
 			{
-				eTHROW("You tried to push a state that doesnt register.");
+				eTHROW("You tried to push a state that hasnt been registered.");
 			}
 			processPushState(command.c_id); 
 			break;
 		}
 		case ECommand::POP:
 		{
-			processPopState(); 
+			try
+			{
+				processPopState();
+			}
+			catch
+				(...)
+			{
+				eTHROW("You tried to POP a state that doesnt exist.");
+			}
 			break;
 		}
 		default :
 		{
 			eTHROW("You tried to use a command that does not exist.");
 		}
-			// we could have some error checking here if you like
-			//default:
-			//throw (Exception... - we could make a custom exception type)
-			//return 0xff (or some #defined error_id)
-			//return true/false
+	
 		}
 	}
 	// Clear the command queue after we're done so we don't re-execute old commands
@@ -170,5 +174,9 @@ void GSM::processPopState()
 	if (m_activeStates.listLength > 0)
 	{
 		m_activeStates.popBack();
+	}
+	else
+	{
+		eTHROW("m_activeStates does not have anything within its list that you can pop from.");
 	}
 }

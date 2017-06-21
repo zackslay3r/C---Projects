@@ -21,12 +21,12 @@
 *    {
 *        std::cerr << "Unspecified error." << std::endl;
 *    }
-* @author Ashley Flynn - Academy of Interactive Entertainment - 2017
+* @This is based off of example code given to us by our teacher, Jeff
 */
 
-#define eTHROW( message ) do { \
+#define eTHROW( errormessage ) do { \
     std::ostringstream oss; \
-    oss << message; \
+    oss << errormessage; \
     /*Remove file path, so we end up with just the file name.*/ \
     const char *name = strrchr( __FILE__, '\\' ); \
     if (name) \
