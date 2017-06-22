@@ -7,6 +7,15 @@
 class Application2D;
 class IState;
 
+
+/*
+* class GSM
+*
+* this is the game state manager. this is responible for handling all the states within the game and registering, pushing and popping states into the registered states (which is a binaryTree)
+* and the active states, which is the Doubly linked list.
+*
+* @author - Zackary Direen, Academy of Interactive Entertainment, 2017
+*/
 class GSM {
 public:
 	GSM();

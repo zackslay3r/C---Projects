@@ -15,12 +15,11 @@ public:
 	T* myArray;
 	int size;
 
-
 	Stack()
 	{
-	
 	}
-
+	
+	// This is the constructor. we do not have a default constructor, as we always want this to have a size.
 	Stack(int n)
 	{
 		size = n;
@@ -34,7 +33,6 @@ public:
 
 	~Stack()
 	{
-		//delete[] myArray;
 	}
 
 	//This pushes a value to the top of the stack and will increment the index.
@@ -52,11 +50,12 @@ public:
 		}
 	}
 
+	// This pops a value from the top of the stack and decrement the stack. 
 	T pop()
 	{
 		if (top == -1)
 		{
-			throw;
+			eTHROW("You tried to pop from the a list that is empty.");
 		}
 		else
 		{
@@ -67,6 +66,7 @@ public:
 		}
 	
 	}
+	// Sees if the stack is empty.
 	bool empty()
 	{
 		if (top == -1)

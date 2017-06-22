@@ -5,7 +5,14 @@
 
 // This makes objectPool a singleton.
 #define POOL ObjectPool::getInstance()
-
+/*
+* class ObjectPool
+*
+* this is ObjectPool class which makes stacks of objects. 
+* this is making a stack of balls and a stack of paddles.
+* this object pool is made with the help of the factory.
+* @author - Zackary Direen, Academy of Interactive Entertainment, 2017
+*/
 class ObjectPool
 {
 public:

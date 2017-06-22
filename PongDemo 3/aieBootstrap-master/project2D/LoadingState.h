@@ -1,14 +1,20 @@
 
 #pragma once
 #include "IState.h"
-
+/*
+* class LoadState
+*
+* this is LoadState and is the third state of my game. this is based on the IState.
+*
+* @author - Zackary Direen, Academy of Interactive Entertainment, 2017
+*/
 class LoadState :
 	public IState {
 public:
 	LoadState(Application2D *_app, GSM *_gsm);
 	virtual ~LoadState();
 
-	// Since we inherit from the GameState interface, we must override the functions
+	
 	virtual void update(float dt);
 	virtual void render();
 

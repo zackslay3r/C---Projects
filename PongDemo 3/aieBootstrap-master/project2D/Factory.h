@@ -4,8 +4,16 @@
 #include "Paddle.h"
 #include "ObjectPool.h"
 
-// This is the factory class, it is essential in the creation of the objects in my game. 
-// With the only purpose of this class to make objects that are either paddles or balls.
+
+/*
+* class Factory
+*
+* This is the factory class, it is essential in the creation of the objects in my game. 
+* With the only purpose of this class to make objects that are either paddles or balls.
+*
+* @author - Zackary Direen, Academy of Interactive Entertainment, 2017
+*/
+
 class Factory
 {
 public:

@@ -2,9 +2,15 @@
 #include "../bootstrap/Application.h"
 #include "../bootstrap/Renderer2D.h"
 
+/*
+* class Object
+*
+* This is an Object class.
+* This is the parent class for every object in my game and all objects have the values within Object.
+*
+* @author - Zackary Direen, Academy of Interactive Entertainment, 2017
+*/
 
-// This is an Object class.
-// This is the parent class for every object in my game and all objects have the values within Object.
 class Object
 {
 public:

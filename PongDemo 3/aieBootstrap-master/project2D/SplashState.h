@@ -3,13 +3,21 @@
 #include "IState.h"
 #include <Input.h>
 
+
+/*
+* class SplashState
+*
+* this is SplashState and is the first state of my game. this is based on the IState.
+*
+* @author - Zackary Direen, Academy of Interactive Entertainment, 2017
+*/
 class SplashState :
 	public IState {
 public:
 	SplashState(Application2D *_app, GSM *_gsm);
 	virtual ~SplashState();
 
-	// Since we inherit from the GameState interface, we must override the functions
+	
 	virtual void update(float dt);
 	virtual void render();
 

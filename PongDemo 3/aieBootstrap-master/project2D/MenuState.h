@@ -9,7 +9,13 @@ namespace aie {
 	class Font;
 	class Renderer2D;
 }
-
+/*
+* class MenuState
+*
+* this is MenuState and is the second state of my game. this is based on the IState.
+*
+* @author - Zackary Direen, Academy of Interactive Entertainment, 2017
+*/
 class MenuState : public IState
 {
 public:
