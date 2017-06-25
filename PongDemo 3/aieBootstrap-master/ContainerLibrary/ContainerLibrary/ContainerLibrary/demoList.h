@@ -27,7 +27,7 @@ private:
 
 	/* ListNode<T>()
 	*
-	* This is a default constuctor for ListNode
+	* This is a default constuctor for ListNode.
 	*
 	*/
 	ListNode<T>() { pNext = nullptr; pPrev = nullptr; }
@@ -77,26 +77,64 @@ public:
 	ListIterator(const ListIterator<T> &iter) { nodePtr = iter.nodePtr; };
 
 
-	ListIterator &operator = (const ListIterator<T> &iter) { nodePtr = iter.nodePtr; return *this; };
+	//ListIterator &operator = (const ListIterator<T> &iter) { nodePtr = iter.nodePtr; return *this; };
+	
+
 	
 	// converting an iterator to Node*
 	operator ListNode<T>*() const { return nodePtr; }
-
-	//testing two iternators to see if they are not equal.
+	
+	/* bool operator !=(const ListIterator& x)
+	*
+	* This is the function responsible for testing two iterators to see if they are not equal.
+	*
+	*
+	* @returns bool - True or false.
+	*/
 	bool operator !=(const ListIterator& x) const { return nodePtr != x.nodePtr; }
 
-	// This tests two nodePtrs to see if they are equal.
+	/* bool operator ==(const ListIterator& x)
+	*
+	* This is the function responsible for testing two iterators to see if they are equal.
+	*
+	*
+	* @returns bool - True or false.
+	*/
 	bool operator ==(const ListIterator& x) const { return nodePtr == x.nodePtr; }
 
-	//preincrement operator
+	/* ListIterator& operator++()
+	*
+	* This is the function responsible for returning the next index of the ListIterator.
+	*
+	*
+	* @returns this - a ListIterator.
+	*/
 	ListIterator& operator++() { nodePtr = nodePtr->pNext; return *this; }
 	
 
 	// decrement operator
+	/* ListIterator& operator++()
+	*
+	* This is the function responsible for returning the previous index of the ListIterator.
+	*
+	*
+	* @returns this - a ListIterator.
+	*/
 	ListIterator& operator--() { nodePtr = nodePtr->pPrev; return *this; }
 
 	// This function allows the Iternator to iterate to a certain position.
 	// It will return the nodePtr that is at that position.
+
+
+	/* ListIterator& operator+=(int position)
+	*
+	* This is the function responsible for incrementing the ListIternator until the position given as a parameter.
+	*
+	*
+	* @parameter 1 position - a number given for the ListIterator to iternate to.
+	*
+	* @returns this - a ListIterator.
+	*/
 	ListIterator& operator+=(int position) { 
 	
 		for (int i = 0; i < position; i++)
@@ -108,14 +146,36 @@ public:
 	
 	}
 
+	/* ListIterator& operator++(int)
+	*
+	* This is the function responsible for incrementing the ListIternator of itself.
+	*
+	*
+	* @parameter 1 int
+	*
+	* @returns this - a ListIterator.
+	*/
 	ListIterator& operator++(int) { nodePtr = nodePtr->pNext; return *this; }
 
-	// return value associated with iterator
+	
+
+	/* T& operator*()
+	*
+	* This is the function responsible for returning the value associated with iterator.
+	*
+	*
+	*
+	* @returns T - a value.
+	*/
 	T& operator*() const { return nodePtr->value; }
 
 	ListNode<T>* nodePtr;
 
-	// Destructor.
+	/* ~ListIterator()
+	*
+	* This is a default destructor for ListIterator
+	*
+	*/
 	~ListIterator() {};
 
 private:
@@ -138,15 +198,24 @@ public:
 	int listLength;
 	typedef ListIterator<T> interator;
 
-	// This is the default constructor for the list.
-	List<T>()
+	
+	/* List()
+	*
+	* This is a default constructor for List
+	*
+	*/
+	List()
 	{
 		tail = head = nullptr;
 		listLength = 0;
 	}
 
-	// This is the destructor.
-	~List<T>()
+	/* ~List()
+	*
+	* This is a default destructor for ListIterator
+	*
+	*/
+	~List()
 	{
 	}
 	
@@ -154,6 +223,17 @@ public:
 	
 	// This will create a new list node and put a value in it, then it will put it at the front of the list.
 	// It takes a value and returns void.
+
+	/* void pushFront(T value)
+	*
+	* This is the function responsible for creating a new list node and put a value in it, then it will put it at the front of the list.
+	*
+	*
+	* @parameter 1  value - something that wants to be sorted in the list.
+	*
+	*
+	* @returns void
+	*/
 	void pushFront(T value)
 	{
 		
@@ -177,8 +257,18 @@ public:
 		listLength++;
 	}
 	
-	// This will create a new list node and put a value in it, then it will put it at the back of the list.
-	// It takes a value and returns void.
+
+
+	/* void pushBack(T value)
+	*
+	* This is the function responsible for creating a new list node and put a value in it, then it will put it at the back of the list.
+	*
+	*
+	* @parameter 1  value - something that wants to be sorted in the list.
+	*
+	*
+	* @returns void
+	*/
 	void pushBack(T value)
 	{
 
@@ -204,7 +294,14 @@ public:
 	}
 	
 	
-	// This function should remove the first item and returns void.
+
+	/* void popFront()
+	*
+	* This is the function responsible for popping a list node at the front of the list.
+	*
+	*
+	* @returns void
+	*/
 	void popFront()
 	{
 		ListNode<T> *ptr = head->pNext;
@@ -215,7 +312,13 @@ public:
 
 	}
 	
-	// This function should remove the last item and returns void.
+	/* void popBack()
+	*
+	* This is the function responsible for popping a list node at the back of the list.
+	*
+	*
+	* @returns void
+	*/
 	void popBack()
 	{
 		ListNode<T> *ptr = tail->pPrev;
@@ -232,9 +335,21 @@ public:
 		listLength--;
 	}
 
-	// this function should insert a value before the node parameter. it takes the position of the list and the value it wants inserted as parameters and returns void.
+	// this function should insert a value before the node parameter.
+	/* void insertBefore(int position, T insertedValue)
+	*
+	* This is the function responsible for inserting a value before the node parameter. and if the list's size is 0, it will pushFront and if its
+	* at the end of the list, it will pushBack.
+	*
+	* @parameter 1 posiiton - a position in the linked list.
+	*
+	* @parameter 2 insertedValue - a value that wants to be inserted.
+	*
+	* @returns void
+	*/
 	void insertBefore(int position, T insertedValue)
 	{
+		
 		if (position == 0)
 		{
 			pushFront(insertedValue);
@@ -263,6 +378,17 @@ public:
 		
 	}
 	// this function should insert a value after the node parameter. it takes the position of the list and the value it wants inserted as parameters and returns void.
+	/* void insertBefore(int position, T insertedValue)
+	*
+	* This is the function responsible for inserting a value after the node parameter. and if the list's size is 0, it will pushFront and if its
+	* at the end of the list, it will pushBack.
+	*
+	* @parameter 1 posiiton - a position in the linked list.
+	*
+	* @parameter 2 insertedValue - a value that wants to be inserted.
+	*
+	* @returns void
+	*/
 	void insertAfter(int position, T insertedValue)
 	{
 		if (position == 0)
@@ -296,7 +422,17 @@ public:
 
 	}
 
-	// This will delete a listNode at a certain position and decrease the list. the parameter is the position and it returns void.
+	/* void erase(int position)
+	*
+	* This will delete a listNode at a certain position and decrease the list. and if its at the front of the list it will popFront
+	* and if its at the end it will popBack.
+	*
+	* @parameter 1 posiiton - a position in the linked list.
+	*
+	*
+	* @returns void
+	*/
+
 	void erase(int position)
 	{
 		if (position == 0)
@@ -323,7 +459,15 @@ public:
 		}
 
 	}
-	//This will delete a value within the list dependant on what the value is. the parameter is of type T and it returns void.
+	/* void erase(int position)
+	*
+	* This will delete a value within the list dependant on what the value is if it is found.
+	*
+	* @parameter 1 value - the value of a object in the linked list.
+	*
+	*
+	* @returns void
+	*/
 	void remove(T value)
 	{
 		ListNode<T> *ptr = head->next;
@@ -339,7 +483,13 @@ public:
 	}
 
 
-	// THis will delete the entire list and returns void.
+	/* void deleteList()
+	*
+	* This is responsible for deleting the entire list.
+	*
+	*
+	* @returns void
+	*/
 	void deleteList()
 	{
 		ListNode<T> *pDel = head;

@@ -1,7 +1,7 @@
 #pragma once
 #include<iostream>
 #include "Exeception.h"
-#define default_value 5
+
 template <class T>
 class Stack {
 	
@@ -15,11 +15,24 @@ public:
 	T* myArray;
 	int size;
 
+	/* Stack()
+	*
+	* This is a default constructor for Stack
+	*
+	*/
 	Stack()
 	{
 	}
 	
-	// This is the constructor. we do not have a default constructor, as we always want this to have a size.
+	/// This is the constructor. we do not use the default constructor, as we always want this to have a size.
+	/* Stack(int n)
+	*
+	* This is a constructor for List that will take a size parameter.
+	*
+	*
+	* parameter 1 n - the amount of items you want in the stack.
+	*
+	*/
 	Stack(int n)
 	{
 		size = n;
@@ -31,11 +44,26 @@ public:
 
 	}
 
+	/* ~Stack()
+	*
+	* This is a default destructor for Stack
+	*
+	*/
 	~Stack()
 	{
 	}
 
-	//This pushes a value to the top of the stack and will increment the index.
+
+	/* void push(T object)
+	*
+	*This pushes a value to the top of the stack and will increment the index.
+	*
+	*
+	* @parameter 1  object - a value you want to push into the stack.
+	*
+	*
+	* @returns void
+	*/
 	void push(T object)
 	{
 		top++;
@@ -50,7 +78,14 @@ public:
 		}
 	}
 
-	// This pops a value from the top of the stack and decrement the stack. 
+	
+	/* T pop()
+	*
+	* This pops a value from the top of the stack and decrement the stack.
+	*
+
+	* @returns T - the object that is popped.
+	*/
 	T pop()
 	{
 		if (top == -1)
@@ -66,7 +101,11 @@ public:
 		}
 	
 	}
-	// Sees if the stack is empty.
+	/* T pop()
+	*
+	* This function is responsible for checking to see if a stack is empty or not.
+	* @returns bool - true or false.
+	*/
 	bool empty()
 	{
 		if (top == -1)
@@ -80,15 +119,6 @@ public:
 	}
 
 protected:
-	// this is here to stop you to create it without a size
-	
-		//// this creates an empty stack with the amount of spaces previously defined by 'default_value'
-		//
-		//	myArray = new T[default_value];
-		//
-		//// this defaults the index to be -1 to signifiy the stack is empty of values.
-		//top = -1;
-	
 
 };
 

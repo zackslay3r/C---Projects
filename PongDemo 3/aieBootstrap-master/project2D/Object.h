@@ -21,16 +21,23 @@ public:
 	// These values help determine the size of a particular object based on widith and height.
 	float width, height;
 	
-	// This is the Object default constructor.
+	/*
+	* Object();
+	*
+	* This is the Object constructor.
+	*
+	*/
 	Object();
 
-	//Object(float PosX, float PosY, float width, float height,float veloX, float veloY);
 
-	//void SetUp(float PosX = 0, float PosY = 0, float velocityX = 0, float velocityY = 0);
+	/// This object class does not need a update function, as we are are going to get the other states to update the objects for us.
 	
-	// These two functions will be overwritten by child classes versions of the same function.
-	virtual void Update(float DT);
-	virtual void Draw();
+	/*	 void render();
+	*	This function is a virtual function that is responsible for drawing the objects. 
+	*
+	*	@returns void
+	*/
+	virtual void render();
 	
 
 	// This is the object destructor.
