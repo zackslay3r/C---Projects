@@ -14,10 +14,7 @@ GSM::GSM() {
 GSM::~GSM() {
 	
 	
-	// This will clear all the registered states within m_registeredStates
-	//for (auto iter = m_registeredStates.begin(); iter != m_registeredStates.end(); iter++)
-	//	delete iter->second;
-	//m_registeredStates.clear();
+
 }
 
 void GSM::updateStates(float deltaTime) {

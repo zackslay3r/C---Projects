@@ -220,13 +220,15 @@ void playLoop::render()
 	PLAY->app->m_2dRenderer->drawText(m_font.get(), playerWinnerText, 360, 640);
 	// The paddles and the ball.
 	PLAY->app->m_2dRenderer->setRenderColour(1.0f, 1.0f, 1.0f, 1.0f);
-	paddleLeft->Draw();
-	paddleRight->Draw();
-	Ball->Draw();
+	paddleLeft->render();
+	paddleRight->render();
+	Ball->render();
 
 
 
 }
+
+
 bool playLoop::checkCollide(float x1, float y1, float width1, float height1, float x2, float y2, float width2, float height2)
 {
 	int x1Min = x1 - width1 / 2;

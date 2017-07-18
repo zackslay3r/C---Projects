@@ -39,7 +39,7 @@ bool Application2D::startup() {
 	gsm->registerState(MENU_STATE, new MenuState(this,gsm));
 	gsm->registerState(PAUSE_STATE, new PauseState(this, gsm));
 	
-	//if()
+	
 	// Then we want to push the state we want to use as the state we start on. 
 	gsm->pushState(SPLASH_STATE);
 	

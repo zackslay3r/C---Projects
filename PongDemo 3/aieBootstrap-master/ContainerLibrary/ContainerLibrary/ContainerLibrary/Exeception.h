@@ -1,32 +1,15 @@
 
+
 #pragma once
 #include <string>
 #include <sstream>
 
-/**
-* Error handling macros.
-* Usage example:
-*    eASSERT(someValue < 0);
-*    if (!fileHandle) eTHROW("Could not open file.");
-* Catch example:
-*    try
-*    {
-*        //Some code that may throw errors using eTHROW and eASSERT goes here...
-*    }
-*    catch (const std::exception &e)
-*    {
-*        std::cerr << "Error: " << e.what() << std::endl;
-*    }
-*    catch ( ... )
-*    {
-*        std::cerr << "Unspecified error." << std::endl;
-*    }
-* @author Ashley Flynn - Academy of Interactive Entertainment - 2017
-*/
+// This is based off of example code given to us by our teacher, Jeff Cotter.
+// I am using this becuase it provides a more graceful way to allow throws and asserts to be done.
 
-#define eTHROW( message ) do { \
+#define eTHROW( errormessage ) do { \
     std::ostringstream oss; \
-    oss << message; \
+    oss << errormessage; \
     /*Remove file path, so we end up with just the file name.*/ \
     const char *name = strrchr( __FILE__, '\\' ); \
     if (name) \
