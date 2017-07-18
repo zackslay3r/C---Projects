@@ -20,7 +20,9 @@ private:
 		void linkNodes();
 		void linkEdges();
 		bool distanceCheck(Node* nodeOne, float distance, Node* nodeTwo);
+		bool showNodes, showSquares, showKeys = false;
 		void withinDistance(Node* nodeOne, Node* nodeTwo);
+		void pathFinding(Node* nodeOne, Node* nodeTwo);
 		float magnitudeSqrd(float x, float y);
 		float magnitude(float x, float y);
 		Node* gameNodes;

@@ -127,6 +127,37 @@ void NodeManager::withinDistance(Node* nodeOne, Node* nodeTwo)
 	//nodeOne->links.push_front();
 }
 
+void NodeManager::pathFinding(Node * startNode, Node * endNode)
+{
+	// This is for the closed set of nodes.
+	std::list<Node*> closedSet;
+	// This is for the open set of nodes.
+	std::list<Node*> openSet;
+
+	
+	//set the start node to be a part of the open list.
+	openSet.push_back(startNode);
+
+
+	while (openSet.size > 0)
+	{
+		// tempNode to evaluate against for finding the finish.
+		Node node_current = openSet.pop_front;
+		// if the current key is equal to the endNode key, we have found the endNode
+		if (node_current.key == endNode->key)
+		{
+			endNode->parentNode = node_current.parentNode;
+			break;
+		}
+
+	}
+	//// This is the previous node to backtrack from
+	//Node* previousNode = nullptr;
+	//// gSco
+
+
+}
+
 
 
 

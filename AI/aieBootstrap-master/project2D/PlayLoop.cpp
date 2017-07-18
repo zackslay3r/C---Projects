@@ -15,6 +15,7 @@ playLoop::playLoop()
 {
 	myNodes.fillGameNodes();
 	m_font = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 16));
+	input = aie::Input::getInstance();
 }
 playLoop::~playLoop()
 {
@@ -33,7 +34,40 @@ playLoop * playLoop::getInstance()
 
 void playLoop::update(float dt, GSM* gsm)
 {
-	
+	if (input->wasKeyPressed(aie::INPUT_KEY_1) == true)
+	{
+		if (myNodes.showKeys)
+		{
+			myNodes.showKeys = false;
+		}
+		else
+		{
+			myNodes.showKeys = true;
+		}
+	}
+	if (input->wasKeyPressed(aie::INPUT_KEY_2) == true)
+	{
+		if (myNodes.showSquares)
+		{
+			myNodes.showSquares = false;
+		}
+		else
+		{
+			myNodes.showSquares = true;
+		}
+	}
+	if (input->wasKeyPressed(aie::INPUT_KEY_3) == true)
+	{
+		
+		if (myNodes.showNodes)
+		{
+			myNodes.showNodes = false;
+		}
+		else
+		{
+			myNodes.showNodes = true;
+		}
+	}
 }
 
 
@@ -48,11 +82,18 @@ void playLoop::render()
 	{
 		std::string keyString = std::to_string(myNodes.gameNodes[i].key);
 		PLAY->app->m_2dRenderer->setRenderColour(0, 0, 255);
-		PLAY->app->m_2dRenderer->drawText(m_font.get(), keyString.c_str(), myNodes.gameNodes[i].posX, myNodes.gameNodes[i].posY + 20);
-		PLAY->app->m_2dRenderer->drawBox(myNodes.gameNodes[i].posX, myNodes.gameNodes[i].posY, 5, 5);
-		
+		if (myNodes.showKeys == true)
+		{
+			PLAY->app->m_2dRenderer->drawText(m_font.get(), keyString.c_str(), myNodes.gameNodes[i].posX, myNodes.gameNodes[i].posY + 20);
+		}
+		if (myNodes.showNodes == true)
+		{
+			PLAY->app->m_2dRenderer->setRenderColour(255, 255, 255);
+			PLAY->app->m_2dRenderer->drawBox(myNodes.gameNodes[i].posX, myNodes.gameNodes[i].posY, 5, 5);
+		}
+		if (myNodes.showSquares == true)
+		{
 		std::list<Edge* >::iterator iter;
-		
 		for (iter = myNodes.gameNodes[i].links.begin(); iter != myNodes.gameNodes[i].links.end(); ++iter)
 		{
 			if ((*iter)->edgeColour == 'r')
@@ -63,10 +104,11 @@ void playLoop::render()
 			{
 				PLAY->app->m_2dRenderer->setRenderColour(0, 255, 0);
 			}
+			
 			PLAY->app->m_2dRenderer->drawLine(myNodes.gameNodes[(*iter)->keyOne].posX, myNodes.gameNodes[(*iter)->keyOne].posY,
 				myNodes.gameNodes[(*iter)->keyTwo].posX, myNodes.gameNodes[(*iter)->keyTwo].posY);
 
-
+		}
 
 
 			/*    (*iter)->dScore = 6;

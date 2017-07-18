@@ -36,6 +36,7 @@ public:
 	float getHScore();
 	int getKey();
 	float magnitude();
+	Node* parentNode;
 	//void normalise();
 	// Position X and Y of a node on the game.
 	float posX, posY;
