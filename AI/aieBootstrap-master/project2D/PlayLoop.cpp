@@ -75,7 +75,6 @@ void playLoop::update(float dt, GSM* gsm)
 void playLoop::render()
 {
 	
-	
 
 	// Draws the nodes.
 	for (int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
@@ -116,8 +115,27 @@ void playLoop::render()
 			Edge *fdgvd = (*iter);*/
 
 		}
+
+		std::list<Node*> path;
+		Node* tempPtr;
+		path = myNodes.pathFinding(&myNodes.gameNodes[0], &myNodes.gameNodes[575]);
+		tempPtr = path.front();
+		
+		for (auto &var : path)
+		{
+			PLAY->app->m_2dRenderer->setRenderColour(255,255,0);
+			PLAY->app->m_2dRenderer->drawLine(tempPtr->posX,tempPtr->posY,var->posX,var->posY);
+			tempPtr = var;
+		}
+
 	}
-	//myWall->render(200, 200);
+	for(int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
+	{
+		if(myNodes.gameNodes[i].getWalkable() == false)
+		{
+		myWall->render(myNodes.gameNodes[i].posX, myNodes.gameNodes[i].posY);
+		}
+	}
 }
 
 

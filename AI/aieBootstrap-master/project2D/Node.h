@@ -15,7 +15,7 @@ private:
 	
 	
 	// a boolean that will tell A* if it is facing a wall or not.
-	bool isWalkable;
+	bool isWalkable = true;
 	// values that are required for calculating the distance between the start and end point with a node.
 	// F score = Final score of distance.
 	// H score = distance between the start and end. H is indiviually changed based on each node area.
@@ -40,6 +40,8 @@ public:
 	void setFScore(float newFScore);
 	void setHScore(float newHScore);
 	void setdScore(float newdScore);
+	inline bool getWalkable(){return isWalkable;};
+	inline void setWalkable(bool tf) {isWalkable = tf;};
 
 	int getKey();
 	float magnitude();

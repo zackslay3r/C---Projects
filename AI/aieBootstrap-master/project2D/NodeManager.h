@@ -22,9 +22,10 @@ private:
 		bool distanceCheck(Node* nodeOne, float distance, Node* nodeTwo);
 		bool showNodes, showSquares, showKeys = false;
 		void withinDistance(Node* nodeOne, Node* nodeTwo);
-		void pathFinding(Node* nodeOne, Node* nodeTwo);
+		std::list<Node*> pathFinding(Node* nodeOne, Node*  nodeTwo);
 		float heuristicEstimate(Node* nodeOne, Node* nodeTwo);
-		std::list<Node*> reconstruct_path(Node* camefrom, Node* currentNode);
+		std::list<Node*> reconstruct_path(Node* currentNode);
+		void wallSetter(int nodeKey);
 		float magnitudeSqrd(float x, float y);
 		float magnitude(float x, float y);
 		Node* gameNodes;

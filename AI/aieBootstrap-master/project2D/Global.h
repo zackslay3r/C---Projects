@@ -15,7 +15,7 @@ public:
 	const int windowLength = 1600;
 	const int gridSize = 50;
 	const int NODE_ARRAY_LENGTH = ((windowLength / gridSize) * (windowHeight / gridSize));
-	const float CIRCLE_CHECKER_SIZE = (gridSize * 2)*0.9;//90 //gridSize*1.41f; //
+	const float CIRCLE_CHECKER_SIZE = (gridSize * 2)*0.9f;//90 //gridSize*1.41f; //
 	static GameSettings* getInstance();
 
 private:
