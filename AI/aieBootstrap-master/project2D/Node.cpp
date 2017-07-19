@@ -21,6 +21,26 @@ float Node::getHScore()
 	return hScore;
 }
 
+float Node::getdScore()
+{
+	return dScore;
+}
+
+void Node::setFScore(float newFScore)
+{
+	fScore = newFScore;
+}
+
+void Node::setHScore(float newHScore)
+{
+	hScore = newHScore;
+}
+
+void Node::setdScore(float newdScore)
+{
+	dScore = newdScore;
+}
+
 int Node::getKey()
 {
 	return key;

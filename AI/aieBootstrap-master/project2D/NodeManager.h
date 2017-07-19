@@ -23,6 +23,8 @@ private:
 		bool showNodes, showSquares, showKeys = false;
 		void withinDistance(Node* nodeOne, Node* nodeTwo);
 		void pathFinding(Node* nodeOne, Node* nodeTwo);
+		float heuristicEstimate(Node* nodeOne, Node* nodeTwo);
+		void reconstruct_path(Node* camefrom, Node* currentNode);
 		float magnitudeSqrd(float x, float y);
 		float magnitude(float x, float y);
 		Node* gameNodes;

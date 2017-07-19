@@ -15,13 +15,13 @@ public:
 	int keyOne;
 	int keyTwo;
 	
-	// this is the G score, which is the distance that each step is.
-	float dScore;
+	// This will help calulate distance between nodes
+	float edgeDistance;
 
 	char edgeColour;
 
 	// this function returns the gScore.
-	float getGScore();	
+		
 	void getEdges();
 	Edge();
 	~Edge();

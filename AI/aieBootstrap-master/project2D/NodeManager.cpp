@@ -71,8 +71,8 @@ void NodeManager::linkNodes()
 				float DistX = gameNodes[i].posX - gameNodes[j].posX;
 				float DistY = gameNodes[i].posY - gameNodes[j].posY;
 
-				tempEdge->dScore = magnitude(DistX, DistY);
-				if (tempEdge->dScore > (GAMESETTINGS->gridSize + 2))
+				tempEdge->edgeDistance = magnitude(DistX, DistY);
+				if (tempEdge->edgeDistance > (GAMESETTINGS->gridSize + 2))
 				{
 					tempEdge->edgeColour = 'b';
 				}
@@ -138,24 +138,91 @@ void NodeManager::pathFinding(Node * startNode, Node * endNode)
 	//set the start node to be a part of the open list.
 	openSet.push_back(startNode);
 
+	// for every Node, set the gScore to be equal to infinity.
+	for (int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
+	{
+		gameNodes[i].setdScore(INFINITY);
+	}
+
+	startNode->setdScore(0);
+
+	for (int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
+	{
+		gameNodes[i].setFScore(INFINITY);
+	}
+
+	startNode->setFScore(heuristicEstimate(startNode, endNode));
 
 	while (openSet.size > 0)
 	{
 		// tempNode to evaluate against for finding the finish.
-		Node node_current = openSet.pop_front;
-		// if the current key is equal to the endNode key, we have found the endNode
-		if (node_current.key == endNode->key)
+		Node* node_current;
+		
+		std::list<Node* >::iterator iter;
+		Node* tempNode;
+		tempNode = openSet.pop_front;
+		// Loops though the open set and will set the current node to the one with the lowest Fscore.
+		for (iter = openSet.begin; iter != openSet.end; ++iter)
 		{
-			endNode->parentNode = node_current.parentNode;
+			if ((*iter)->getFScore() < tempNode->getFScore())
+			{
+				tempNode = *iter;
+			}
+		}
+		node_current = tempNode;
+		// if the current key is equal to the endNode key, we have found the endNode
+		if (node_current->key == endNode->key)
+		{
+			reconstruct_path(node_current->previousNode, node_current);
 			break;
+
+		}
+		// remove from the open set and push onto the closed set.
+		openSet.remove(node_current);
+		closedSet.push_front(node_current);
+		
+		std::list<Edge* >::iterator edgeIter;
+		std::list<Node*> neighbours;
+		for (edgeIter = node_current->links.begin(); edgeIter != node_current->links.end(); ++edgeIter)
+		{
+			if ((*edgeIter)->keyOne != node_current->key)
+			{
+
+				neighbours.push_front(&gameNodes[(*edgeIter)->keyOne]);
+			}
+			if ((*edgeIter)->keyTwo != node_current->key)
+			{
+				neighbours.push_front(&gameNodes[(*edgeIter)->keyTwo]);
+			}
 		}
 
 	}
-	//// This is the previous node to backtrack from
-	//Node* previousNode = nullptr;
-	//// gSco
+	// This is the previous node to backtrack from
+	
+	// gSco
 
 
+}
+
+float NodeManager::heuristicEstimate(Node * nodeOne, Node * nodeTwo)
+{
+	float x, y, h;
+	x = abs(nodeOne->posX - nodeTwo->posX);
+	y = abs(nodeOne->posY - nodeTwo->posY);
+	if (x > y)
+	{
+		h = 14 * y + 10 * (x - y);
+	}
+	else
+	{
+		h = 14 * x + 10 * (y - x);
+	}
+
+	return h;
+}
+
+void NodeManager::reconstruct_path(Node * camefrom, Node * currentNode)
+{
 }
 
 

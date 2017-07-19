@@ -20,7 +20,8 @@ private:
 	// F score = Final score of distance.
 	// H score = distance between the start and end. H is indiviually changed based on each node area.
 	float fScore, hScore;
-	
+	// this is the d score, which is the distance that each step cost.
+	float dScore;
 
 	
 
@@ -34,9 +35,15 @@ public:
 	//This function returns fScore.
 	float getFScore();
 	float getHScore();
+	float getdScore();
+
+	void setFScore(float newFScore);
+	void setHScore(float newHScore);
+	void setdScore(float newdScore);
+
 	int getKey();
 	float magnitude();
-	Node* parentNode;
+	Node* previousNode = nullptr;
 	//void normalise();
 	// Position X and Y of a node on the game.
 	float posX, posY;
