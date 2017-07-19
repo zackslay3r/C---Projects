@@ -136,7 +136,7 @@ void NodeManager::pathFinding(Node * startNode, Node * endNode)
 
 	
 	//set the start node to be a part of the open list.
-	openSet.push_back(startNode);
+	openSet.push_front(startNode);
 
 	// for every Node, set the gScore to be equal to infinity.
 	for (int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
@@ -153,16 +153,16 @@ void NodeManager::pathFinding(Node * startNode, Node * endNode)
 
 	startNode->setFScore(heuristicEstimate(startNode, endNode));
 
-	while (openSet.size > 0)
+	while (openSet.size() > 0)
 	{
 		// tempNode to evaluate against for finding the finish.
 		Node* node_current;
 		
 		std::list<Node* >::iterator iter;
 		Node* tempNode;
-		tempNode = openSet.pop_front;
+		
 		// Loops though the open set and will set the current node to the one with the lowest Fscore.
-		for (iter = openSet.begin; iter != openSet.end; ++iter)
+		for (iter = openSet.begin(); iter != openSet.end(); ++iter)
 		{
 			if ((*iter)->getFScore() < tempNode->getFScore())
 			{
@@ -181,19 +181,47 @@ void NodeManager::pathFinding(Node * startNode, Node * endNode)
 		openSet.remove(node_current);
 		closedSet.push_front(node_current);
 		
+		struct edgePair
+		{
+		float edgeDistance;
+		Node* node;
+
+		};
+
+
 		std::list<Edge* >::iterator edgeIter;
-		std::list<Node*> neighbours;
+		std::list<edgePair> neighbours;
 		for (edgeIter = node_current->links.begin(); edgeIter != node_current->links.end(); ++edgeIter)
 		{
 			if ((*edgeIter)->keyOne != node_current->key)
 			{
 
-				neighbours.push_front(&gameNodes[(*edgeIter)->keyOne]);
+				neighbours.push_front({ (*edgeIter)->edgeDistance,&gameNodes[(*edgeIter)->keyOne]});
 			}
 			if ((*edgeIter)->keyTwo != node_current->key)
 			{
-				neighbours.push_front(&gameNodes[(*edgeIter)->keyTwo]);
+				neighbours.push_front({ (*edgeIter)->edgeDistance,&gameNodes[(*edgeIter)->keyTwo] });
 			}
+			
+			
+	
+
+		}
+		
+		for(auto &var: neighbours)
+		{
+			float teneative_gScore = (node_current->getdScore() + var.edgeDistance);
+			if(teneative_gScore >= var.node->getdScore())
+			{
+			continue;
+			}
+			else
+			{
+			var.node->previousNode = node_current;
+			var.node->setdScore(teneative_gScore);
+			var.node->setFScore(var.node->getdScore() + heuristicEstimate(var.node, endNode));
+			}
+
 		}
 
 	}
@@ -221,8 +249,17 @@ float NodeManager::heuristicEstimate(Node * nodeOne, Node * nodeTwo)
 	return h;
 }
 
-void NodeManager::reconstruct_path(Node * camefrom, Node * currentNode)
+std::list<Node*> NodeManager::reconstruct_path(Node * camefrom, Node * currentNode)
 {
+	std::list<Node*> tempList;
+	tempList.push_back(currentNode);
+	while(currentNode != camefrom)
+	{
+	currentNode = currentNode->previousNode;
+	tempList.push_back(currentNode);
+	}
+
+	return tempList;
 }
 
 
