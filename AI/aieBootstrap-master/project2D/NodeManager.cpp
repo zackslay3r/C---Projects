@@ -87,12 +87,28 @@ void NodeManager::linkNodes()
 		}
 	}
 
-	wallSetter(19);
-	wallSetter(36);
+	wallSetter(76);
+	//wallSetter(131);
+	/*wallSetter(2);
+	wallSetter(3);
+	wallSetter(4);
 	wallSetter(37);
-	wallSetter(20);
-	wallSetter(56);
-
+	wallSetter(38);
+	wallSetter(39);
+	wallSetter(40);
+	wallSetter(41);
+	wallSetter(42);
+	wallSetter(43);
+	wallSetter(44);
+	wallSetter(74);
+	wallSetter(75);
+	wallSetter(76);
+	wallSetter(77);
+	wallSetter(78);
+	wallSetter(79);
+	wallSetter(80);
+	wallSetter(81);
+	wallSetter(82);*/
 }
 
 
@@ -189,12 +205,7 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 		openSet.remove(node_current);
 		closedSet.push_front(node_current);
 		
-		struct edgePair
-		{
-		float edgeDistance;
-		Node* node;
-
-		};
+		edgePair neighboursPair;
 
 
 		std::list<Edge* >::iterator edgeIter;
@@ -246,7 +257,7 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 			
 
 		}
-
+		completedClosedSet = closedSet;
 	}
 	// This is the previous node to backtrack from
 	
@@ -268,6 +279,7 @@ float NodeManager::heuristicEstimate(Node * nodeOne, Node * nodeTwo)
 	{
 		h = 14 * x + 10 * (y - x);
 	}
+	
 
 	return h;
 }
@@ -290,9 +302,52 @@ std::list<Node*> NodeManager::reconstruct_path(Node * currentNode)
 
 void NodeManager::wallSetter(int nodeKey)
 {
-
-		gameNodes[nodeKey].setWalkable(false);
 	
+		gameNodes[nodeKey].setWalkable(false);
+		std::list<Edge*> empty;
+		// sever any links to the node.
+		gameNodes[nodeKey].links = empty;
+		
+
+		// DIRTY!!! ruins the nodes making a square.
+		// this will need to be changed soon
+		gameNodes[nodeKey + 1].setWalkable(false);
+		gameNodes[nodeKey + 19].setWalkable(false);
+		gameNodes[nodeKey + 94].setWalkable(false);
+		/*Node node_current = gameNodes[nodeKey];
+		std::list<Edge* >::iterator edgeIter;
+		std::list<edgePair> neighbours;
+		for (edgeIter = node_current.links.begin(); edgeIter != node_current.links.end(); ++edgeIter)
+		{
+			if ((*edgeIter)->keyOne != node_current.key)
+			{
+
+				neighbours.push_front({ (*edgeIter)->edgeDistance,&gameNodes[(*edgeIter)->keyOne] });
+			}
+			if ((*edgeIter)->keyTwo != node_current.key)
+			{
+				neighbours.push_front({ (*edgeIter)->edgeDistance,&gameNodes[(*edgeIter)->keyTwo] });
+			}
+
+			for (auto &neigh : neighbours)
+			{
+				if (node_current.posX + 50.0f == neigh.node->posX && node_current.posY == neigh.node->posY)
+				{
+					gameNodes[neigh.node->key].setWalkable(false);
+				}
+				if (node_current.posX == neigh.node->posX && node_current.posY + 50.0f == neigh.node->posY)
+				{
+					gameNodes[neigh.node->key].setWalkable(false);
+				}
+				if (node_current.posX + 50.0f == neigh.node->posX && node_current.posY + 50.0f == neigh.node->posY)
+				{
+					gameNodes[neigh.node->key].setWalkable(false);
+				}
+			}*/
+
+
+
+		
 }
 
 

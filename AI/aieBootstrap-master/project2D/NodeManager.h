@@ -14,17 +14,28 @@ private:
 		
 
 	public:
+		
+		struct edgePair
+		{
+			float edgeDistance;
+			Node* node;
+
+		};
+		
+		
 		float getNodeSize();
 		int getIndex(int posX, int posY);
 		void fillGameNodes();
 		void linkNodes();
 		void linkEdges();
 		bool distanceCheck(Node* nodeOne, float distance, Node* nodeTwo);
-		bool showNodes, showSquares, showKeys = false;
+		bool showNodes, showSquares, showKeys , showClosedSet = false;
 		void withinDistance(Node* nodeOne, Node* nodeTwo);
 		std::list<Node*> pathFinding(Node* nodeOne, Node*  nodeTwo);
 		float heuristicEstimate(Node* nodeOne, Node* nodeTwo);
 		std::list<Node*> reconstruct_path(Node* currentNode);
+
+		std::list<Node*> completedClosedSet;
 		void wallSetter(int nodeKey);
 		float magnitudeSqrd(float x, float y);
 		float magnitude(float x, float y);

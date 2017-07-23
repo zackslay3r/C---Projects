@@ -68,6 +68,18 @@ void playLoop::update(float dt, GSM* gsm)
 			myNodes.showNodes = true;
 		}
 	}
+	if (input->wasKeyPressed(aie::INPUT_KEY_4) == true)
+	{
+
+		if (myNodes.showClosedSet)
+		{
+			myNodes.showClosedSet = false;
+		}
+		else
+		{
+			myNodes.showClosedSet = true;
+		}
+	}
 }
 
 
@@ -97,7 +109,7 @@ void playLoop::render()
 		{
 			if ((*iter)->edgeColour == 'r')
 			{
-				PLAY->app->m_2dRenderer->setRenderColour(255, 0, 0);
+				PLAY->app->m_2dRenderer->setRenderColour(255, 255, 255);
 			}
 			if ((*iter)->edgeColour == 'b')
 			{
@@ -115,27 +127,45 @@ void playLoop::render()
 			Edge *fdgvd = (*iter);*/
 
 		}
+		std::list<Node*> tmpList;
+		tmpList = myNodes.completedClosedSet;
+		if (myNodes.showClosedSet)
+		{
+			PLAY->app->m_2dRenderer->setRenderColour(0,255,0,2);
+			for (auto &var : tmpList)
+			{
 
+				
+				PLAY->app->m_2dRenderer->drawBox(float(var->posX + 25.0f), float(var->posY + 25.0f), 50.0f, 50.0f);
+			}
+		}
+		
 		std::list<Node*> path;
 		Node* tempPtr;
-		path = myNodes.pathFinding(&myNodes.gameNodes[0], &myNodes.gameNodes[575]);
+		
+		path = myNodes.pathFinding(&myNodes.gameNodes[0], &myNodes.gameNodes[171]);
 		tempPtr = path.front();
 		
 		for (auto &var : path)
 		{
-			PLAY->app->m_2dRenderer->setRenderColour(255,255,0);
-			PLAY->app->m_2dRenderer->drawLine(tempPtr->posX,tempPtr->posY,var->posX,var->posY);
+			PLAY->app->m_2dRenderer->setRenderColour(255,0,0);
+			PLAY->app->m_2dRenderer->drawLine(tempPtr->posX,tempPtr->posY,var->posX,var->posY,1.0f,0);
 			tempPtr = var;
 		}
 
 	}
-	for(int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
-	{
-		if(myNodes.gameNodes[i].getWalkable() == false)
+	/*for(int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
+	{*/
+		/*if(myNodes.gameNodes[i].getWalkable() == false)
 		{
 		myWall->render(myNodes.gameNodes[i].posX, myNodes.gameNodes[i].posY);
-		}
-	}
+		}*/
+		
+
+
+	/*}*/
+	//RECODE LATER
+	myWall->render(myNodes.gameNodes[76].posX, myNodes.gameNodes[76].posY);
 }
 
 
