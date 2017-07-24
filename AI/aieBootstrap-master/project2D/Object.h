@@ -25,7 +25,12 @@ public:
 	*
 	*/
 	Object();
-
+	// These two values are to determine position.
+	Vector2 position;
+	// These two values are to determine movement along the x and y axis of the screen.
+	Vector2 velocity;
+	// These values help determine the size of a particular object based on widith and height.
+	Vector2 scale;
 
 	/// This object class does not need a update function, as we are are going to get the other states to update the objects for us.
 	
@@ -42,11 +47,6 @@ public:
 
 protected:
 	std::list<IBehavior*> m_behaviours;
-	// These two values are to determine position.
-	Vector2 position;
-	// These two values are to determine movement along the x and y axis of the screen.
-	Vector2 velocity;
-	// These values help determine the size of a particular object based on widith and height.
-	Vector2 scale;
+
 };
 

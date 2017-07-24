@@ -72,7 +72,7 @@ private:
 	* returns bool - true or false.
 	*
 	*/
-	bool checkCollide(float x1, float y1, float width1, float height1, float x2, float y2, float width2, float height2);
+	bool checkCollide(Object* obj1, Object* obj2);
 	
 	int ScoreOne, ScoreTwo;
 	float winnerTimer;
@@ -82,6 +82,7 @@ private:
 	Object* paddleRight;
 	Object* Ball;
 	Player* player;
+	Wall* myWall;
 	aie::Input *input;
 	float switchStateTimer;
 	

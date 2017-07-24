@@ -3,8 +3,11 @@
 #include "Application2D.h"
 
 
-Wall::Wall()
+Wall::Wall(float positionx, float positiony)
 {
+	position.x = positionx;
+	position.y = positiony;
+	
 }
 
 
@@ -12,10 +15,14 @@ Wall::~Wall()
 {
 }
 
-void Wall::render(int posX, int posY)
+void Wall::render()
 {
 	PLAY->app->m_2dRenderer->setRenderColour(255, 255, 255);
-	PLAY->app->m_2dRenderer->drawBox(float(posX),float(posY),50.0f,50.0f,0.0f,1);
+	PLAY->app->m_2dRenderer->drawBox(position.x,position.y,50.0f,50.0f,0.0f,1);
+}
+
+void Wall::update(float dt)
+{
 }
 
 

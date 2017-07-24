@@ -3,10 +3,11 @@
 class Wall : public Object
 {
 public:
-	Wall();
+	Wall(float positionx, float positiony);
 	~Wall();
 
-	void render(int posx, int posy);
+	void render();
+	void update(float dt);
 	void setPos(int posx, int posy);
 };
 

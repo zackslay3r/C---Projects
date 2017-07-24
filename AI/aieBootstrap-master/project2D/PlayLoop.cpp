@@ -9,7 +9,7 @@
 //#include "Factory.h"
 NodeManager myNodes;
 using namespace StateMangement;
-Wall* myWall;
+
 
 class Player;
 playLoop::playLoop()
@@ -18,6 +18,7 @@ playLoop::playLoop()
 	m_font = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 16));
 	input = aie::Input::getInstance();
 	player = new Player();
+	
 
 }
 playLoop::~playLoop()
@@ -85,7 +86,10 @@ void playLoop::update(float dt, GSM* gsm)
 		}
 	}
 	
+	if (checkCollide(player, myWall))
+	{
 	
+	}
 		
 	
 }
@@ -173,38 +177,37 @@ void playLoop::render()
 
 	/*}*/
 	//RECODE LATER
-	myWall->render(myNodes.gameNodes[59].posX, myNodes.gameNodes[59].posY);
-	myWall->render(myNodes.gameNodes[1].posX, myNodes.gameNodes[1].posY);
-	myWall->render(myNodes.gameNodes[2].posX, myNodes.gameNodes[2].posY);
-	myWall->render(myNodes.gameNodes[3].posX, myNodes.gameNodes[3].posY);
-	myWall->render(myNodes.gameNodes[4].posX, myNodes.gameNodes[4].posY);
-	myWall->render(myNodes.gameNodes[25].posX, myNodes.gameNodes[25].posY);
-
-
-	myWall->render(myNodes.gameNodes[(18 * 5) + 9].posX, myNodes.gameNodes[(18 * 5) + 9].posY);
-	myWall->render(myNodes.gameNodes[(18 * 6) + 9].posX, myNodes.gameNodes[(18 * 6) + 9].posY);
-	myWall->render(myNodes.gameNodes[(18 * 5) + 10].posX, myNodes.gameNodes[(18 * 5) + 10].posY);
-	myWall->render(myNodes.gameNodes[(18 * 6) + 10].posX, myNodes.gameNodes[(18 * 6) + 10].posY);
+	
+	
+	myWall = new Wall(myNodes.gameNodes[1].posX, myNodes.gameNodes[1].posY);
+	myWall->render();
 
 	player->render();
 }
 
 
-bool playLoop::checkCollide(float x1, float y1, float width1, float height1, float x2, float y2, float width2, float height2)
+bool playLoop::checkCollide(Object* obj1, Object* obj2)
 {
-	//int x1Min = x1 - width1 / 2;
-	//int x1Max = x1 + width1 / 2;
-	//int y1Max = y1 + height1 / 2;
-	//int y1Min = y1 - height1 / 2;
+	
+	Vector2 shape1Pos = obj1->position;
+	Vector2 shape1Scale = obj1->scale;
 
-	//// AABB 2
-	//int x2Min = x2 - width2 / 2;
-	//int x2Max = x2 + width2 / 2;
-	//int y2Max = y2 + height2 / 2;
-	//int y2Min = y2 - height2 / 2;
+	Vector2 shape2Pos = obj2->position;
+	Vector2 shape2Scale = obj2->scale;
 
-	//if (x1Max < x2Min || x1Min > x2Max) return false;
-	//if (y1Max < y2Min || y1Min > y2Max) return false;
+	float x1Min = shape1Pos.x - shape1Scale.x / 2.0f;
+	float x1Max = shape1Pos.x + shape1Scale.x / 2.0f;
+	float y1Min = shape1Pos.y - shape1Scale.y / 2.0f;
+	float y1Max = shape1Pos.y - shape1Scale.y / 2.0f;
+
+
+	float x2Min = shape2Pos.x - shape2Scale.x / 2.0f;
+	float x2Max = shape2Pos.x + shape2Scale.x / 2.0f;
+	float y2Min = shape2Pos.y - shape2Scale.y / 2.0f;
+	float y2Max = shape2Pos.y - shape2Scale.y / 2.0f;
+
+	if (x1Max < x2Min || x1Min > x2Max) return false;
+	if (y1Max < y2Min || y1Min > y2Max) return false;
 
 	return true;
 }
