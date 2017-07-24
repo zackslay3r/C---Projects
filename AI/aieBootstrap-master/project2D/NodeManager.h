@@ -37,6 +37,7 @@ private:
 
 		std::list<Node*> completedClosedSet;
 		void wallSetter(int nodeKey);
+		void CleanUpEdgePointers();
 		float magnitudeSqrd(float x, float y);
 		float magnitude(float x, float y);
 		Node* gameNodes;

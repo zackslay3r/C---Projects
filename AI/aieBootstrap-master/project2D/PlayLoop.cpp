@@ -4,18 +4,21 @@
 #include "Global.h"
 #include <string>
 #include "NodeManager.h"
+#include "Player.h"
 
 //#include "Factory.h"
 NodeManager myNodes;
 using namespace StateMangement;
 Wall* myWall;
 
-
+class Player;
 playLoop::playLoop()
 {
 	myNodes.fillGameNodes();
 	m_font = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 16));
 	input = aie::Input::getInstance();
+	player = new Player();
+
 }
 playLoop::~playLoop()
 {
@@ -34,6 +37,7 @@ playLoop * playLoop::getInstance()
 
 void playLoop::update(float dt, GSM* gsm)
 {
+	player->update(dt);
 	if (input->wasKeyPressed(aie::INPUT_KEY_1) == true)
 	{
 		if (myNodes.showKeys)
@@ -80,6 +84,10 @@ void playLoop::update(float dt, GSM* gsm)
 			myNodes.showClosedSet = true;
 		}
 	}
+	
+	
+		
+	
 }
 
 
@@ -165,7 +173,20 @@ void playLoop::render()
 
 	/*}*/
 	//RECODE LATER
-	myWall->render(myNodes.gameNodes[76].posX, myNodes.gameNodes[76].posY);
+	myWall->render(myNodes.gameNodes[59].posX, myNodes.gameNodes[59].posY);
+	myWall->render(myNodes.gameNodes[1].posX, myNodes.gameNodes[1].posY);
+	myWall->render(myNodes.gameNodes[2].posX, myNodes.gameNodes[2].posY);
+	myWall->render(myNodes.gameNodes[3].posX, myNodes.gameNodes[3].posY);
+	myWall->render(myNodes.gameNodes[4].posX, myNodes.gameNodes[4].posY);
+	myWall->render(myNodes.gameNodes[25].posX, myNodes.gameNodes[25].posY);
+
+
+	myWall->render(myNodes.gameNodes[(18 * 5) + 9].posX, myNodes.gameNodes[(18 * 5) + 9].posY);
+	myWall->render(myNodes.gameNodes[(18 * 6) + 9].posX, myNodes.gameNodes[(18 * 6) + 9].posY);
+	myWall->render(myNodes.gameNodes[(18 * 5) + 10].posX, myNodes.gameNodes[(18 * 5) + 10].posY);
+	myWall->render(myNodes.gameNodes[(18 * 6) + 10].posX, myNodes.gameNodes[(18 * 6) + 10].posY);
+
+	player->render();
 }
 
 

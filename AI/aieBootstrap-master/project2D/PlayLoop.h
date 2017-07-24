@@ -2,6 +2,8 @@
 #include "GameState.h"
 #include "Node.h"
 #include "Wall.h"
+#include "Player.h"
+class Player;
 #define PLAY playLoop::getInstance()
 /*
 * class playLoop
@@ -79,7 +81,7 @@ private:
 	Object* paddleLeft;
 	Object* paddleRight;
 	Object* Ball;
-	
+	Player* player;
 	aie::Input *input;
 	float switchStateTimer;
 	

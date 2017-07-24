@@ -86,8 +86,21 @@ void NodeManager::linkNodes()
 			}
 		}
 	}
+	wallSetter(1);
+	wallSetter(2);
+	wallSetter(3);
+	wallSetter(4);
+	wallSetter(25);
+	wallSetter(59);
 
-	wallSetter(76);
+
+
+	wallSetter((18 * 5) + 9);
+	wallSetter((18 * 6) + 9);
+	wallSetter((18 * 5) + 10);
+	wallSetter((18 * 6) + 10);
+
+
 	//wallSetter(131);
 	/*wallSetter(2);
 	wallSetter(3);
@@ -109,20 +122,14 @@ void NodeManager::linkNodes()
 	wallSetter(80);
 	wallSetter(81);
 	wallSetter(82);*/
+	CleanUpEdgePointers();
 }
 
 
 
 void NodeManager::linkEdges()
 {
-	//for (int i = 0; i <= GAMESETTINGS->windowLength; i = i + 50)
-	//{
-	//	for (int j = 0; j <= GAMESETTINGS->windowHeight; j = j + 50)
-	//	{
 
-	//	}
-
-	//}
 
 }
 
@@ -205,7 +212,7 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 		openSet.remove(node_current);
 		closedSet.push_front(node_current);
 		
-		edgePair neighboursPair;
+	
 
 
 		std::list<Edge* >::iterator edgeIter;
@@ -305,15 +312,57 @@ void NodeManager::wallSetter(int nodeKey)
 	
 		gameNodes[nodeKey].setWalkable(false);
 		std::list<Edge*> empty;
+		Edge* tempEdge = new Edge();
+
+		
+	/*	
+		for (int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
+		{
+			
+			for (auto &currentEdges : gameNodes[nodeKey].links)
+			{
+					for (auto &edges : gameNodes[i].links)
+					{
+						if (edges->keyOne == currentEdges->keyTwo)
+						{
+							gameNodes[i].links.remove(edges);
+						}
+						if (edges->keyTwo == currentEdges->keyOne)
+						{
+							gameNodes[i].links.remove(edges);
+						}
+					}
+			}*/
+
+		//for (auto &&edges : gameNodes[nodeKey].links)
+		std::list<Edge* >::iterator edgeIter;
+		for (edgeIter = gameNodes[nodeKey].links.begin(); edgeIter != gameNodes[nodeKey].links.end(); ++edgeIter)		
+		{
+			if ((*edgeIter)->keyOne == nodeKey)
+			{
+				(*edgeIter)->keyOne = -1;
+			}
+			if ((*edgeIter)->keyTwo == nodeKey)
+			{
+				(*edgeIter)->keyOne = -1;
+			}
+			if ((*edgeIter)->keyOne == -1 &&
+				(*edgeIter)->keyTwo == -1)
+			{
+				delete *edgeIter;
+			}
+		}
+		gameNodes[nodeKey].links.clear();
+
+		
 		// sever any links to the node.
-		gameNodes[nodeKey].links = empty;
 		
 
 		// DIRTY!!! ruins the nodes making a square.
 		// this will need to be changed soon
-		gameNodes[nodeKey + 1].setWalkable(false);
+		/*gameNodes[nodeKey + 1].setWalkable(false);
 		gameNodes[nodeKey + 19].setWalkable(false);
-		gameNodes[nodeKey + 94].setWalkable(false);
+		gameNodes[nodeKey + 94].setWalkable(false);*/
 		/*Node node_current = gameNodes[nodeKey];
 		std::list<Edge* >::iterator edgeIter;
 		std::list<edgePair> neighbours;
@@ -348,6 +397,30 @@ void NodeManager::wallSetter(int nodeKey)
 
 
 		
+}
+
+void NodeManager::CleanUpEdgePointers()
+{
+	std::list<Edge* > ToRemove;
+	std::list<Edge* >::iterator edgeIter;
+	for (int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)// clean up non wall edges that where pointer to a wall
+	{
+		for (edgeIter = gameNodes[i].links.begin(); edgeIter != gameNodes[i].links.end(); ++edgeIter)
+		{
+			Edge* temp = (*edgeIter);
+			if (temp->keyOne == -1 ||
+				temp->keyTwo == -1)
+			{
+				ToRemove.push_back(temp);
+				delete temp;
+			}
+		}
+		for (auto &TOremove : ToRemove)
+		{
+			gameNodes[i].links.remove(TOremove);
+		}
+	}
+	
 }
 
 

@@ -5,7 +5,7 @@
 #include "Renderer2D.h"
 
 #include "GSM.h"
-
+#include "Player.h"
 
 
 class Application2D : public aie::Application {
@@ -36,6 +36,6 @@ public:
 protected:
 
 	GSM *gsm;
-
+	
 
 };

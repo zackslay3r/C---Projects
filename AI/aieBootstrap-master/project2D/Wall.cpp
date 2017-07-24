@@ -15,11 +15,12 @@ Wall::~Wall()
 void Wall::render(int posX, int posY)
 {
 	PLAY->app->m_2dRenderer->setRenderColour(255, 255, 255);
-	PLAY->app->m_2dRenderer->drawBox(float(posX)+25.0f,float(posY)+25.0f,50.0f,50.0f,0.0f,1);
+	PLAY->app->m_2dRenderer->drawBox(float(posX),float(posY),50.0f,50.0f,0.0f,1);
 }
+
 
 void Wall::setPos(int posx, int posy)
 {
-	posX = float(posx);
-	posY = float(posy);
+	position.x = float(posx);
+	position.y = float(posy);
 }

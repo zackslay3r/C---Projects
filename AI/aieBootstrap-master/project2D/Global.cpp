@@ -9,3 +9,5 @@ GameSettings * GameSettings::getInstance()
 GameSettings::GameSettings()
 {
 }
+
+

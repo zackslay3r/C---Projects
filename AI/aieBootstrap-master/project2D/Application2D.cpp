@@ -29,7 +29,7 @@ bool Application2D::startup() {
 	m_2dRenderer = new aie::Renderer2D();
 	// makes the game state manager pointer equal to a new instance of a Game State Manager
 	gsm = new GSM();
-
+	
 	// Register the states into the m_registeredStates map. 
 	//these should be registered based upon the enum value on GameStateID for the id 
 	//and the state should be based on a new instance of the given state (this is for each of the states in my game.
@@ -60,6 +60,7 @@ void Application2D::update(float deltaTime) {
 
 	// Update the states
 	gsm->updateStates(deltaTime);
+	
 
 }
 

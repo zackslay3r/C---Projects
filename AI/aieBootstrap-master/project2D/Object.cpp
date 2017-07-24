@@ -9,7 +9,11 @@ Object::Object()
 
 void Object::render()
 {
-	PLAY->app->m_2dRenderer->drawBox(posX, posY, width, height);
+	
+}
+
+void Object::update(float DT)
+{
 }
 
 
