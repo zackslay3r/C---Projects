@@ -5,6 +5,7 @@
 #include <string>
 #include "NodeManager.h"
 #include "Player.h"
+#include <GLFW/glfw3.h>
 
 //#include "Factory.h"
 NodeManager myNodes;
@@ -19,6 +20,8 @@ playLoop::playLoop()
 	input = aie::Input::getInstance();
 	player = new Player();
 	
+	myWall = new Wall(myNodes.gameNodes[1].posX, myNodes.gameNodes[1].posY);
+	timer = 0.0;
 
 }
 playLoop::~playLoop()
@@ -88,10 +91,58 @@ void playLoop::update(float dt, GSM* gsm)
 	
 	if (checkCollide(player, myWall))
 	{
-	
+		if (player->position.x < 50)
+		{
+			player->position.x = 50;
+		}
+		if (player->position.y >= 50.0f && player->position.y <= 100.0f)
+		{
+			if (player->position.y < 75.0f)
+			{
+				player->position.y = 49.0f;
+			}
+			else
+			{
+				player->position.y = 101.0f;
+			}
+		}
 	}
-		
 	
+	bool fiveSec = TimerTick(dt);
+
+	if (fiveSec == true)
+	{
+		displayPath = true;
+	}
+	else
+	{
+		displayPath = false;
+	}
+			
+			/*std::list<Node*> path;
+			Node* tempPtr;*/
+
+			if (glfwGetTime() > timer)
+			{
+				if (player->closestNode != nullptr)
+				{
+					path.clear();
+					path = myNodes.pathFinding(player->closestNode, &myNodes.gameNodes[560]);
+					tempPtr = path.front();
+					timer = glfwGetTime() + 1.0;
+				}
+				
+				int tempKey;
+				tempKey = myNodes.getIndex(player->position.x, player->position.y);
+				for (int i = 0; i < 576; i++)
+				{
+					if (myNodes.gameNodes[i].key == tempKey)
+					{
+						player->closestNode = &myNodes.gameNodes[i];
+					}
+				}
+			}
+		
 }
 
 
@@ -138,7 +189,9 @@ void playLoop::render()
 			Edge gvd = *(*iter);
 			Edge *fdgvd = (*iter);*/
 
-		}
+		}	
+		
+	
 		std::list<Node*> tmpList;
 		tmpList = myNodes.completedClosedSet;
 		if (myNodes.showClosedSet)
@@ -152,19 +205,24 @@ void playLoop::render()
 			}
 		}
 		
-		std::list<Node*> path;
-		Node* tempPtr;
+			PLAY->app->m_2dRenderer->setRenderColour(255, 0, 0);
+			tempPtr = path.front();
+			for (auto &var : path)
+			{
+				if (var  == path.front())
+				{
+					continue;
+				}
+				
+				PLAY->app->m_2dRenderer->drawLine(tempPtr->posX, tempPtr->posY, var->posX, var->posY, 1.0f, 0);
+				tempPtr = var;
+			}
 		
-		path = myNodes.pathFinding(&myNodes.gameNodes[0], &myNodes.gameNodes[171]);
-		tempPtr = path.front();
 		
-		for (auto &var : path)
-		{
-			PLAY->app->m_2dRenderer->setRenderColour(255,0,0);
-			PLAY->app->m_2dRenderer->drawLine(tempPtr->posX,tempPtr->posY,var->posX,var->posY,1.0f,0);
-			tempPtr = var;
-		}
-
+		/*if (displayPath == true)
+		{*/
+			
+		/*}*/
 	}
 	/*for(int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
 	{*/
@@ -179,7 +237,7 @@ void playLoop::render()
 	//RECODE LATER
 	
 	
-	myWall = new Wall(myNodes.gameNodes[1].posX, myNodes.gameNodes[1].posY);
+	
 	myWall->render();
 
 	player->render();
@@ -212,7 +270,20 @@ bool playLoop::checkCollide(Object* obj1, Object* obj2)
 	return true;
 }
 
-void playLoop::updateStateTimer(float dt)
+bool playLoop::TimerTick(float dt)
 {
-	switchStateTimer += dt;
+	static float updateClock;
+	updateClock += dt;
+
+	if (int(updateClock) % 5 == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+
 }
+

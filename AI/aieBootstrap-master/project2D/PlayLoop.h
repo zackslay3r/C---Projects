@@ -84,7 +84,12 @@ private:
 	Player* player;
 	Wall* myWall;
 	aie::Input *input;
-	float switchStateTimer;
+	double timer;
+	bool displayPath;
+
+	std::list<Node*> path;
+	Node* tempPtr;
+
 	
 	/*	 void updateStateTimer(float dt);
 	*	This function is responsible for updating the timer in the playloop.
@@ -93,5 +98,5 @@ private:
 	*
 	*	@returns void
 	*/
-	void updateStateTimer(float dt);
+	bool TimerTick(float dt);
 };

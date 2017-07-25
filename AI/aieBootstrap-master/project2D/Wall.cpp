@@ -7,6 +7,8 @@ Wall::Wall(float positionx, float positiony)
 {
 	position.x = positionx;
 	position.y = positiony;
+	scale.x = 50.0f;
+	scale.y = 50.0f;
 	
 }
 

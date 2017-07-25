@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "NodeManager.h"
-
+#include <list>
 NodeManager nodes;
 Player::Player()
 {
@@ -60,3 +60,5 @@ void Player::update(float DT)
 Player::~Player()
 {
 }
+
+
