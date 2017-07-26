@@ -1,5 +1,5 @@
 #include "Vector2.h"
-
+#include <math.h>
 
 
 Vector2::Vector2()
@@ -13,6 +13,14 @@ Vector2::Vector2(float newx, float newy)
 {
 	x = newx;
 	y = newy;
+}
+
+void Vector2::normalise()
+{
+	float tempMag = magnitude();
+
+	x /= tempMag;
+	y /= tempMag;
 }
 
 Vector2::~Vector2()
@@ -52,4 +60,9 @@ void Vector2::operator*=(const Vector2 & other)
 Vector2 Vector2::operator*(float scalar)
 {
 	return Vector2(x*scalar, y*scalar);
+}
+
+float Vector2::magnitude()
+{
+	return sqrt((x*x) + (y*y));
 }

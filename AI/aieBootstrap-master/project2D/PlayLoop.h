@@ -3,7 +3,9 @@
 #include "Node.h"
 #include "Wall.h"
 #include "Player.h"
+#include "Enemy.h"
 class Player;
+class Enemy;
 #define PLAY playLoop::getInstance()
 /*
 * class playLoop
@@ -82,6 +84,7 @@ private:
 	Object* paddleRight;
 	Object* Ball;
 	Player* player;
+	Enemy* enemy;
 	Wall* myWall;
 	aie::Input *input;
 	double timer;

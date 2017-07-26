@@ -10,6 +10,7 @@ class Player : public Object
 {
 public:
 	Player();
+	Player(float positionX, float positionY);
 	void render();
 	void update(float dt);
 	/*bool checkCollide(Vector2 shape1Pos, Vector2 shape1Scale, Vector2 shape2Pos, Vector2 shape2Scale);*/

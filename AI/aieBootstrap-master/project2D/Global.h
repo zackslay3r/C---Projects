@@ -4,7 +4,10 @@ namespace StateMangement {
 	enum GameStateID {LOADING, GAME_STATE, SPLASH_STATE, MENU_STATE, PAUSE_STATE, BLAH};
 
 }
+namespace BehaviourManagement {
 
+	enum BehaviourID {SEEK};
+}
 
 // GameSettings is a singleton class that will allow me to dynamically change the screensize as well as the grid square size.
 #define GAMESETTINGS GameSettings::getInstance()

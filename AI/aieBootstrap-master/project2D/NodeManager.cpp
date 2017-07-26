@@ -164,7 +164,7 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 	// This is for the open set of nodes.
 	std::list<Node*> openSet;
 
-	
+	float e = 1.05f;
 	//set the start node to be a part of the open list.
 	openSet.push_front(startNode);
 
@@ -180,7 +180,7 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 	startNode->setdScore(0);
 
 	
-	startNode->setFScore(heuristicEstimate(startNode, endNode));
+	startNode->setFScore(heuristicEstimate(startNode, endNode) * e);
 	Node* node_current = nullptr;
 	while (openSet.size() > 0)
 	{
@@ -260,11 +260,12 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 			
 			var.node->previousNode = node_current;
 			var.node->setdScore(teneative_gScore);
-			var.node->setFScore(var.node->getdScore() + heuristicEstimate(var.node, endNode));
+			var.node->setFScore(var.node->getdScore() + heuristicEstimate(var.node, endNode) * e);
 			
 
 		}
 		completedClosedSet = closedSet;
+		completedOpenSet = openSet;
 	}
 	// This is the previous node to backtrack from
 	

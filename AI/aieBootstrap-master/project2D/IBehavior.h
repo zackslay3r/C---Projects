@@ -6,9 +6,10 @@ class IBehavior
 {
 public:
 	IBehavior();
-	virtual void Update(Object *pObject) = 0;
-private:
+	virtual void Update(Object* pObject,float deltaTime) = 0;
 	~IBehavior();
+private:
+	
 
 };
 

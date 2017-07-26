@@ -9,10 +9,11 @@
 #include "PauseState.h"
 #include "PlayLoop.h"
 #include "SplashState.h"
+#include "Seek.h"
 
 // Using the namespace for the enums for the 
 using namespace StateMangement;
-
+using namespace BehaviourManagement;
 Application2D::Application2D() {
 
 }
@@ -30,6 +31,10 @@ bool Application2D::startup() {
 	// makes the game state manager pointer equal to a new instance of a Game State Manager
 	gsm = new GSM();
 	
+	// Makes a new behaviour manager for all AI to follow.
+	behavemanager = new BehaviourManager();
+
+
 	// Register the states into the m_registeredStates map. 
 	//these should be registered based upon the enum value on GameStateID for the id 
 	//and the state should be based on a new instance of the given state (this is for each of the states in my game.
@@ -39,9 +44,14 @@ bool Application2D::startup() {
 	gsm->registerState(MENU_STATE, new MenuState(this, gsm));
 	gsm->registerState(PAUSE_STATE, new PauseState(this, gsm));
 
+	// register the states for the behaviour manager.
+
+	behavemanager->registerBehaviour(SEEK, new Seek());
+
 
 	// Then we want to push the state we want to use as the state we start on. 
 	gsm->pushState(SPLASH_STATE);
+	
 
 	// and return true. this will then run the program as it has sucessfully initialized. 
 	return true;

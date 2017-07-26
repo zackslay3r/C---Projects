@@ -6,6 +6,7 @@
 #include "NodeManager.h"
 #include "Player.h"
 #include <GLFW/glfw3.h>
+#include "Enemy.h"
 
 //#include "Factory.h"
 NodeManager myNodes;
@@ -18,8 +19,8 @@ playLoop::playLoop()
 	myNodes.fillGameNodes();
 	m_font = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 16));
 	input = aie::Input::getInstance();
-	player = new Player();
-	
+	player = new Player(500,500);
+	enemy = new Enemy(1200,300);
 	myWall = new Wall(myNodes.gameNodes[1].posX, myNodes.gameNodes[1].posY);
 	timer = 0.0;
 
@@ -30,6 +31,9 @@ playLoop::~playLoop()
 	//delete paddleLeft;
 	//delete paddleRight;
 	//delete Ball;
+	delete player;
+	delete enemy;
+
 }
 
 playLoop * playLoop::getInstance()
@@ -42,6 +46,7 @@ playLoop * playLoop::getInstance()
 void playLoop::update(float dt, GSM* gsm)
 {
 	player->update(dt);
+
 	if (input->wasKeyPressed(aie::INPUT_KEY_1) == true)
 	{
 		if (myNodes.showKeys)
@@ -89,6 +94,19 @@ void playLoop::update(float dt, GSM* gsm)
 		}
 	}
 	
+	if (input->wasKeyPressed(aie::INPUT_KEY_5) == true)
+	{
+		if (myNodes.showOpenSet)
+		{
+			myNodes.showOpenSet = false;
+		}
+		else
+		{
+			myNodes.showOpenSet = true;
+		}
+
+	}
+
 	if (checkCollide(player, myWall))
 	{
 		if (player->position.x < 50)
@@ -124,12 +142,14 @@ void playLoop::update(float dt, GSM* gsm)
 
 			if (glfwGetTime() > timer)
 			{
-				if (player->closestNode != nullptr)
+				
+				if(enemy->currentNode != nullptr && player->closestNode != nullptr)
 				{
 					path.clear();
-					path = myNodes.pathFinding(player->closestNode, &myNodes.gameNodes[560]);
+					path = myNodes.pathFinding(enemy->currentNode, player->closestNode);
+					//path = myNodes.pathFinding(player->closestNode, enemy->currentNode);
 					tempPtr = path.front();
-					timer = glfwGetTime() + 1.0;
+					timer = glfwGetTime() + 0.05;
 				}
 				
 				int tempKey;
@@ -141,6 +161,17 @@ void playLoop::update(float dt, GSM* gsm)
 						player->closestNode = &myNodes.gameNodes[i];
 					}
 				}
+
+				int enemyKey;
+				enemyKey = myNodes.getIndex(enemy->position.x, enemy->position.y);
+				for (int i = 0; i < 576; i++)
+				{
+					if (myNodes.gameNodes[i].key == enemyKey)
+					{
+						enemy->currentNode = &myNodes.gameNodes[i];
+					}
+				}
+			
 			}
 		
 }
@@ -201,7 +232,7 @@ void playLoop::render()
 			{
 
 				
-				PLAY->app->m_2dRenderer->drawBox(float(var->posX + 25.0f), float(var->posY + 25.0f), 50.0f, 50.0f);
+				PLAY->app->m_2dRenderer->drawBox(float(var->posX), float(var->posY), 10.0f, 10.0f);
 			}
 		}
 		
@@ -224,6 +255,28 @@ void playLoop::render()
 			
 		/*}*/
 	}
+
+	std::list<Node*> openTmpList;
+	openTmpList = myNodes.completedOpenSet;
+	if (myNodes.showOpenSet)
+	{
+		PLAY->app->m_2dRenderer->setRenderColour(0, 0, 255, 2);
+		for (auto &var : openTmpList)
+		{
+
+
+			PLAY->app->m_2dRenderer->drawBox(float(var->posX), float(var->posY), 10.0f, 10.0f);
+		}
+	}
+
+	
+
+
+	/*if (displayPath == true)
+	{*/
+
+	/*}*/
+
 	/*for(int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
 	{*/
 		/*if(myNodes.gameNodes[i].getWalkable() == false)
@@ -241,6 +294,7 @@ void playLoop::render()
 	myWall->render();
 
 	player->render();
+	enemy->render();
 }
 
 

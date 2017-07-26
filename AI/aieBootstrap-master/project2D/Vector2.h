@@ -71,6 +71,21 @@ public:
 		float e[2];
 	};
 
+	/*	void normalise();
+	*	This function normalises a Vector2.
+	*
+	*
+	*	@returns void
+	*/
+	void normalise();
+
+	/*	float magnitude();
+	*	This function returns a 'float' value that is the magnitude of a Vector2.
+	*
+	*	@returns 'float'
+	*/
+	float magnitude();
+
 
 	~Vector2();
 };

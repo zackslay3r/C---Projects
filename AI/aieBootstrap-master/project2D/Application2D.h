@@ -6,7 +6,7 @@
 
 #include "GSM.h"
 #include "Player.h"
-
+#include "BehaviourManager.h"
 
 class Application2D : public aie::Application {
 public:
@@ -30,12 +30,13 @@ public:
 	//draws the objects.
 	virtual void draw();
 	GSM *getGSM() { return gsm; }
+	BehaviourManager *getBehaviourManager() { return behavemanager; }
 
 	aie::Renderer2D*	m_2dRenderer;
 
 protected:
 
 	GSM *gsm;
-	
+	BehaviourManager *behavemanager;
 
 };

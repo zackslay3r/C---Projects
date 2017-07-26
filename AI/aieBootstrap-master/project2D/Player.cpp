@@ -4,12 +4,23 @@
 NodeManager nodes;
 Player::Player()
 {
-	position.x = 250.0f;
-	position.y = 250.0f;
+	position.x = 0.0f;
+	position.y = 0.0f;
+	scale.x = 25.0f;
+	scale.y = 25.0f;
+	input = aie::Input::getInstance();
+}
+
+Player::Player(float positionX, float positionY)
+{
+	position.x = positionX;
+	position.y = positionY;
 	scale.x = 25.0f;
 	scale.y = 25.0f;
 	input = input = aie::Input::getInstance();
+
 }
+
 
 void Player::render()
 {

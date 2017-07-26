@@ -29,13 +29,13 @@ private:
 		void linkNodes();
 		void linkEdges();
 		bool distanceCheck(Node* nodeOne, float distance, Node* nodeTwo);
-		bool showNodes, showSquares, showKeys , showClosedSet = false;
+		bool showNodes, showSquares, showKeys , showClosedSet, showOpenSet = false;
 		void withinDistance(Node* nodeOne, Node* nodeTwo);
 		std::list<Node*> pathFinding(Node* nodeOne, Node*  nodeTwo);
 		float heuristicEstimate(Node* nodeOne, Node* nodeTwo);
 		std::list<Node*> reconstruct_path(Node* currentNode);
 
-		std::list<Node*> completedClosedSet;
+		std::list<Node*> completedClosedSet, completedOpenSet;
 		void wallSetter(int nodeKey);
 		void CleanUpEdgePointers();
 		float magnitudeSqrd(float x, float y);

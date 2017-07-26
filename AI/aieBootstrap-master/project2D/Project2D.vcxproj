@@ -90,6 +90,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application2D.cpp" />
+    <ClCompile Include="BehaviourManager.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -105,12 +106,14 @@
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayLoop.cpp" />
+    <ClCompile Include="Seek.cpp" />
     <ClCompile Include="SplashState.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application2D.h" />
+    <ClInclude Include="BehaviourManager.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Exeception.h" />
@@ -128,6 +131,7 @@
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayLoop.h" />
+    <ClInclude Include="Seek.h" />
     <ClInclude Include="SplashState.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Wall.h" />
