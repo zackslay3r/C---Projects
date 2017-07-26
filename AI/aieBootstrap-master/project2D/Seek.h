@@ -4,7 +4,7 @@ class Seek : public IBehavior
 {
 public:
 	Seek();
-	void Update(Object *pObject, float dt);
+	void Update(Object *movingObject, Object* movingToo, float dt);
 	~Seek();
 };
 

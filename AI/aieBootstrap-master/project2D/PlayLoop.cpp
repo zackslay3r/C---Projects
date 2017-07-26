@@ -7,6 +7,7 @@
 #include "Player.h"
 #include <GLFW/glfw3.h>
 #include "Enemy.h"
+#include "Seek.h"
 
 //#include "Factory.h"
 NodeManager myNodes;
@@ -21,6 +22,7 @@ playLoop::playLoop()
 	input = aie::Input::getInstance();
 	player = new Player(500,500);
 	enemy = new Enemy(1200,300);
+	enemy->m_behaviours.push_front(new Seek());
 	myWall = new Wall(myNodes.gameNodes[1].posX, myNodes.gameNodes[1].posY);
 	timer = 0.0;
 
@@ -46,7 +48,7 @@ playLoop * playLoop::getInstance()
 void playLoop::update(float dt, GSM* gsm)
 {
 	player->update(dt);
-
+	enemy->update(dt);
 	if (input->wasKeyPressed(aie::INPUT_KEY_1) == true)
 	{
 		if (myNodes.showKeys)
@@ -143,15 +145,16 @@ void playLoop::update(float dt, GSM* gsm)
 			if (glfwGetTime() > timer)
 			{
 				
-				if(enemy->currentNode != nullptr && player->closestNode != nullptr)
-				{
-					path.clear();
-					path = myNodes.pathFinding(enemy->currentNode, player->closestNode);
-					//path = myNodes.pathFinding(player->closestNode, enemy->currentNode);
-					tempPtr = path.front();
-					timer = glfwGetTime() + 0.05;
-				}
 				
+				int enemyKey;
+				enemyKey = myNodes.getIndex(enemy->position.x, enemy->position.y);
+				for (int i = 0; i < 576; i++)
+				{
+					if (myNodes.gameNodes[i].key == enemyKey)
+					{
+						enemy->currentNode = &myNodes.gameNodes[i];
+					}
+				}
 				int tempKey;
 				tempKey = myNodes.getIndex(player->position.x, player->position.y);
 				for (int i = 0; i < 576; i++)
@@ -162,18 +165,58 @@ void playLoop::update(float dt, GSM* gsm)
 					}
 				}
 
-				int enemyKey;
-				enemyKey = myNodes.getIndex(enemy->position.x, enemy->position.y);
-				for (int i = 0; i < 576; i++)
+				if(enemy->currentNode != nullptr && player->closestNode != nullptr)
 				{
-					if (myNodes.gameNodes[i].key == enemyKey)
-					{
-						enemy->currentNode = &myNodes.gameNodes[i];
-					}
+					path.clear();
+					path = myNodes.pathFinding(enemy->currentNode, player->closestNode);
+					//path = myNodes.pathFinding(player->closestNode, enemy->currentNode);
+					tempPtr = path.front();
+					timer = glfwGetTime() + 0.05;
 				}
 			
 			}
 		
+			if (myNodes.distanceCheck(player->closestNode, 200, enemy->currentNode))
+			{
+				for (auto &behaviours : enemy->m_behaviours)
+				{
+					behaviours->Update(enemy, player, dt);
+				}
+			}
+
+			if (player->position.y < 25)
+			{
+				player->position.y = 25;
+			}
+			if (player->position.y > 875)
+			{
+				player->position.y = 875;
+			}
+			if (player->position.x < 25)
+			{
+				player->position.x = 25;
+			}
+			if (player->position.x > 1575)
+			{
+				player->position.x = 1575;
+			}
+
+			if (enemy->position.y < 25)
+			{
+				enemy->position.y = 25;
+			}
+			if (enemy->position.y > 875)
+			{
+				enemy->position.y = 875;
+			}
+			if (enemy->position.x < 25)
+			{
+				enemy->position.x = 25;
+			}
+			if (enemy->position.x > 1575)
+			{
+				enemy->position.x = 1575;
+			}
 }
 
 

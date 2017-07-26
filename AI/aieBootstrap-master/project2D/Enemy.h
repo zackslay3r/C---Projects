@@ -4,7 +4,8 @@
 #include "NodeManager.h"
 #include "PlayLoop.h"
 #include "Application2D.h"
-#include "BehaviourManager.h"
+
+#include "IBehavior.h"
 
 class Enemy : public Object
 {
@@ -19,7 +20,7 @@ public:
 	Node* currentNode;
 	Node* MoveTo;
 
-	BehaviourManager EnemyBehaves;
+	std::list<IBehavior*> m_behaviours;
 
 };
 

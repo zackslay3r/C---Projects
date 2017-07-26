@@ -31,8 +31,7 @@ bool Application2D::startup() {
 	// makes the game state manager pointer equal to a new instance of a Game State Manager
 	gsm = new GSM();
 	
-	// Makes a new behaviour manager for all AI to follow.
-	behavemanager = new BehaviourManager();
+
 
 
 	// Register the states into the m_registeredStates map. 
@@ -46,7 +45,7 @@ bool Application2D::startup() {
 
 	// register the states for the behaviour manager.
 
-	behavemanager->registerBehaviour(SEEK, new Seek());
+	//behavemanager->registerBehaviour(SEEK, new Seek());
 
 
 	// Then we want to push the state we want to use as the state we start on. 

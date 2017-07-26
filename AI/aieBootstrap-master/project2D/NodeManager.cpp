@@ -165,8 +165,8 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 	std::list<Node*> openSet;
 
 	float e = 1.05f;
-	//set the start node to be a part of the open list.
-	openSet.push_front(startNode);
+	
+
 
 	// for every Node, set the gScore to be equal to infinity.
 	for (int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
@@ -176,7 +176,9 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 		gameNodes[i].setFScore(INFINITY);
 		gameNodes[i].setHScore(INFINITY);
 	}
-
+	
+		//set the start node to be a part of the open list.
+	openSet.push_front(startNode);
 	startNode->setdScore(0);
 
 	

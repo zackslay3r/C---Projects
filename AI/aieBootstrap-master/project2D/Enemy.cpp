@@ -1,5 +1,5 @@
 #include "Enemy.h"
-
+#include "Seek.h"
 
 
 Enemy::Enemy()
@@ -16,6 +16,7 @@ Enemy::Enemy(float positionX, float positionY)
 	position.y = positionY;
 	scale.x = 25.0f;
 	scale.y = 25.0f;
+	//velocity = { 50.0f,50.0f };
 }
 
 
@@ -31,4 +32,5 @@ void Enemy::render()
 
 void Enemy::update(float dt)
 {
+	position += velocity * dt;
 }
