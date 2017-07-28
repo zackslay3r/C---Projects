@@ -8,6 +8,7 @@
 #include <GLFW/glfw3.h>
 #include "Enemy.h"
 #include "Seek.h"
+#include "Flee.h"
 
 //#include "Factory.h"
 NodeManager myNodes;
@@ -23,6 +24,7 @@ playLoop::playLoop()
 	player = new Player(500,500);
 	enemy = new Enemy(1200,300);
 	enemy->m_behaviours.push_front(new Seek());
+	enemy->m_behaviours.push_front(new Flee());
 	myWall = new Wall(myNodes.gameNodes[1].posX, myNodes.gameNodes[1].posY);
 	timer = 0.0;
 

@@ -92,6 +92,8 @@
     <ClCompile Include="Application2D.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Flee.cpp" />
+    <ClCompile Include="gameFSM.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Global.cpp" />
     <ClCompile Include="GSM.cpp" />
@@ -115,10 +117,13 @@
     <ClInclude Include="Edge.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Exeception.h" />
+    <ClInclude Include="Flee.h" />
+    <ClInclude Include="gameFSM.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="GSM.h" />
     <ClInclude Include="IBehavior.h" />
+    <ClInclude Include="IGameState.h" />
     <ClInclude Include="IState.h" />
     <ClInclude Include="LoadingState.h" />
     <ClInclude Include="MenuBtn.h" />
