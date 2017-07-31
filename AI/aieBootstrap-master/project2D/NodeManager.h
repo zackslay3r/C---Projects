@@ -42,6 +42,7 @@ private:
 		float magnitude(float x, float y);
 		Node* gameNodes;
 		Edge* gameEdges;
+		
 		NodeManager();
 		// This will be responsible for creating the nodes.
 		~NodeManager();

@@ -33,7 +33,13 @@ playLoop::playLoop()
 	enemy2->m_behaviours.push_front(new Seek(enemy2));
 //	enemy2->m_behaviours.push_front(new Flee());
 
-	myWall = new Wall(myNodes.gameNodes[1].posX, myNodes.gameNodes[1].posY);
+	for (int i = 0; i <= GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
+	{
+		if (myNodes.gameNodes[i].getWalkable() == false)
+		{
+			myWalls.push_back(new Wall(myNodes.gameNodes[i].posX, myNodes.gameNodes[i].posY));
+		}
+	}
 	timer = 0.0;
 
 }
@@ -123,9 +129,16 @@ void playLoop::update(float dt, GSM* gsm)
 		}
 
 	}
-
-	if (checkCollide(player, myWall))
+	for (auto &walls : myWalls)
 	{
+		if (checkCollide(player, walls))
+		{
+		player->velocity -= player->velocity;
+		
+		}
+	}
+	
+	
 		/*if (player->position.x < 50)
 		{
 			player->position.x = 50;
@@ -141,8 +154,8 @@ void playLoop::update(float dt, GSM* gsm)
 				player->position.y = 101.0f;
 			}
 		}*/
-		player->velocity -= player->velocity;
-	}
+		
+	
 	
 	bool fiveSec = TimerTick(dt);
 
@@ -186,7 +199,16 @@ void playLoop::update(float dt, GSM* gsm)
 					path.clear();
 					path = myNodes.pathFinding(enemy->currentNode, player->closestNode);
 					//path = myNodes.pathFinding(player->closestNode, enemy->currentNode);
+					if (path.size() <= 0)
+					{
+						enemy->velocity = { 0.0f,0.0f };
+						enemy2->velocity = { 0.0f,0.0f };
+						tempPtr = nullptr;
+					}
+					else
+					{
 					tempPtr = path.front();
+					}
 					timer = glfwGetTime() + 0.05;
 				}
 			
@@ -296,17 +318,18 @@ void playLoop::render()
 			}
 		}
 		
-			PLAY->app->m_2dRenderer->setRenderColour(255, 0, 0);
-			tempPtr = path.front();
+			
+			//tempPtr = path.front();
 			for (auto &var : path)
 			{
 				if (var  == path.front())
 				{
 					continue;
 				}
-				
-				PLAY->app->m_2dRenderer->drawLine(tempPtr->posX, tempPtr->posY, var->posX, var->posY, 1.0f, 0);
 				tempPtr = var;
+				PLAY->app->m_2dRenderer->setRenderColour(255, 0, 0);
+				PLAY->app->m_2dRenderer->drawLine(tempPtr->posX, tempPtr->posY, var->posX, var->posY, 1.0f, 0);
+				
 			}
 		
 		
@@ -350,8 +373,11 @@ void playLoop::render()
 	//RECODE LATER
 	
 	
+	for (auto &walls : myWalls)
+	{
+		walls->render();
+	}
 	
-	myWall->render();
 
 	player->render();
 	enemy->render();
@@ -371,13 +397,13 @@ bool playLoop::checkCollide(Object* obj1, Object* obj2)
 	float x1Min = shape1Pos.x - shape1Scale.x / 2.0f;
 	float x1Max = shape1Pos.x + shape1Scale.x / 2.0f;
 	float y1Min = shape1Pos.y - shape1Scale.y / 2.0f;
-	float y1Max = shape1Pos.y - shape1Scale.y / 2.0f;
+	float y1Max = shape1Pos.y + shape1Scale.y / 2.0f;
 
 
 	float x2Min = shape2Pos.x - shape2Scale.x / 2.0f;
 	float x2Max = shape2Pos.x + shape2Scale.x / 2.0f;
 	float y2Min = shape2Pos.y - shape2Scale.y / 2.0f;
-	float y2Max = shape2Pos.y - shape2Scale.y / 2.0f;
+	float y2Max = shape2Pos.y + shape2Scale.y / 2.0f;
 
 	if (x1Max < x2Min || x1Min > x2Max) return false;
 	if (y1Max < y2Min || y1Min > y2Max) return false;

@@ -11,7 +11,7 @@ Seek::Seek(Object* myself)
 void Seek::Update(float dt)
 {
 	behaviourWeight = 1.0f;
-	float speed = 200.0f;
+	float speed = 100.0f;
 
 	Vector2 v1 = mySelf->position;
 	// This is downcasting that will tell it to act as though it is a enemy pointer rather then a Object.

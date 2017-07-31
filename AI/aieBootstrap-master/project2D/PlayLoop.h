@@ -86,7 +86,7 @@ private:
 	Player* player;
 	Enemy* enemy;
 	Enemy* enemy2;
-	Wall* myWall;
+	std::vector<Wall*> myWalls;
 	aie::Input *input;
 	double timer;
 	bool displayPath;

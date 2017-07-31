@@ -2,6 +2,8 @@
 #include <list>
 
 
+
+
 NodeManager::NodeManager()
 {
 	gameNodes = new Node[GAMESETTINGS->NODE_ARRAY_LENGTH];
