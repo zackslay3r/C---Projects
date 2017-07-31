@@ -3,6 +3,7 @@
 #include "Node.h"
 #include "Wall.h"
 #include "Player.h"
+#include "NodeManager.h"
 #include "Enemy.h"
 class Player;
 class Enemy;
@@ -23,7 +24,7 @@ public:
 	*	@returns playloop - the playloop itself.
 	*/
 	static playLoop *getInstance();
-	
+	NodeManager myNodes;
 	Application2D *app;
 
 	/*	void update(float dt);

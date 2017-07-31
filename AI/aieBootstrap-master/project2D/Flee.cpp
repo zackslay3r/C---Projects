@@ -11,19 +11,20 @@ Flee::Flee(Object* myself)
 
 void Flee::Update(float dt)
 {
-	
-	float speed = 100.0f;
+	if (behaviourWeight > 0.0f)
+	{
+		float speed = 100.0f;
 
-	Vector2 v1 = mySelf->position;
-	// This is downcasting that will tell it to act as though it is a enemy pointer rather then a Object.
-	Vector2 v2 = ((Enemy*)mySelf)->target->position;
+		Vector2 v1 = mySelf->position;
+		// This is downcasting that will tell it to act as though it is a enemy pointer rather then a Object.
+		Vector2 v2 = ((Enemy*)mySelf)->target->position;
 
-	Vector2 v3 = v1 - v2;
+		Vector2 v3 = v1 - v2;
 
-	v3.normalise();
-	
-	mySelf->velocity = v3 * speed * behaviourWeight;
-	
+		v3.normalise();
+
+		mySelf->velocity = v3 * speed * behaviourWeight;
+	}
 
 
 }

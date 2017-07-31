@@ -13,11 +13,11 @@ public:
 	Enemy();
 	Enemy(float positionX, float positionY);
 	~Enemy();
-
+	int health;
 	void render();
 	void update(float dt);
 	void changeToSeek(Object* target);
-
+	void changeToFlee(Object* awayFromTarget);
 	Node* currentNode;
 	Node* MoveTo;
 	Object* target;

@@ -8,6 +8,7 @@ Enemy::Enemy()
 	position.y = 0.0f;
 	scale.x = 25.0f;
 	scale.y = 25.0f;
+
 }
 
 Enemy::Enemy(float positionX, float positionY)
@@ -45,6 +46,21 @@ void Enemy::changeToSeek(Object * target)
 	for (auto &behaviours : m_behaviours)
 	{
 		if (behaviours->type == 0)
+		{
+			behaviours->behaviourWeight = 1.0f;
+		}
+		else
+		{
+			behaviours->behaviourWeight = 0.0f;
+		}
+	}
+}
+
+void Enemy::changeToFlee(Object * awayFromTarget)
+{
+	for (auto &behaviours : m_behaviours)
+	{
+		if (behaviours->type == 2)
 		{
 			behaviours->behaviourWeight = 1.0f;
 		}

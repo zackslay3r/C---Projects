@@ -3,7 +3,7 @@
 #include "GSM.h"
 #include "Global.h"
 #include <string>
-#include "NodeManager.h"
+
 #include "Player.h"
 #include <GLFW/glfw3.h>
 #include "Enemy.h"
@@ -11,7 +11,7 @@
 #include "Flee.h"
 
 //#include "Factory.h"
-NodeManager myNodes;
+
 using namespace StateMangement;
 
 
@@ -26,7 +26,7 @@ playLoop::playLoop()
 	enemy->target = player;
 	enemy->m_behaviours.push_front(new Seek(enemy));
 	enemy->m_behaviours.push_front(new Flee(enemy));
-
+	enemy->health = 100;
 	enemy2 = new Enemy(1100, 500);
 	enemy2->target = player;
 	enemy2->m_behaviours.push_front(new Seek(enemy2));
@@ -223,6 +223,10 @@ void playLoop::update(float dt, GSM* gsm)
 			{
 				enemy->changeToSeek(player);
 			}
+			if (enemy->health <= 30)
+			{
+				enemy->changeToFlee(player);
+			}
 			/*if (myNodes.distanceCheck(player->closestNode, 150, enemy->currentNode))
 			{
 
@@ -274,6 +278,14 @@ void playLoop::update(float dt, GSM* gsm)
 			{
 				enemy->position.x = 1575;
 			}
+			
+			
+			if (input->wasKeyPressed(aie::INPUT_KEY_SPACE) && checkCollide(player, enemy))
+			{
+				enemy->health -= 10;
+			}
+			
+			
 			enemy->update(dt);
 }
 
@@ -281,7 +293,7 @@ void playLoop::update(float dt, GSM* gsm)
 
 void playLoop::render()
 {
-	
+	std::string healthString = std::to_string(enemy->health);
 
 	// Draws the nodes.
 	for (int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
@@ -372,7 +384,7 @@ void playLoop::render()
 	}
 
 	
-
+	PLAY->app->m_2dRenderer->drawText(m_font.get(), healthString.c_str(), enemy->position.x, enemy->position.y + 30.0f);
 
 	/*if (displayPath == true)
 	{*/
