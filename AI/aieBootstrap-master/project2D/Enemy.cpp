@@ -32,6 +32,7 @@ void Enemy::render()
 
 void Enemy::update(float dt)
 {
+
 	for (auto &behaviours : m_behaviours)
 	{
 		behaviours->Update(dt);
@@ -41,5 +42,15 @@ void Enemy::update(float dt)
 
 void Enemy::changeToSeek(Object * target)
 {
-
+	for (auto &behaviours : m_behaviours)
+	{
+		if (behaviours->type == 0)
+		{
+			behaviours->behaviourWeight = 1.0f;
+		}
+		else
+		{
+			behaviours->behaviourWeight = 0.0f;
+		}
+	}
 }

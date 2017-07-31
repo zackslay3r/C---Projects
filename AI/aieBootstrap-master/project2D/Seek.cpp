@@ -10,7 +10,7 @@ Seek::Seek(Object* myself)
 
 void Seek::Update(float dt)
 {
-	behaviourWeight = 1.0f;
+	
 	float speed = 100.0f;
 
 	Vector2 v1 = mySelf->position;

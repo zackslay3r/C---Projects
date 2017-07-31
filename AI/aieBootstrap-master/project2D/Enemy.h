@@ -22,6 +22,7 @@ public:
 	Node* MoveTo;
 	Object* target;
 
+	
 	std::list<IBehavior*> m_behaviours;
 	std::list<Node*> path;
 

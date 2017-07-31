@@ -4,8 +4,8 @@ class Flee :
 	public IBehavior
 {
 public:
-	Flee();
-	void Update(Object *movingObject, Object* movingToo, float dt);
+	Flee(Object* myself);
+	void Update(float dt);
 	~Flee();
 };
 

@@ -25,8 +25,7 @@ playLoop::playLoop()
 	enemy = new Enemy(1200,300);
 	enemy->target = player;
 	enemy->m_behaviours.push_front(new Seek(enemy));
-	
-	//	enemy->m_behaviours.push_front(new Flee());
+	enemy->m_behaviours.push_front(new Flee(enemy));
 
 	enemy2 = new Enemy(1100, 500);
 	enemy2->target = player;
@@ -42,6 +41,10 @@ playLoop::playLoop()
 	}
 	timer = 0.0;
 
+	for (auto &behaviours : enemy->m_behaviours)
+	{
+		behaviours->behaviourWeight = 0.0f;
+	}
 }
 playLoop::~playLoop()
 {
@@ -63,8 +66,16 @@ playLoop * playLoop::getInstance()
 
 void playLoop::update(float dt, GSM* gsm)
 {
+	for (auto &walls : myWalls)
+	{
+		if (checkCollide(player, walls))
+		{
+			player->velocity -= player->velocity;
+			player->velocity = { 0.0f, 0.0f };
+		}
+	}
 	player->update(dt);
-	enemy->update(dt);
+	
 	for (auto &behaviours : enemy->m_behaviours)
 	{
 		
@@ -129,14 +140,7 @@ void playLoop::update(float dt, GSM* gsm)
 		}
 
 	}
-	for (auto &walls : myWalls)
-	{
-		if (checkCollide(player, walls))
-		{
-		player->velocity -= player->velocity;
-		
-		}
-	}
+	
 	
 	
 		/*if (player->position.x < 50)
@@ -213,15 +217,29 @@ void playLoop::update(float dt, GSM* gsm)
 				}
 			
 			}
-		
-			if (myNodes.distanceCheck(player->closestNode, 200, enemy->currentNode))
+			
+
+			if (myNodes.distanceCheck(player->closestNode, 300, enemy->currentNode))
+			{
+				enemy->changeToSeek(player);
+			}
+			/*if (myNodes.distanceCheck(player->closestNode, 150, enemy->currentNode))
 			{
 
 				for (auto &behaviours : enemy->m_behaviours)
 				{
+					if (behaviours->type == 0)
+					{
+						behaviours->behaviourWeight = 1.0f;
+					}
+					else
+					{
+						behaviours->behaviourWeight = 0.0f;
+					}
 					behaviours->Update(dt);
+					
 				}
-			}
+			}*/
 
 			if (player->position.y < 25)
 			{
@@ -256,6 +274,7 @@ void playLoop::update(float dt, GSM* gsm)
 			{
 				enemy->position.x = 1575;
 			}
+			enemy->update(dt);
 }
 
 

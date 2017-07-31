@@ -10,7 +10,6 @@ seekState::seekState(Application2D * _app, gameFSM * _gamefsm) : IGameState(_app
 
 void seekState::update(float dt)
 {
-
 }
 
 seekState::~seekState()
