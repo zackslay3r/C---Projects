@@ -8,7 +8,7 @@ public:
 	
 	
 	
-
+	
 	Seek(Object* myself);
 	
 	void Update(float dt);

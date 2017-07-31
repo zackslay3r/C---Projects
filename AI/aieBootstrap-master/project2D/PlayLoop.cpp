@@ -201,7 +201,8 @@ void playLoop::update(float dt, GSM* gsm)
 				if(enemy->currentNode != nullptr && player->closestNode != nullptr)
 				{
 					path.clear();
-					path = myNodes.pathFinding(enemy->currentNode, player->closestNode);
+					//path = myNodes.pathFinding(enemy->currentNode, player->closestNode);
+					enemy->path = myNodes.pathFinding(enemy->currentNode, player->closestNode);
 					//path = myNodes.pathFinding(player->closestNode, enemy->currentNode);
 					if (path.size() <= 0)
 					{
@@ -213,7 +214,7 @@ void playLoop::update(float dt, GSM* gsm)
 					{
 					tempPtr = path.front();
 					}
-					timer = glfwGetTime() + 0.05;
+					timer = glfwGetTime() + 1.0;
 				}
 			
 			}
@@ -351,9 +352,9 @@ void playLoop::render()
 		
 			
 			//tempPtr = path.front();
-			for (auto &var : path)
+			for (auto &var : enemy->path)
 			{
-				if (var  == path.front())
+				if (var  == enemy->path.front())
 				{
 					continue;
 				}

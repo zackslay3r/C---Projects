@@ -70,3 +70,18 @@ void Enemy::changeToFlee(Object * awayFromTarget)
 		}
 	}
 }
+
+void Enemy::changeToWander(Object* target)
+{
+	for (auto &behaviours : m_behaviours)
+	{
+		if (behaviours->type == 1)
+		{
+			behaviours->behaviourWeight = 1.0f;
+		}
+		else
+		{
+			behaviours->behaviourWeight = 0.0f;
+		}
+	}
+}

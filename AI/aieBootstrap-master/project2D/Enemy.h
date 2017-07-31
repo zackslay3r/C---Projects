@@ -18,6 +18,7 @@ public:
 	void update(float dt);
 	void changeToSeek(Object* target);
 	void changeToFlee(Object* awayFromTarget);
+	void changeToWander(Object* target);
 	Node* currentNode;
 	Node* MoveTo;
 	Object* target;
