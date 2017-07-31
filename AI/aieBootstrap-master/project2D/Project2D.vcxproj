@@ -108,6 +108,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayLoop.cpp" />
     <ClCompile Include="Seek.cpp" />
+    <ClCompile Include="seekState.cpp" />
     <ClCompile Include="SplashState.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Wall.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayLoop.h" />
     <ClInclude Include="Seek.h" />
+    <ClInclude Include="seekState.h" />
     <ClInclude Include="SplashState.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Wall.h" />

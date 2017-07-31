@@ -2,6 +2,11 @@
 
 
 
+IBehavior::IBehavior(Object* myself)
+{
+	mySelf = myself;
+}
+
 IBehavior::IBehavior()
 {
 }

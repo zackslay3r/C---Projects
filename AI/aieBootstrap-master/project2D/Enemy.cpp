@@ -32,5 +32,14 @@ void Enemy::render()
 
 void Enemy::update(float dt)
 {
-	position += velocity * dt;
+	for (auto &behaviours : m_behaviours)
+	{
+		behaviours->Update(dt);
+	}
+		position += velocity * dt;
+}
+
+void Enemy::changeToSeek(Object * target)
+{
+
 }

@@ -23,8 +23,16 @@ playLoop::playLoop()
 	input = aie::Input::getInstance();
 	player = new Player(500,500);
 	enemy = new Enemy(1200,300);
-	enemy->m_behaviours.push_front(new Seek());
-	enemy->m_behaviours.push_front(new Flee());
+	enemy->target = player;
+	enemy->m_behaviours.push_front(new Seek(enemy));
+	
+	//	enemy->m_behaviours.push_front(new Flee());
+
+	enemy2 = new Enemy(1100, 500);
+	enemy2->target = player;
+	enemy2->m_behaviours.push_front(new Seek(enemy2));
+//	enemy2->m_behaviours.push_front(new Flee());
+
 	myWall = new Wall(myNodes.gameNodes[1].posX, myNodes.gameNodes[1].posY);
 	timer = 0.0;
 
@@ -37,7 +45,7 @@ playLoop::~playLoop()
 	//delete Ball;
 	delete player;
 	delete enemy;
-
+	delete enemy2;
 }
 
 playLoop * playLoop::getInstance()
@@ -51,6 +59,11 @@ void playLoop::update(float dt, GSM* gsm)
 {
 	player->update(dt);
 	enemy->update(dt);
+	for (auto &behaviours : enemy->m_behaviours)
+	{
+		
+	}
+	enemy2->update(dt);
 	if (input->wasKeyPressed(aie::INPUT_KEY_1) == true)
 	{
 		if (myNodes.showKeys)
@@ -113,7 +126,7 @@ void playLoop::update(float dt, GSM* gsm)
 
 	if (checkCollide(player, myWall))
 	{
-		if (player->position.x < 50)
+		/*if (player->position.x < 50)
 		{
 			player->position.x = 50;
 		}
@@ -127,7 +140,8 @@ void playLoop::update(float dt, GSM* gsm)
 			{
 				player->position.y = 101.0f;
 			}
-		}
+		}*/
+		player->velocity -= player->velocity;
 	}
 	
 	bool fiveSec = TimerTick(dt);
@@ -180,9 +194,10 @@ void playLoop::update(float dt, GSM* gsm)
 		
 			if (myNodes.distanceCheck(player->closestNode, 200, enemy->currentNode))
 			{
+
 				for (auto &behaviours : enemy->m_behaviours)
 				{
-					behaviours->Update(enemy, player, dt);
+					behaviours->Update(dt);
 				}
 			}
 
@@ -340,6 +355,7 @@ void playLoop::render()
 
 	player->render();
 	enemy->render();
+	enemy2->render();
 }
 
 

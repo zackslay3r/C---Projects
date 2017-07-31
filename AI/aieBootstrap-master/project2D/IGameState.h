@@ -5,6 +5,7 @@ other class objects will interact with it - Cannot be instantiated, must
 have a child class inherit from it to use*/
 class Application2D;
 class gameFSM;
+class Enemy;
 namespace aie {
 	class Renderer2D;
 	class Font;

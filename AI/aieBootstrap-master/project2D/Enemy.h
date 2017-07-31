@@ -16,11 +16,14 @@ public:
 
 	void render();
 	void update(float dt);
+	void changeToSeek(Object* target);
 
 	Node* currentNode;
 	Node* MoveTo;
+	Object* target;
 
 	std::list<IBehavior*> m_behaviours;
+	std::list<Node*> path;
 
 };
 

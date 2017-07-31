@@ -32,21 +32,22 @@ void Player::update(float DT)
 {
 	if (input->isKeyDown(aie::INPUT_KEY_W))
 	{
-		position.y += 5.0f;
+		velocity.y += 5.0f;
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_S))
 	{
-		position.y -= 5.0f;
+		velocity.y -= 5.0f;
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_A))
 	{
-		position.x -= 5.0f;
+		velocity.x -= 5.0f;
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_D))
 	{
-		position.x += 5.0f;
+		velocity.x += 5.0f;
 	}
 	
+	position += velocity * DT;
 }
 
 //bool Player::checkCollide(Vector2 shape1Pos, Vector2 shape1Scale, Vector2 shape2Pos, Vector2 shape2Scale)

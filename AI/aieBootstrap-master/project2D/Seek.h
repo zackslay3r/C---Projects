@@ -1,10 +1,17 @@
 #pragma once
 #include "IBehavior.h"
+#include "Global.h"
 class Seek : public IBehavior
 {
 public:
-	Seek();
-	void Update(Object *movingObject, Object* movingToo, float dt);
+
+	
+	
+	
+
+	Seek(Object* myself);
+	
+	void Update(float dt);
 	~Seek();
 };
 

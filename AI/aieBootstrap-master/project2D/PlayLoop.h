@@ -85,6 +85,7 @@ private:
 	Object* Ball;
 	Player* player;
 	Enemy* enemy;
+	Enemy* enemy2;
 	Wall* myWall;
 	aie::Input *input;
 	double timer;

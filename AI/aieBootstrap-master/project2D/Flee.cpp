@@ -4,6 +4,7 @@
 
 Flee::Flee()
 {
+	type = BehaviourNames::FLEE;
 }
 
 void Flee::Update(Object * movingObject, Object * movingToo, float dt)
