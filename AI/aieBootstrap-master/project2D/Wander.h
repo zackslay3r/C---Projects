@@ -11,7 +11,7 @@ public:
 	void Update(float dt);
 
 	float wanderRadius = 50.0f;
-	float wanderDistance = 100.0f;
+	float wanderDistance = 200.0f;
 	float wanderJitter = 5.0f;
 	//Vector2 wanderTarget = r
 	~Wander();
