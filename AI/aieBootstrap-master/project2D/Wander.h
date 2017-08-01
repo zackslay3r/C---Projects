@@ -1,5 +1,8 @@
 #pragma once
 #include "IBehavior.h"
+#include "Enemy.h"
+#include "Vector2.h"
+#include "Global.h"
 class Wander :
 	public IBehavior
 {

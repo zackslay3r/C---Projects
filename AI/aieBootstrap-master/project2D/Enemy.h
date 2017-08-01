@@ -25,7 +25,7 @@ public:
 	std::string healthString;
 	
 	std::list<IBehavior*> m_behaviours;
-	std::list<Node*> path, closedSet;
+	std::list<Node*> path, closedSet, openSet;
 
 };
 

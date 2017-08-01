@@ -257,6 +257,7 @@ void playLoop::update(float dt, GSM* gsm)
 						//path = myNodes.pathFinding(enemy->currentNode, player->closestNode);
 						enemys->path = myNodes.pathFinding(enemys->currentNode, player->closestNode);
 						enemys->closedSet = myNodes.completedClosedSet;
+						enemys->openSet = myNodes.completedOpenSet;
 						if (path.size() <= 0)
 						{
 							enemys->velocity = { 0.0f,0.0f };
@@ -266,7 +267,7 @@ void playLoop::update(float dt, GSM* gsm)
 						{
 							tempPtr = path.front();
 						}
-						timer = glfwGetTime() + 0.3;
+						timer = glfwGetTime() + 1.0;
 					}
 				}
 			}
@@ -476,7 +477,7 @@ void playLoop::render()
 		/*}*/
 	}
 
-	std::list<Node*> openTmpList;
+	/*std::list<Node*> openTmpList;
 	openTmpList = myNodes.completedOpenSet;
 	if (myNodes.showOpenSet)
 	{
@@ -486,6 +487,17 @@ void playLoop::render()
 
 
 			PLAY->app->m_2dRenderer->drawBox(float(var->posX), float(var->posY), 10.0f, 10.0f);
+		}
+	}*/
+	if (myNodes.showOpenSet)
+	{
+		PLAY->app->m_2dRenderer->setRenderColour(0, 0, 255, 2);
+		for (auto &enemys : enemies)
+		{
+			for (auto &nodes : enemys->openSet)
+			{
+				PLAY->app->m_2dRenderer->drawBox(float(nodes->posX), float(nodes->posY), 10.0f, 10.0f);
+			}
 		}
 	}
 
