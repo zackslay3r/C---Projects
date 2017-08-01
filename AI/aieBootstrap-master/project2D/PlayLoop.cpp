@@ -188,6 +188,7 @@ void playLoop::update(float dt, GSM* gsm)
 						enemy->currentNode = &myNodes.gameNodes[i];
 					}
 				}
+
 				int tempKey;
 				tempKey = myNodes.getIndex(player->position.x, player->position.y);
 				for (int i = 0; i < 576; i++)
@@ -198,6 +199,7 @@ void playLoop::update(float dt, GSM* gsm)
 					}
 				}
 
+				
 				if(enemy->currentNode != nullptr && player->closestNode != nullptr)
 				{
 					path.clear();
@@ -214,15 +216,16 @@ void playLoop::update(float dt, GSM* gsm)
 					{
 					tempPtr = path.front();
 					}
-					timer = glfwGetTime() + 1.0;
+					timer = glfwGetTime() + 5.0;
 				}
 			
 			}
-			
+			enemy->update(dt);
 
 			if (myNodes.distanceCheck(player->closestNode, 300, enemy->currentNode))
 			{
 				enemy->changeToSeek(player);
+
 			}
 			if (enemy->health <= 30)
 			{
@@ -286,8 +289,8 @@ void playLoop::update(float dt, GSM* gsm)
 				enemy->health -= 10;
 			}
 			
+				
 			
-			enemy->update(dt);
 }
 
 
@@ -295,7 +298,21 @@ void playLoop::update(float dt, GSM* gsm)
 void playLoop::render()
 {
 	std::string healthString = std::to_string(enemy->health);
-
+	
+	PLAY->app->m_2dRenderer->setRenderColour(255, 255, 255);
+	tempPtr = enemy->path.front();
+	for (auto &var : enemy->path)
+	{
+		// if the end of the path is hit, stop the loop.
+		if (var == enemy->path.front())
+		{
+			continue;
+		}
+		
+		
+		PLAY->app->m_2dRenderer->drawLine(tempPtr->posX, tempPtr->posY, var->posX, var->posY, 1.0f, 0);
+		tempPtr = var;
+	}
 	// Draws the nodes.
 	for (int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
 	{
@@ -351,18 +368,7 @@ void playLoop::render()
 		}
 		
 			
-			//tempPtr = path.front();
-			for (auto &var : enemy->path)
-			{
-				if (var  == enemy->path.front())
-				{
-					continue;
-				}
-				tempPtr = var;
-				PLAY->app->m_2dRenderer->setRenderColour(255, 0, 0);
-				PLAY->app->m_2dRenderer->drawLine(tempPtr->posX, tempPtr->posY, var->posX, var->posY, 1.0f, 0);
-				
-			}
+			
 		
 		
 		/*if (displayPath == true)
