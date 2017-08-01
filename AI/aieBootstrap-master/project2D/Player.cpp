@@ -30,13 +30,13 @@ void Player::render()
 
 void Player::update(float DT)
 {
-	if (velocity.x > 150.0f)
+	if (velocity.x > 100.0f)
 	{
-		velocity.x = 150.0f;
+		velocity.x = 100.0f;
 	}
-	if (velocity.y > 150.0f)
+	if (velocity.y > 100.0f)
 	{
-		velocity.y = 150.0f;
+		velocity.y = 100.0f;
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_W))
 	{
@@ -54,6 +54,7 @@ void Player::update(float DT)
 	{
 		velocity.x += 2.0f;
 	}
+	
 	
 	
 	position += velocity * DT;

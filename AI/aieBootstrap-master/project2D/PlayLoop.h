@@ -87,6 +87,7 @@ private:
 	Player* player;
 	Enemy* enemy;
 	Enemy* enemy2;
+	std::vector<Enemy*> enemies;
 	std::vector<Wall*> myWalls;
 	aie::Input *input;
 	double timer;

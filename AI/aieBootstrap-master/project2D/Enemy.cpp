@@ -1,6 +1,6 @@
 #include "Enemy.h"
 #include "Seek.h"
-
+#include <string>
 
 Enemy::Enemy()
 {
@@ -17,6 +17,8 @@ Enemy::Enemy(float positionX, float positionY)
 	position.y = positionY;
 	scale.x = 25.0f;
 	scale.y = 25.0f;
+	health = 100;
+	
 	//velocity = { 50.0f,50.0f };
 }
 

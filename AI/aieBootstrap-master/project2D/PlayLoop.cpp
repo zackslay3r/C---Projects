@@ -3,7 +3,6 @@
 #include "GSM.h"
 #include "Global.h"
 #include <string>
-
 #include "Player.h"
 #include <GLFW/glfw3.h>
 #include "Enemy.h"
@@ -13,7 +12,7 @@
 //#include "Factory.h"
 
 using namespace StateMangement;
-
+using namespace BehaviourManagement;
 
 class Player;
 playLoop::playLoop()
@@ -22,15 +21,26 @@ playLoop::playLoop()
 	m_font = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 16));
 	input = aie::Input::getInstance();
 	player = new Player(500,500);
-	enemy = new Enemy(1200,300);
-	enemy->target = player;
-	enemy->m_behaviours.push_front(new Seek(enemy));
-	enemy->m_behaviours.push_front(new Flee(enemy));
-	enemy->health = 100;
-	enemy2 = new Enemy(1100, 500);
-	enemy2->target = player;
-	enemy2->m_behaviours.push_front(new Seek(enemy2));
-//	enemy2->m_behaviours.push_front(new Flee());
+	enemies.push_back(new Enemy(1200, 300));
+	enemies.push_back(new Enemy(1100, 500));
+	for (auto &enemy : enemies)
+	{
+		enemy->target = player;
+		enemy->m_behaviours.push_front(new Seek(enemy));
+		enemy->m_behaviours.push_front(new Flee(enemy));
+		enemy->health = 100;
+		
+
+	}
+	//enemy = new Enemy(1200,300);
+	//enemy->target = player;
+	//enemy->m_behaviours.push_front(new Seek(enemy));
+	//enemy->m_behaviours.push_front(new Flee(enemy));
+	//enemy->health = 100;
+	//enemy2 = new Enemy(1100, 500);
+	//enemy2->target = player;
+	//enemy2->m_behaviours.push_front(new Seek(enemy2));
+	//enemy2->m_behaviours.push_front(new Flee(enemy2));
 
 	for (int i = 0; i <= GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
 	{
@@ -41,9 +51,12 @@ playLoop::playLoop()
 	}
 	timer = 0.0;
 
-	for (auto &behaviours : enemy->m_behaviours)
+	for (auto &behaviours : enemies)
 	{
-		behaviours->behaviourWeight = 0.0f;
+		for (auto &enemys : behaviours->m_behaviours)
+		{
+			enemys->behaviourWeight = 0.0f;
+		}
 	}
 }
 playLoop::~playLoop()
@@ -53,8 +66,9 @@ playLoop::~playLoop()
 	//delete paddleRight;
 	//delete Ball;
 	delete player;
-	delete enemy;
-	delete enemy2;
+	//delete enemy;
+	//delete enemy2;
+	//delete myWalls;
 }
 
 playLoop * playLoop::getInstance()
@@ -66,21 +80,51 @@ playLoop * playLoop::getInstance()
 
 void playLoop::update(float dt, GSM* gsm)
 {
-	for (auto &walls : myWalls)
-	{
-		if (checkCollide(player, walls))
-		{
-			player->velocity -= player->velocity;
-			player->velocity = { 0.0f, 0.0f };
-		}
-	}
+	
+	Vector2 prevPos = player->position;
+
 	player->update(dt);
 	
 	for (auto &behaviours : enemy->m_behaviours)
 	{
 		
 	}
-	enemy2->update(dt);
+
+	bool reversed = false;
+
+	for (auto &walls : myWalls)
+	{
+		if (checkCollide(player, walls))
+		{
+			/*	if (player->velocity.x > 0)
+			{
+			player->velocity.x -= player->velocity.x + 1.5f;
+			}
+			if (player->velocity.x < 0)
+			{
+			player->velocity.x += player->velocity.x + 1.5f;
+			}
+			if (player->velocity.y > 0)
+			{
+			player->velocity.y -= player->velocity.y + 1.5f;
+			}
+			if (player->velocity.y < 0)
+			{
+			player->velocity.y += player->velocity.y + 1.5f;
+			}*/
+			if (!reversed)
+			{
+				player->position = prevPos;
+				reversed = true;
+				player->velocity = player->velocity * -1.0f;
+
+				break;
+			}
+			//player->velocity = { 0.0f, 0.0f };
+		}
+	}
+
+	//enemy2->update(dt);
 	if (input->wasKeyPressed(aie::INPUT_KEY_1) == true)
 	{
 		if (myNodes.showKeys)
@@ -179,16 +223,19 @@ void playLoop::update(float dt, GSM* gsm)
 			{
 				
 				
-				int enemyKey;
-				enemyKey = myNodes.getIndex(enemy->position.x, enemy->position.y);
-				for (int i = 0; i < 576; i++)
+				for (auto &enemys : enemies)
 				{
-					if (myNodes.gameNodes[i].key == enemyKey)
+
+					int enemyKey;
+					enemyKey = myNodes.getIndex(enemys->position.x, enemys->position.y);
+					for (int i = 0; i < 576; i++)
 					{
-						enemy->currentNode = &myNodes.gameNodes[i];
+						if (myNodes.gameNodes[i].key == enemyKey)
+						{
+							enemys->currentNode = &myNodes.gameNodes[i];
+						}
 					}
 				}
-
 				int tempKey;
 				tempKey = myNodes.getIndex(player->position.x, player->position.y);
 				for (int i = 0; i < 576; i++)
@@ -200,36 +247,60 @@ void playLoop::update(float dt, GSM* gsm)
 				}
 
 				
-				if(enemy->currentNode != nullptr && player->closestNode != nullptr)
+				// for all the enemies, draw their path
+
+				for (auto &enemys : enemies)
 				{
-					path.clear();
-					//path = myNodes.pathFinding(enemy->currentNode, player->closestNode);
-					enemy->path = myNodes.pathFinding(enemy->currentNode, player->closestNode);
-					//path = myNodes.pathFinding(player->closestNode, enemy->currentNode);
-					if (path.size() <= 0)
+					if (enemys->currentNode != nullptr && player->closestNode != nullptr)
 					{
-						enemy->velocity = { 0.0f,0.0f };
-						enemy2->velocity = { 0.0f,0.0f };
-						tempPtr = nullptr;
+						enemys->path.clear();
+						//path = myNodes.pathFinding(enemy->currentNode, player->closestNode);
+						enemys->path = myNodes.pathFinding(enemys->currentNode, player->closestNode);
+						enemys->closedSet = myNodes.completedClosedSet;
+						if (path.size() <= 0)
+						{
+							enemys->velocity = { 0.0f,0.0f };
+							tempPtr = nullptr;
+						}
+						else
+						{
+							tempPtr = path.front();
+						}
+						timer = glfwGetTime() + 0.3;
 					}
-					else
-					{
-					tempPtr = path.front();
-					}
-					timer = glfwGetTime() + 5.0;
 				}
+			}
 			
-			}
-			enemy->update(dt);
-
-			if (myNodes.distanceCheck(player->closestNode, 300, enemy->currentNode))
+			for (auto &enemys : enemies)
 			{
-				enemy->changeToSeek(player);
+				enemys->healthString = std::to_string(enemys->health);
+				if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
+				{
+					if (checkCollide(player, enemys))
+					{
+						enemys->health -= 10;
+					}
+				}
+			}
+			// for all the enemies update them.
+			for (auto &enemys : enemies)
+			{
+				enemys->update(dt);
+			
+
+
+
+			if (myNodes.distanceCheck(player->closestNode, 300, enemys->currentNode))
+			{
+				enemys->changeToSeek(player);
 
 			}
-			if (enemy->health <= 30)
+		
+			if (enemys->health <= 30)
 			{
-				enemy->changeToFlee(player);
+				enemys->changeToFlee(player);
+			}
+			
 			}
 			/*if (myNodes.distanceCheck(player->closestNode, 150, enemy->currentNode))
 			{
@@ -266,28 +337,29 @@ void playLoop::update(float dt, GSM* gsm)
 				player->position.x = 1575;
 			}
 
-			if (enemy->position.y < 25)
+			for (auto &enemys : enemies)
 			{
-				enemy->position.y = 25;
-			}
-			if (enemy->position.y > 875)
-			{
-				enemy->position.y = 875;
-			}
-			if (enemy->position.x < 25)
-			{
-				enemy->position.x = 25;
-			}
-			if (enemy->position.x > 1575)
-			{
-				enemy->position.x = 1575;
+
+				if (enemys->position.y < 25)
+				{
+					enemys->position.y = 25;
+				}
+				if (enemys->position.y > 875)
+				{
+					enemys->position.y = 875;
+				}
+				if (enemys->position.x < 25)
+				{
+					enemys->position.x = 25;
+				}
+				if (enemys->position.x > 1575)
+				{
+					enemys->position.x = 1575;
+				}
+				
 			}
 			
 			
-			if (input->wasKeyPressed(aie::INPUT_KEY_SPACE) && checkCollide(player, enemy))
-			{
-				enemy->health -= 10;
-			}
 			
 				
 			
@@ -297,22 +369,38 @@ void playLoop::update(float dt, GSM* gsm)
 
 void playLoop::render()
 {
-	std::string healthString = std::to_string(enemy->health);
+	
 	
 	PLAY->app->m_2dRenderer->setRenderColour(255, 255, 255);
-	tempPtr = enemy->path.front();
-	for (auto &var : enemy->path)
+	for (auto &enemys : enemies)
 	{
-		// if the end of the path is hit, stop the loop.
-		if (var == enemy->path.front())
+
+		tempPtr = enemys->path.front();
+		for (auto &var : enemys->path)
 		{
-			continue;
+			// if the end of the path is hit, stop the loop.
+			if (var == enemys->path.front())
+			{
+				continue;
+			}
+
+
+			PLAY->app->m_2dRenderer->drawLine(tempPtr->posX, tempPtr->posY, var->posX, var->posY, 1.0f, 0);
+			tempPtr = var;
 		}
-		
-		
-		PLAY->app->m_2dRenderer->drawLine(tempPtr->posX, tempPtr->posY, var->posX, var->posY, 1.0f, 0);
-		tempPtr = var;
 	}
+	//for (auto &var : enemy2->path)
+	//{
+	//	// if the end of the path is hit, stop the loop.
+	//	if (var == enemy2->path.front())
+	//	{
+	//		continue;
+	//	}
+
+
+	//	PLAY->app->m_2dRenderer->drawLine(tempPtr->posX, tempPtr->posY, var->posX, var->posY, 1.0f, 0);
+	//	tempPtr = var;
+	//}
 	// Draws the nodes.
 	for (int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
 	{
@@ -354,9 +442,9 @@ void playLoop::render()
 		}	
 		
 	
-		std::list<Node*> tmpList;
-		tmpList = myNodes.completedClosedSet;
-		if (myNodes.showClosedSet)
+		//std::list<Node*> tmpList;
+		//tmpList = myNodes.completedClosedSet;
+		/*if (myNodes.showClosedSet)
 		{
 			PLAY->app->m_2dRenderer->setRenderColour(0,255,0,2);
 			for (auto &var : tmpList)
@@ -365,8 +453,19 @@ void playLoop::render()
 				
 				PLAY->app->m_2dRenderer->drawBox(float(var->posX), float(var->posY), 10.0f, 10.0f);
 			}
-		}
+		}*/
 		
+		if (myNodes.showClosedSet)
+		{
+			PLAY->app->m_2dRenderer->setRenderColour(0, 255, 0, 2);
+			for (auto &enemys : enemies)
+			{
+				for (auto &nodes : enemys->closedSet)
+				{
+					PLAY->app->m_2dRenderer->drawBox(float(nodes->posX), float(nodes->posY), 10.0f, 10.0f);
+				}
+			}
+		}
 			
 			
 		
@@ -390,9 +489,10 @@ void playLoop::render()
 		}
 	}
 
-	
-	PLAY->app->m_2dRenderer->drawText(m_font.get(), healthString.c_str(), enemy->position.x, enemy->position.y + 30.0f);
-
+	for (auto &enemys : enemies)
+	{
+		PLAY->app->m_2dRenderer->drawText(m_font.get(), enemys->healthString.c_str(), enemys->position.x, enemys->position.y + 30.0f);
+	}
 	/*if (displayPath == true)
 	{*/
 
@@ -418,8 +518,13 @@ void playLoop::render()
 	
 
 	player->render();
-	enemy->render();
-	enemy2->render();
+	//enemy->render();
+	//enemy2->render();
+
+	for (auto &enemies : enemies)
+	{
+		enemies->render();
+	}
 }
 
 

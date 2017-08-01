@@ -22,10 +22,10 @@ public:
 	Node* currentNode;
 	Node* MoveTo;
 	Object* target;
-
+	std::string healthString;
 	
 	std::list<IBehavior*> m_behaviours;
-	std::list<Node*> path;
+	std::list<Node*> path, closedSet;
 
 };
 
