@@ -113,6 +113,7 @@
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="Wander.cpp" />
+    <ClCompile Include="wanderState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application2D.h" />
@@ -142,6 +143,7 @@
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="Wander.h" />
+    <ClInclude Include="wanderState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

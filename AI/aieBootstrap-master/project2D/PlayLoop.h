@@ -41,6 +41,7 @@ public:
 	*/
 	void render();	
 	std::vector<Enemy*> enemies;
+	Player* player;
 private:
 	/*
 	* playLoop();
@@ -85,7 +86,7 @@ private:
 	Object* paddleLeft;
 	Object* paddleRight;
 	Object* Ball;
-	Player* player;
+	
 	Enemy* enemy;
 	Enemy* enemy2;
 

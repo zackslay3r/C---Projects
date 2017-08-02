@@ -9,6 +9,8 @@
 #include "Seek.h"
 #include "Flee.h"
 #include "seekState.h"
+#include "wanderState.h"
+#include "Wander.h"
 
 //#include "Factory.h"
 
@@ -29,10 +31,41 @@ playLoop::playLoop()
 		enemy->target = player;
 		enemy->m_behaviours.push_front(new Seek(enemy));
 		enemy->m_behaviours.push_front(new Flee(enemy));
+		enemy->m_behaviours.push_front(new Wander(enemy));
 		enemy->health = 100;
+		int enemyKey;
+		enemyKey = myNodes.getIndex(enemy->position.x, enemy->position.y);
+		for (int i = 0; i < 576; i++)
+		{
+			if (myNodes.gameNodes[i].key == enemyKey)
+			{
+				if (myNodes.gameNodes[i].getWalkable())
+				{
+					enemy->currentNode = &myNodes.gameNodes[i];
+				}
+			}
+		}
+		enemy->enemyFSM->registerState(WANDER, new wanderState(enemy, enemy->enemyFSM));
 		enemy->enemyFSM->registerState(SEEK, new seekState(enemy, enemy->enemyFSM));
-		enemy->enemyFSM->pushState(SEEK);
+		enemy->enemyFSM->pushState(WANDER);
+
+
 	}
+
+	int tempKey;
+	tempKey = myNodes.getIndex(player->position.x, player->position.y);
+	for (int i = 0; i < 576; i++)
+	{
+		if (myNodes.gameNodes[i].key == tempKey)
+		{
+			if (myNodes.gameNodes[i].getWalkable())
+			{
+				player->closestNode = &myNodes.gameNodes[i];
+			}
+		}
+	}
+
+
 	//enemy = new Enemy(1200,300);
 	//enemy->target = player;
 	//enemy->m_behaviours.push_front(new Seek(enemy));
@@ -52,13 +85,13 @@ playLoop::playLoop()
 	}
 	timer = 0.0;
 
-	for (auto &behaviours : enemies)
-	{
-		for (auto &enemys : behaviours->m_behaviours)
-		{
-			enemys->behaviourWeight = 0.0f;
-		}
-	}
+	//for (auto &behaviours : enemies)
+	//{
+	//	for (auto &enemys : behaviours->m_behaviours)
+	//	{
+	//		enemys->behaviourWeight = 0.0f;
+	//	}
+	//}
 }
 playLoop::~playLoop()
 {
@@ -82,10 +115,7 @@ playLoop * playLoop::getInstance()
 void playLoop::update(float dt, GSM* gsm)
 {
 	
-	for (auto &enemys : enemies)
-	{
-		enemys->enemyFSM->updateStates(dt);
-	}
+	
 
 	Vector2 prevPos = player->position;
 	for (auto &enemys : enemies)
@@ -101,11 +131,11 @@ void playLoop::update(float dt, GSM* gsm)
 		enemys->update(dt);
 
 	}
-
-	for (auto &behaviours : enemy->m_behaviours)
+	for (auto &enemys : enemies)
 	{
-		
+		enemys->enemyFSM->updateStates(dt);
 	}
+
 
 	bool reversedplayers = false;
 	
@@ -345,20 +375,7 @@ void playLoop::update(float dt, GSM* gsm)
 					
 				}
 			}*/
-			for (auto &enemys : enemies)
-			{
-
-				if (myNodes.distanceCheck(player->closestNode, 300, enemys->currentNode))
-				{
-					enemys->changeToSeek(player);
-
-				}
-
-				if (enemys->health <= 30)
-				{
-					enemys->changeToFlee(player);
-				}
-			}
+			
 
 
 			if (player->position.y < 25)
@@ -415,19 +432,22 @@ void playLoop::render()
 	PLAY->app->m_2dRenderer->setRenderColour(255, 255, 255);
 	for (auto &enemys : enemies)
 	{
-
-		tempPtr = enemys->path.front();
-		for (auto &var : enemys->path)
+		if (enemys->path.size() > 0)
 		{
-			// if the end of the path is hit, stop the loop.
-			if (var == enemys->path.front())
+
+			tempPtr = enemys->path.front();
+			for (auto &var : enemys->path)
 			{
-				continue;
+				// if the end of the path is hit, stop the loop.
+				if (var == enemys->path.front())
+				{
+					continue;
+				}
+
+
+				PLAY->app->m_2dRenderer->drawLine(tempPtr->posX, tempPtr->posY, var->posX, var->posY, 1.0f, 0);
+				tempPtr = var;
 			}
-
-
-			PLAY->app->m_2dRenderer->drawLine(tempPtr->posX, tempPtr->posY, var->posX, var->posY, 1.0f, 0);
-			tempPtr = var;
 		}
 	}
 	//for (auto &var : enemy2->path)
