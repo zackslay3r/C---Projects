@@ -39,7 +39,8 @@ public:
 	*
 	*	@returns void
 	*/
-	void render();
+	void render();	
+	std::vector<Enemy*> enemies;
 private:
 	/*
 	* playLoop();
@@ -87,7 +88,7 @@ private:
 	Player* player;
 	Enemy* enemy;
 	Enemy* enemy2;
-	std::vector<Enemy*> enemies;
+
 	std::vector<Wall*> myWalls;
 	aie::Input *input;
 	double timer;

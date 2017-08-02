@@ -3,9 +3,10 @@
 /** This state is an abstract class interface that describes how
 other class objects will interact with it - Cannot be instantiated, must
 have a child class inherit from it to use*/
-class Application2D;
-class gameFSM;
+//class PlayLoop;
 class Enemy;
+class gameFSM;
+
 namespace aie {
 	class Renderer2D;
 	class Font;
@@ -20,7 +21,7 @@ namespace aie {
 
 class IGameState {
 public:
-	IGameState(Application2D *_app, gameFSM *_gsm) : app(_app), gamefsm(_gsm) {};
+	IGameState(Enemy*_enemy, gameFSM *_gsm) : enemy(_enemy), gamefsm(_gsm) {};
 
 	/* virtual ~IState() = default;
 	* This is the virtual destructor for every state.
@@ -40,20 +41,14 @@ public:
 
 	virtual void update(float dt) = 0;
 
-	/*	virtual void render() = 0;
-	*	This function is a pure virtual function that every state should have. This is the render function, which will draw to the screen based on when update happens.
-	*
-	*
-	*	@returns void.
-	*/
-	virtual void render() = 0;
+
 
 
 
 protected:
 	
 	aie::Font *m_font;
-	Application2D *app;
+	Enemy *enemy;
 	gameFSM *gamefsm;
 
 };

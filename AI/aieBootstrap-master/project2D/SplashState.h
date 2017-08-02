@@ -11,8 +11,7 @@
 *
 * @author - Zackary Direen, Academy of Interactive Entertainment, 2017
 */
-class SplashState :
-	public IState {
+class SplashState : public IState {
 public:
 	SplashState(Application2D *_app, GSM *_gsm);
 	

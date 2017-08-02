@@ -161,120 +161,122 @@ void NodeManager::withinDistance(Node* nodeOne, Node* nodeTwo)
 
 std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 {
-	// This is for the closed set of nodes.
-	std::list<Node*> closedSet;
-	// This is for the open set of nodes.
-	std::list<Node*> openSet;
-
-	float e = 1.05f;
-	
-
-
-	// for every Node, set the gScore to be equal to infinity.
-	for (int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
+	if (endNode->getWalkable())
 	{
-		gameNodes[i].setdScore(INFINITY);
-		gameNodes[i].previousNode = nullptr;
-		gameNodes[i].setFScore(INFINITY);
-		gameNodes[i].setHScore(INFINITY);
-	}
-	
+		// This is for the closed set of nodes.
+		std::list<Node*> closedSet;
+		// This is for the open set of nodes.
+		std::list<Node*> openSet;
+
+		float e = 1.05f;
+
+
+
+		// for every Node, set the gScore to be equal to infinity.
+		for (int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
+		{
+			gameNodes[i].setdScore(INFINITY);
+			gameNodes[i].previousNode = nullptr;
+			gameNodes[i].setFScore(INFINITY);
+			gameNodes[i].setHScore(INFINITY);
+		}
+
 		//set the start node to be a part of the open list.
-	openSet.push_front(startNode);
-	startNode->setdScore(0);
+		openSet.push_front(startNode);
+		startNode->setdScore(0);
 
-	
-	startNode->setFScore(heuristicEstimate(startNode, endNode) * e);
-	Node* node_current = nullptr;
-	while (openSet.size() > 0)
-	{
-		// tempNode to evaluate against for finding the finish.
-		
-		
-		std::list<Node* >::iterator iter;
-		Node* tempNode;
-		float tempF = FLT_MAX;
-		
-		// Loops though the open set and will set the current node to the one with the lowest Fscore.
-		for (iter = openSet.begin(); iter != openSet.end(); ++iter)
+
+		startNode->setFScore(heuristicEstimate(startNode, endNode) * e);
+		Node* node_current = nullptr;
+		while (openSet.size() > 0)
 		{
-			if ((*iter)->getFScore() < tempF)
+			// tempNode to evaluate against for finding the finish.
+
+
+			std::list<Node* >::iterator iter;
+			Node* tempNode;
+			float tempF = FLT_MAX;
+
+			// Loops though the open set and will set the current node to the one with the lowest Fscore.
+			for (iter = openSet.begin(); iter != openSet.end(); ++iter)
 			{
-				tempNode = *iter;
-				tempF = (*iter)->getFScore();
+				if ((*iter)->getFScore() < tempF)
+				{
+					tempNode = *iter;
+					tempF = (*iter)->getFScore();
+				}
 			}
+			node_current = tempNode;
+			// if the current key is equal to the endNode key, we have found the endNode
+			if (node_current->key == endNode->key)
+			{
+				return reconstruct_path(node_current);
+
+
+			}
+			// remove from the open set and push onto the closed set.
+			openSet.remove(node_current);
+			closedSet.push_front(node_current);
+
+
+
+
+			std::list<Edge* >::iterator edgeIter;
+			std::list<edgePair> neighbours;
+			for (edgeIter = node_current->links.begin(); edgeIter != node_current->links.end(); ++edgeIter)
+			{
+				if ((*edgeIter)->keyOne != node_current->key)
+				{
+
+					neighbours.push_front({ (*edgeIter)->edgeDistance,&gameNodes[(*edgeIter)->keyOne] });
+				}
+				if ((*edgeIter)->keyTwo != node_current->key)
+				{
+					neighbours.push_front({ (*edgeIter)->edgeDistance,&gameNodes[(*edgeIter)->keyTwo] });
+				}
+
+
+
+
+			}
+
+
+			for (auto &var : neighbours)
+			{
+				if (var.node->getWalkable() == false)
+				{
+					continue;
+				}
+				if (std::find(closedSet.begin(), closedSet.end(), var.node) != closedSet.end())
+				{
+					continue;
+				}
+				if (std::find(openSet.begin(), openSet.end(), var.node) == openSet.end())
+				{
+					openSet.push_back(var.node);
+				}
+
+
+				float teneative_gScore = (node_current->getdScore() + var.edgeDistance);
+				if (teneative_gScore >= var.node->getdScore())
+				{
+					continue;
+				}
+
+
+				var.node->previousNode = node_current;
+				var.node->setdScore(teneative_gScore);
+				var.node->setFScore(var.node->getdScore() + heuristicEstimate(var.node, endNode) * e);
+
+
+			}
+			completedClosedSet = closedSet;
+			completedOpenSet = openSet;
 		}
-		node_current = tempNode;
-		// if the current key is equal to the endNode key, we have found the endNode
-		if (node_current->key == endNode->key)
-		{
-			return reconstruct_path(node_current);
-			
+		// This is the previous node to backtrack from
 
-		}
-		// remove from the open set and push onto the closed set.
-		openSet.remove(node_current);
-		closedSet.push_front(node_current);
-		
-	
-
-
-		std::list<Edge* >::iterator edgeIter;
-		std::list<edgePair> neighbours;
-		for (edgeIter = node_current->links.begin(); edgeIter != node_current->links.end(); ++edgeIter)
-		{
-			if ((*edgeIter)->keyOne != node_current->key)
-			{
-
-				neighbours.push_front({ (*edgeIter)->edgeDistance,&gameNodes[(*edgeIter)->keyOne]});
-			}
-			if ((*edgeIter)->keyTwo != node_current->key)
-			{
-				neighbours.push_front({ (*edgeIter)->edgeDistance,&gameNodes[(*edgeIter)->keyTwo] });
-			}
-			
-			
-	
-
-		}
-		
-
-		for(auto &var: neighbours)
-		{
-			if(var.node->getWalkable() == false)
-			{
-			continue;
-			}
-			if (std::find(closedSet.begin(), closedSet.end(), var.node) != closedSet.end())
-			{
-			continue;
-			}
-			if (std::find(openSet.begin(), openSet.end(), var.node) == openSet.end())
-			{
-			openSet.push_back(var.node);
-			}
-			
-			
-			float teneative_gScore = (node_current->getdScore() + var.edgeDistance);
-			if(teneative_gScore >= var.node->getdScore())
-			{
-			continue;
-			}
-			
-			
-			var.node->previousNode = node_current;
-			var.node->setdScore(teneative_gScore);
-			var.node->setFScore(var.node->getdScore() + heuristicEstimate(var.node, endNode) * e);
-			
-
-		}
-		completedClosedSet = closedSet;
-		completedOpenSet = openSet;
+		// gSco
 	}
-	// This is the previous node to backtrack from
-	
-	// gSco
-
 	return std::list<Node *>();
 }
 

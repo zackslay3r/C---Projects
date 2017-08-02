@@ -1,5 +1,7 @@
 #include "Enemy.h"
 #include "Seek.h"
+#include "seekState.h"
+
 #include <string>
 
 Enemy::Enemy()
@@ -18,13 +20,17 @@ Enemy::Enemy(float positionX, float positionY)
 	scale.x = 25.0f;
 	scale.y = 25.0f;
 	health = 100;
+	enemyFSM = new gameFSM();
 	
 	//velocity = { 50.0f,50.0f };
+	
+	
 }
 
 
 Enemy::~Enemy()
 {
+
 }
 
 void Enemy::render()

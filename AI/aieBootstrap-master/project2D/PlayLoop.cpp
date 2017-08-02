@@ -8,6 +8,7 @@
 #include "Enemy.h"
 #include "Seek.h"
 #include "Flee.h"
+#include "seekState.h"
 
 //#include "Factory.h"
 
@@ -29,8 +30,8 @@ playLoop::playLoop()
 		enemy->m_behaviours.push_front(new Seek(enemy));
 		enemy->m_behaviours.push_front(new Flee(enemy));
 		enemy->health = 100;
-		
-
+		enemy->enemyFSM->registerState(SEEK, new seekState(enemy, enemy->enemyFSM));
+		enemy->enemyFSM->pushState(SEEK);
 	}
 	//enemy = new Enemy(1200,300);
 	//enemy->target = player;
@@ -81,16 +82,33 @@ playLoop * playLoop::getInstance()
 void playLoop::update(float dt, GSM* gsm)
 {
 	
+	for (auto &enemys : enemies)
+	{
+		enemys->enemyFSM->updateStates(dt);
+	}
+
 	Vector2 prevPos = player->position;
+	for (auto &enemys : enemies)
+	{
+		enemys->previousPos = enemys->position;
+	}
 
 	player->update(dt);
 	
+
+	for (auto &enemys : enemies)
+	{
+		enemys->update(dt);
+
+	}
+
 	for (auto &behaviours : enemy->m_behaviours)
 	{
 		
 	}
 
-	bool reversed = false;
+	bool reversedplayers = false;
+	
 
 	for (auto &walls : myWalls)
 	{
@@ -112,10 +130,10 @@ void playLoop::update(float dt, GSM* gsm)
 			{
 			player->velocity.y += player->velocity.y + 1.5f;
 			}*/
-			if (!reversed)
+			if (!reversedplayers)
 			{
 				player->position = prevPos;
-				reversed = true;
+				reversedplayers = true;
 				player->velocity = player->velocity * -1.0f;
 
 				break;
@@ -123,6 +141,25 @@ void playLoop::update(float dt, GSM* gsm)
 			//player->velocity = { 0.0f, 0.0f };
 		}
 	}
+		for (auto &enemys : enemies)
+		{
+			bool reversedenemies = false;
+			for (auto &walls : myWalls)
+			{
+				if (checkCollide(enemys, walls))
+				{
+					if (!reversedenemies)
+					{
+						enemys->position = enemys->previousPos;
+						reversedenemies = true;
+						enemys->velocity = enemys->velocity * -1.0f;
+
+						break;
+					}
+				}
+			}
+		}
+	
 
 	//enemy2->update(dt);
 	if (input->wasKeyPressed(aie::INPUT_KEY_1) == true)
@@ -232,7 +269,10 @@ void playLoop::update(float dt, GSM* gsm)
 					{
 						if (myNodes.gameNodes[i].key == enemyKey)
 						{
-							enemys->currentNode = &myNodes.gameNodes[i];
+							if (myNodes.gameNodes[i].getWalkable())
+							{
+								enemys->currentNode = &myNodes.gameNodes[i];
+							}
 						}
 					}
 				}
@@ -242,7 +282,10 @@ void playLoop::update(float dt, GSM* gsm)
 				{
 					if (myNodes.gameNodes[i].key == tempKey)
 					{
-						player->closestNode = &myNodes.gameNodes[i];
+						if (myNodes.gameNodes[i].getWalkable())
+						{
+							player->closestNode = &myNodes.gameNodes[i];
+						}
 					}
 				}
 
@@ -284,25 +327,7 @@ void playLoop::update(float dt, GSM* gsm)
 				}
 			}
 			// for all the enemies update them.
-			for (auto &enemys : enemies)
-			{
-				enemys->update(dt);
 			
-
-
-
-			if (myNodes.distanceCheck(player->closestNode, 300, enemys->currentNode))
-			{
-				enemys->changeToSeek(player);
-
-			}
-		
-			if (enemys->health <= 30)
-			{
-				enemys->changeToFlee(player);
-			}
-			
-			}
 			/*if (myNodes.distanceCheck(player->closestNode, 150, enemy->currentNode))
 			{
 
@@ -320,6 +345,21 @@ void playLoop::update(float dt, GSM* gsm)
 					
 				}
 			}*/
+			for (auto &enemys : enemies)
+			{
+
+				if (myNodes.distanceCheck(player->closestNode, 300, enemys->currentNode))
+				{
+					enemys->changeToSeek(player);
+
+				}
+
+				if (enemys->health <= 30)
+				{
+					enemys->changeToFlee(player);
+				}
+			}
+
 
 			if (player->position.y < 25)
 			{

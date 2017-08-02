@@ -4,3 +4,8 @@ namespace StateMangement {
 	enum GameStateID {LOADING, GAME_STATE, SPLASH_STATE, MENU_STATE, PAUSE_STATE, BLAH};
 
 }
+namespace BehaviourMangement
+{
+	enum BehaviourID {WANDER, SEEK, FLEE};
+
+}

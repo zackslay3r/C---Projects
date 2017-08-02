@@ -1,5 +1,6 @@
 #include "gameFSM.h"
 #include "IGameState.h"
+#
 #include <list>
 
 gameFSM::gameFSM()
@@ -76,7 +77,9 @@ IGameState * gameFSM::getTopState()
 
 void gameFSM::processCommands()
 {
-	for (auto &var : m_commands) {
+	for (auto &var : m_commands)
+	{
+
 		/* Since an iterator points to the memory location of each item in the list, we'll dereference this
 		to get the item itself and make the code easier to read*/
 		ICommand &command = var;
@@ -110,11 +113,15 @@ void gameFSM::processCommands()
 
 
 
+
+		
 		}
-		// Clear the command queue after we're done so we don't re-execute old commands
-		m_commands.clear();
+		
 	}
+	// Clear the command queue after we're done so we don't re-execute old commands
+		m_commands.clear();
 }
+
 
 void gameFSM::proceesRegisterState(int ID, IGameState * state)
 {

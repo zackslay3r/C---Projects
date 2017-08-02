@@ -4,9 +4,11 @@
 #include "NodeManager.h"
 #include "PlayLoop.h"
 #include "Application2D.h"
-
+#include "gameFSM.h"
 #include "IBehavior.h"
+#include "Global.h"
 
+using namespace BehaviourManagement;
 class Enemy : public Object
 {
 public:
@@ -23,9 +25,9 @@ public:
 	Node* MoveTo;
 	Object* target;
 	std::string healthString;
-	
+	Vector2 previousPos;
 	std::list<IBehavior*> m_behaviours;
 	std::list<Node*> path, closedSet, openSet;
-
+	gameFSM* enemyFSM;
 };
 

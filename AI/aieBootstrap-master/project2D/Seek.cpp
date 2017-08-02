@@ -51,8 +51,7 @@ void Seek::Update(float dt)
 
 		if (((Enemy*)mySelf)->path.size() <= 0)
 		{
-			mySelf->velocity = {
-				0,0 };
+			mySelf->velocity = {0,0 };
 		}
 	}
 
