@@ -11,6 +11,7 @@
 #include "seekState.h"
 #include "wanderState.h"
 #include "Wander.h"
+#include "fleeState.h"
 
 //#include "Factory.h"
 
@@ -47,7 +48,8 @@ playLoop::playLoop()
 		}
 		enemy->enemyFSM->registerState(WANDER, new wanderState(enemy, enemy->enemyFSM));
 		enemy->enemyFSM->registerState(SEEK, new seekState(enemy, enemy->enemyFSM));
-		enemy->enemyFSM->pushState(WANDER);
+		enemy->enemyFSM->registerState(FLEE, new fleeState(enemy, enemy->enemyFSM));
+		enemy->enemyFSM->pushState(SEEK);
 
 
 	}

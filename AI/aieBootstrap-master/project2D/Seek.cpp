@@ -53,6 +53,12 @@ void Seek::Update(float dt)
 		{
 			mySelf->velocity = {0,0 };
 		}
+
+		if (((Enemy*)mySelf)->health < 30)
+		{
+			((Enemy*)mySelf)->enemyFSM->popState();
+			((Enemy*)mySelf)->enemyFSM->pushState(FLEE);
+		}
 	}
 
 
