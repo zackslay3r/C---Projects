@@ -33,6 +33,10 @@ playLoop::playLoop()
 		enemy->m_behaviours.push_front(new Seek(enemy));
 		enemy->m_behaviours.push_front(new Flee(enemy));
 		enemy->m_behaviours.push_front(new Wander(enemy));
+		for (auto &behaviours : enemy->m_behaviours)
+		{
+			behaviours->behaviourWeight = 0.0f;
+		}
 		enemy->health = 100;
 		int enemyKey;
 		enemyKey = myNodes.getIndex(enemy->position.x, enemy->position.y);
