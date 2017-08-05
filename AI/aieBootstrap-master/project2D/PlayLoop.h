@@ -24,7 +24,9 @@ public:
 	*	@returns playloop - the playloop itself.
 	*/
 	static playLoop *getInstance();
+	
 	NodeManager myNodes;
+	
 	Application2D *app;
 
 	/*	void update(float dt);

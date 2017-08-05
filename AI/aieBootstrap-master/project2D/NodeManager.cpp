@@ -1,6 +1,6 @@
 #include "NodeManager.h"
 #include <list>
-
+#include "Vector2.h"
 
 
 
@@ -143,6 +143,17 @@ bool NodeManager::distanceCheck(Node * nodeOne, float distance, Node * nodeTwo)
 	float DistY = nodeOne->posY - nodeTwo->posY;
 
 	return (magnitudeSqrd(DistX, DistY) < (distance * distance));
+
+}
+
+bool NodeManager::distanceCheck(Object * objectOne, float distance, Object * objectTwo)
+{
+	// temp x and temp y is used to store the values when node one and node two are minused.
+
+	Vector2 tempVector;
+	tempVector = { objectOne->position - objectTwo->position };
+
+	return (magnitudeSqrd(tempVector.x, tempVector.y) < (distance * distance));
 
 }
 float NodeManager::magnitudeSqrd(float x, float y)

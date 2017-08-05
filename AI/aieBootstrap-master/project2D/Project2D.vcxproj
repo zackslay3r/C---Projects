@@ -89,7 +89,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Alignment.cpp" />
     <ClCompile Include="Application2D.cpp" />
+    <ClCompile Include="Cohesion.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Flee.cpp" />
@@ -110,6 +112,7 @@
     <ClCompile Include="PlayLoop.cpp" />
     <ClCompile Include="Seek.cpp" />
     <ClCompile Include="seekState.cpp" />
+    <ClCompile Include="Separation.cpp" />
     <ClCompile Include="SplashState.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Wall.cpp" />
@@ -117,7 +120,9 @@
     <ClCompile Include="wanderState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Alignment.h" />
     <ClInclude Include="Application2D.h" />
+    <ClInclude Include="Cohesion.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Exeception.h" />
@@ -141,6 +146,7 @@
     <ClInclude Include="PlayLoop.h" />
     <ClInclude Include="Seek.h" />
     <ClInclude Include="seekState.h" />
+    <ClInclude Include="Separation.h" />
     <ClInclude Include="SplashState.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Wall.h" />

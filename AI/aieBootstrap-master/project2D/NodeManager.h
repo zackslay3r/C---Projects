@@ -2,6 +2,7 @@
 #include "Node.h"
 #include "Edge.h"
 #include "Global.h"
+#include "Object.h"
 class NodeManager
 {
 private:
@@ -29,6 +30,7 @@ private:
 		void linkNodes();
 		void linkEdges();
 		bool distanceCheck(Node* nodeOne, float distance, Node* nodeTwo);
+		bool distanceCheck(Object * objectOne, float distance, Object * objectTwo);
 		bool showNodes, showSquares, showKeys , showClosedSet, showOpenSet = false;
 		void withinDistance(Node* nodeOne, Node* nodeTwo);
 		std::list<Node*> pathFinding(Node* nodeOne, Node*  nodeTwo);

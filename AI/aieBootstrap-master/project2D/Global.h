@@ -6,7 +6,7 @@ namespace StateMangement {
 }
 namespace BehaviourManagement {
 
-	enum BehaviourID {SEEK, WANDER,FLEE };
+	enum BehaviourID {SEEK, WANDER, FLEE};
 }
 
 
