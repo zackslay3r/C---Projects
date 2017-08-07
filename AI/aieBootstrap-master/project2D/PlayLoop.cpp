@@ -50,16 +50,16 @@ playLoop::playLoop()
 			}
 		}
 		enemy->changeToWander(enemy);
+		
+	
+		theBoard->activeEnemies.push_back(enemy);
+	}
+	
 		stateEnemy->enemyFSM->registerState(WANDER, new wanderState(stateEnemy, stateEnemy->enemyFSM));
 		stateEnemy->enemyFSM->registerState(SEEK, new seekState(stateEnemy, stateEnemy->enemyFSM));
 		stateEnemy->enemyFSM->registerState(FLEE, new fleeState(stateEnemy, stateEnemy->enemyFSM));
 
 		stateEnemy->enemyFSM->pushState(WANDER);
-	
-		theBoard->activeEnemies.push_back(enemy);
-	}
-	
-		
 
 	
 

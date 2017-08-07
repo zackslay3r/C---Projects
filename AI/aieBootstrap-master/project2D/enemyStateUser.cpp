@@ -27,10 +27,11 @@ void enemyStateUser::render()
 
 void enemyStateUser::update(float dt)
 {
-	for (auto &behaviours : m_behaviours)
+	/*for (auto &states : m_behaviours)
 	{
-		behaviours->Update(dt);
-	}
+		enemyFSM->updateStates(dt);
+	}*/
+	enemyFSM->updateStates(dt);
 	position += velocity * dt;
 }
 

@@ -17,9 +17,13 @@ void gameFSM::updateStates(float deltaTime)
 	// We are now going to update the active states based upon the the state itself, and will then update based on the command given (Register, push, pop)
 	processCommands();
 	// and then we are going to update the active states based on delta time.
-	for (auto iter = m_activeStates.begin(); iter != m_activeStates.end(); iter++)
+	/*for (auto iter = m_activeStates.begin(); iter != m_activeStates.end(); iter++)
 	{
 		(*iter)->update(deltaTime);
+	}*/
+	for (auto &iter : m_activeStates)
+	{
+		iter->update(deltaTime);
 	}
 }
 
