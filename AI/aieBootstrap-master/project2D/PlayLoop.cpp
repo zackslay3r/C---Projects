@@ -205,6 +205,26 @@ void playLoop::update(float dt, GSM* gsm)
 	
 
 	//enemy2->update(dt);
+		if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
+		{
+			int mX = 0;
+			int mY = 0;
+			input->getMouseXY(&mX, &mX);
+			Vector2 mousePos = { float(mX),float(mY) };
+
+			int tempKey = 0;
+			tempKey = myNodes.getIndex(mousePos.x, mousePos.y);
+
+			for (int i = 0 ; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
+			{
+				if (tempKey == myNodes.gameNodes[i].key)
+				{
+					myNodes.wallSetter(myNodes.gameNodes[i].key);
+					myWalls.push_back(new Wall(myNodes.gameNodes[i].posX, myNodes.gameNodes[i].posY));
+				}
+			}
+		}
+
 	if (input->wasKeyPressed(aie::INPUT_KEY_1) == true)
 	{
 		if (myNodes.showKeys)
