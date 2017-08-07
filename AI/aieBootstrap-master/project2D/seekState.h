@@ -2,11 +2,11 @@
 #include "IGameState.h"
 
 
-class Enemy;
+class enemyStateUser;
 class seekState : public IGameState
 {
 public:
-	seekState(Enemy *_ploop, gameFSM *_gamefsm);
+	seekState(enemyStateUser *_ploop, gameFSM *_gamefsm);
 	
 	virtual void update(float dt);
 	 ~seekState();

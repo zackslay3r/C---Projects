@@ -63,7 +63,13 @@ void Seek::Update(float dt)
 			mySelf->velocity = {0,0 };
 		}
 
-	
+		PLAY->theBoard->isSeeking.push_back(((Enemy*)mySelf));
+		PLAY->theBoard->seekAsWell();
+		
+		if (((Enemy*)mySelf)->health <= 30)
+		{
+			((Enemy*)mySelf)->changeToFlee(((Enemy*)mySelf));
+		}
 	}
 
 

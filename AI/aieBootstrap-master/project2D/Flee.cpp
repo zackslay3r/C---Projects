@@ -23,7 +23,10 @@ void Flee::Update(float dt)
 
 		v3.normalise();
 
+		((Enemy*)mySelf)->utility->runAway(((Enemy*)mySelf));
+		
 		mySelf->velocity = v3 * speed * behaviourWeight;
+
 	}
 
 

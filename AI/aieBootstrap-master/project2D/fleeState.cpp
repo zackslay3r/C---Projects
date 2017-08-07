@@ -4,18 +4,18 @@
 
 
 
-fleeState::fleeState(Enemy * _myself, gameFSM * _gamefsm): IGameState(_myself, _gamefsm)
+fleeState::fleeState(enemyStateUser * _myself, gameFSM * _gamefsm): IGameState(_myself, _gamefsm)
 {
-	myself = _myself;
+	enemyStateMyself = _myself;
 }
 
 void fleeState::update(float dt)
 {
-	for (auto &behaviours : myself->m_behaviours)
+	for (auto &behaviours : enemyStateMyself->m_behaviours)
 	{
 		if (behaviours->type == FLEE)
 		{
-			myself->utility->runAway(myself);
+			enemyStateMyself->utility->runAway(enemyStateMyself);
 			behaviours->Update(dt);
 			
 		}

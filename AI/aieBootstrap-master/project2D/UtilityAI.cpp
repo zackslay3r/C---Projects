@@ -46,6 +46,45 @@ void UtilityAI::runAway(Enemy* myself)
 	
 }
 
+void UtilityAI::runAway(enemyStateUser * stateEnemy)
+{
+	float tempHealth = 0;
+
+	tempHealth = stateEnemy->health / 10;
+	if (tempHealth <= 3.0)
+	{
+		for (auto &behaviours : stateEnemy->m_behaviours)
+		{
+			if (behaviours->type == FLEE)
+			{
+				behaviours->behaviourWeight = 1.0f;
+			}
+		}
+	}
+
+	if (tempHealth <= 2.0)
+	{
+		for (auto &behaviours : stateEnemy->m_behaviours)
+		{
+			if (behaviours->type == FLEE)
+			{
+				behaviours->behaviourWeight = 2.0f;
+			}
+		}
+	}
+	if (tempHealth <= 1.0)
+	{
+		for (auto &behaviours : stateEnemy->m_behaviours)
+		{
+			if (behaviours->type == FLEE)
+			{
+				behaviours->behaviourWeight = 3.0f;
+			}
+		}
+	}
+
+}
+
 UtilityAI::~UtilityAI()
 {
 }

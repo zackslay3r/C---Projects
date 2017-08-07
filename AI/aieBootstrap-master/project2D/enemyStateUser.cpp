@@ -1,56 +1,40 @@
-#include "Enemy.h"
-#include "Seek.h"
-#include "seekState.h"
+#include "enemyStateUser.h"
 
-#include <string>
 
-Enemy::Enemy()
+
+enemyStateUser::enemyStateUser()
 {
-	position.x = 0.0f;
-	position.y = 0.0f;
-	scale.x = 25.0f;
-	scale.y = 25.0f;
-
 }
 
-Enemy::Enemy(float positionX, float positionY)
+enemyStateUser::enemyStateUser(float positionX, float positionY)
 {
 	position.x = positionX;
 	position.y = positionY;
 	scale.x = 25.0f;
 	scale.y = 25.0f;
 	health = 100;
-
+	enemyFSM = new gameFSM();
 	utility = new UtilityAI();
 	velocity = { 5,5 };
-	
-	
+
 }
 
-
-Enemy::~Enemy()
-{
-	
-	delete utility;
-}
-
-void Enemy::render()
+void enemyStateUser::render()
 {
 	PLAY->app->m_2dRenderer->setRenderColour(255, 0, 0);
 	PLAY->app->m_2dRenderer->drawBox(position.x, position.y, scale.x, scale.y);
 }
 
-void Enemy::update(float dt)
+void enemyStateUser::update(float dt)
 {
-
 	for (auto &behaviours : m_behaviours)
 	{
 		behaviours->Update(dt);
 	}
-		position += velocity * dt;
+	position += velocity * dt;
 }
 
-void Enemy::changeToSeek(Object * target)
+void enemyStateUser::changeToSeek(Object * target)
 {
 	for (auto &behaviours : m_behaviours)
 	{
@@ -65,7 +49,7 @@ void Enemy::changeToSeek(Object * target)
 	}
 }
 
-void Enemy::changeToFlee(Object * awayFromTarget)
+void enemyStateUser::changeToFlee(Object * awayFromTarget)
 {
 	for (auto &behaviours : m_behaviours)
 	{
@@ -80,7 +64,7 @@ void Enemy::changeToFlee(Object * awayFromTarget)
 	}
 }
 
-void Enemy::changeToWander(Object* target)
+void enemyStateUser::changeToWander(Object * target)
 {
 	for (auto &behaviours : m_behaviours)
 		if (behaviours->type != BehaviourID::WANDER)
@@ -91,4 +75,9 @@ void Enemy::changeToWander(Object* target)
 		{
 			behaviours->behaviourWeight = 1.0f;
 		}
+}
+
+
+enemyStateUser::~enemyStateUser()
+{
 }

@@ -27,6 +27,7 @@ playLoop::playLoop()
 	m_font = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 16));
 	input = aie::Input::getInstance();
 	player = new Player(500,500);
+	stateEnemy = new enemyStateUser(1150,600);
 	enemies.push_back(new Enemy(1200, 300));
 	enemies.push_back(new Enemy(1100, 500));
 	for (auto &enemy : enemies)
@@ -48,11 +49,12 @@ playLoop::playLoop()
 				}
 			}
 		}
-		enemy->enemyFSM->registerState(WANDER, new wanderState(enemy, enemy->enemyFSM));
-		enemy->enemyFSM->registerState(SEEK, new seekState(enemy, enemy->enemyFSM));
-		enemy->enemyFSM->registerState(FLEE, new fleeState(enemy, enemy->enemyFSM));
+		enemy->changeToWander(enemy);
+		stateEnemy->enemyFSM->registerState(WANDER, new wanderState(stateEnemy, stateEnemy->enemyFSM));
+		stateEnemy->enemyFSM->registerState(SEEK, new seekState(stateEnemy, stateEnemy->enemyFSM));
+		stateEnemy->enemyFSM->registerState(FLEE, new fleeState(stateEnemy, stateEnemy->enemyFSM));
 
-		enemy->enemyFSM->pushState(WANDER);
+		stateEnemy->enemyFSM->pushState(WANDER);
 	
 		theBoard->activeEnemies.push_back(enemy);
 	}
@@ -141,16 +143,29 @@ void playLoop::update(float dt, GSM* gsm)
 		enemys->update(dt);
 
 	}
+	stateEnemy->update(dt);
+	
+	
 	for (auto &enemys : enemies)
 	{
-		enemys->enemyFSM->updateStates(dt);
-		
-		enemys->velocity.x = enemys->velocity.x / float(enemys->enemyFSM->amountOfActive);
-		enemys->velocity.y = enemys->velocity.y / float(enemys->enemyFSM->amountOfActive);
+		int nullBeheaviours = 0;
+		for (auto &behaviours : enemys->m_behaviours)
+		{
+			if (behaviours->behaviourWeight <= 0.0f)
+			{
+				nullBeheaviours++;
+			}
+		}
+		enemys->velocity.x = enemys->velocity.x / float(enemys->m_behaviours.size() - nullBeheaviours);
+		enemys->velocity.y = enemys->velocity.y / float(enemys->m_behaviours.size() - nullBeheaviours);
+
 	}
-
-
-	bool reversedplayers = false;
+	
+	for (auto &enemys : enemies)
+	{
+		
+	}
+		bool reversedplayers = false;
 	
 
 	for (auto &walls : myWalls)
@@ -654,7 +669,7 @@ void playLoop::render()
 	player->render();
 	//enemy->render();
 	//enemy2->render();
-
+	stateEnemy->render();
 	for (auto &enemies : enemies)
 	{
 		enemies->render();

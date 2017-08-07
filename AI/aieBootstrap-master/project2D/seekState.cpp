@@ -4,21 +4,21 @@
 
 
 using namespace BehaviourManagement;
-seekState::seekState(Enemy * _enemy, gameFSM * _gamefsm) : IGameState(_enemy, _gamefsm)
+seekState::seekState(enemyStateUser* _enemy, gameFSM * _gamefsm) : IGameState(_enemy, _gamefsm)
 {
-	myself = _enemy;
+	enemyStateMyself = _enemy;
 }
 
 void seekState::update(float dt)
 {
 	
-	for (auto &behaviours : myself->m_behaviours)
+	for (auto &behaviours : enemyStateMyself->m_behaviours)
 	{
 		if (behaviours->type == SEEK)
 		{
 			behaviours->behaviourWeight = 1;
 			behaviours->Update(dt);
-			PLAY->theBoard->isSeeking.push_back(myself);
+			PLAY->theBoard->isOtherSeeking.push_back(enemyStateMyself);
 			PLAY->theBoard->seekAsWell();
 		}
 		else
@@ -28,10 +28,10 @@ void seekState::update(float dt)
 	}
 
 	
-		if (myself->health <= 30)
+		if (enemyStateMyself->health <= 30)
 		{
-			myself->enemyFSM->popState();
-			myself->enemyFSM->pushState(FLEE);
+			enemyStateMyself->enemyFSM->popState();
+			enemyStateMyself->enemyFSM->pushState(FLEE);
 		}
 	//myself->utility->runAway(myself);
 	

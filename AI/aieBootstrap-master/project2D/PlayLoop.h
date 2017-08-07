@@ -6,8 +6,10 @@
 #include "NodeManager.h"
 #include "Enemy.h"
 #include "blackBoard.h"
+#include "enemyStateUser.h"
 class Player;
 class Enemy;
+class enemyStateUser;
 #define PLAY playLoop::getInstance()
 /*
 * class playLoop
@@ -44,6 +46,7 @@ public:
 	*/
 	void render();	
 	std::vector<Enemy*> enemies;
+	enemyStateUser* stateEnemy;
 	Player* player;
 	blackBoard* theBoard;
 private:

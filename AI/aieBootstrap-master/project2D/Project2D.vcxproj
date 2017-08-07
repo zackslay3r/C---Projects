@@ -96,6 +96,7 @@
     <ClCompile Include="Cohesion.cpp" />
     <ClCompile Include="Edge.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="enemyStateUser.cpp" />
     <ClCompile Include="Flee.cpp" />
     <ClCompile Include="fleeState.cpp" />
     <ClCompile Include="gameFSM.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="Cohesion.h" />
     <ClInclude Include="Edge.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="enemyStateUser.h" />
     <ClInclude Include="Exeception.h" />
     <ClInclude Include="Flee.h" />
     <ClInclude Include="fleeState.h" />

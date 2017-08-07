@@ -11,12 +11,14 @@
 
 using namespace BehaviourManagement;
 class UtilityAI;
-class Enemy : public Object
+class enemyStateUser :
+	public Object
 {
 public:
-	Enemy();
-	Enemy(float positionX, float positionY);
-	~Enemy();
+	enemyStateUser();
+	
+	enemyStateUser(float positionX, float positionY);
+
 	int health;
 	void render();
 	void update(float dt);
@@ -31,6 +33,7 @@ public:
 	std::list<IBehavior*> m_behaviours;
 	std::list<Node*> path, closedSet, openSet;
 	UtilityAI* utility;
-	//gameFSM* enemyFSM;
+	gameFSM* enemyFSM;
+	~enemyStateUser();
 };
 

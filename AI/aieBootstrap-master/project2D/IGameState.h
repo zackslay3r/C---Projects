@@ -4,7 +4,7 @@
 other class objects will interact with it - Cannot be instantiated, must
 have a child class inherit from it to use*/
 //class PlayLoop;
-class Enemy;
+class enemyStateUser;
 class gameFSM;
 
 namespace aie {
@@ -21,7 +21,7 @@ namespace aie {
 
 class IGameState {
 public:
-	IGameState(Enemy*_enemy, gameFSM *_gsm) : enemy(_enemy), gamefsm(_gsm) {};
+	IGameState(enemyStateUser*_enemyStateUser, gameFSM *_gsm) : enemy(_enemyStateUser), gamefsm(_gsm) {};
 
 	/* virtual ~IState() = default;
 	* This is the virtual destructor for every state.
@@ -41,14 +41,14 @@ public:
 
 	virtual void update(float dt) = 0;
 
-	Enemy* myself;
+	enemyStateUser* enemyStateMyself;
 
 
 
 protected:
 	
 	aie::Font *m_font;
-	Enemy *enemy;
+	enemyStateUser *enemy;
 	gameFSM *gamefsm;
 
 };
