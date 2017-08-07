@@ -372,7 +372,7 @@ void NodeManager::wallSetter(int nodeKey)
 		}
 		gameNodes[nodeKey].links.clear();
 
-		
+		CleanUpEdgePointers();
 		// sever any links to the node.
 		
 

@@ -207,9 +207,10 @@ void playLoop::update(float dt, GSM* gsm)
 	//enemy2->update(dt);
 		if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 		{
+			int keyCheckerCount = 0;
 			int mX = 0;
 			int mY = 0;
-			input->getMouseXY(&mX, &mX);
+			input->getMouseXY(&mX, &mY);
 			Vector2 mousePos = { float(mX),float(mY) };
 
 			int tempKey = 0;
@@ -219,8 +220,37 @@ void playLoop::update(float dt, GSM* gsm)
 			{
 				if (tempKey == myNodes.gameNodes[i].key)
 				{
-					myNodes.wallSetter(myNodes.gameNodes[i].key);
-					myWalls.push_back(new Wall(myNodes.gameNodes[i].posX, myNodes.gameNodes[i].posY));
+					if (tempKey != player->closestNode->key)
+					{
+						
+						for (auto &enemys : enemies)
+							if (tempKey != enemys->currentNode->key)
+							{
+								keyCheckerCount++;
+								if (keyCheckerCount == enemies.size())
+								{
+									myNodes.wallSetter(myNodes.gameNodes[i].key);
+									myWalls.push_back(new Wall(myNodes.gameNodes[i].posX, myNodes.gameNodes[i].posY));
+								}
+							for (auto walls : myWalls)
+							{
+								if (checkCollide(walls, player))
+								{
+									myWalls.pop_back();
+									myNodes.gameNodes[i].setWalkable(true);
+									myNodes.CleanUpEdgePointers();
+									break;
+								}
+								if (checkCollide(walls, enemys))
+								{
+									myWalls.pop_back();
+									myNodes.gameNodes[i].setWalkable(true);
+									myNodes.CleanUpEdgePointers();
+									break;
+								}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -450,8 +480,7 @@ void playLoop::update(float dt, GSM* gsm)
 				
 			}
 			
-			
-			
+		
 				
 			
 }
