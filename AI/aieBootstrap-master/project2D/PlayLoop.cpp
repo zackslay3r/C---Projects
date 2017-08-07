@@ -21,6 +21,7 @@ using namespace BehaviourManagement;
 class Player;
 playLoop::playLoop()
 {
+	theBoard = new blackBoard();
 	srand(time(NULL));
 	myNodes.fillGameNodes();
 	m_font = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 16));
@@ -53,6 +54,7 @@ playLoop::playLoop()
 
 		enemy->enemyFSM->pushState(WANDER);
 	
+		theBoard->activeEnemies.push_back(enemy);
 	}
 	
 		
@@ -107,6 +109,7 @@ playLoop::~playLoop()
 	//delete paddleRight;
 	//delete Ball;
 	delete player;
+	delete theBoard;
 	//delete enemy;
 	//delete enemy2;
 	//delete myWalls;

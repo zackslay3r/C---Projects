@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "NodeManager.h"
 #include "Enemy.h"
+#include "blackBoard.h"
 class Player;
 class Enemy;
 #define PLAY playLoop::getInstance()
@@ -44,6 +45,7 @@ public:
 	void render();	
 	std::vector<Enemy*> enemies;
 	Player* player;
+	blackBoard* theBoard;
 private:
 	/*
 	* playLoop();
@@ -100,6 +102,7 @@ private:
 	std::list<Node*> path;
 	Node* tempPtr;
 
+	
 	
 	/*	 void updateStateTimer(float dt);
 	*	This function is responsible for updating the timer in the playloop.

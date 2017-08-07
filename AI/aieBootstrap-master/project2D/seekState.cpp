@@ -18,6 +18,8 @@ void seekState::update(float dt)
 		{
 			behaviours->behaviourWeight = 1;
 			behaviours->Update(dt);
+			PLAY->theBoard->isSeeking.push_back(myself);
+			PLAY->theBoard->seekAsWell();
 		}
 		else
 		{

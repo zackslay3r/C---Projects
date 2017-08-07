@@ -26,6 +26,7 @@ void wanderState::update(float dt)
 		{
 			behaviours->behaviourWeight = 0;
 		}
+		//PLAY->theBoard->seekAsWell();
 	}
 		// if the distance to the player is equal or less than 300...
 		if (PLAY->myNodes.distanceCheck(myself, 300, PLAY->player))
