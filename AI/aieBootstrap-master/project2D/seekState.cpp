@@ -33,6 +33,7 @@ void seekState::update(float dt)
 			myself->enemyFSM->popState();
 			myself->enemyFSM->pushState(FLEE);
 		}
+	//myself->utility->runAway(myself);
 	
 }
 

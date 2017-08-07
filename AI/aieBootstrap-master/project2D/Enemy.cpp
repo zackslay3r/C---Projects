@@ -21,7 +21,7 @@ Enemy::Enemy(float positionX, float positionY)
 	scale.y = 25.0f;
 	health = 100;
 	enemyFSM = new gameFSM();
-	
+	utility = new UtilityAI();
 	velocity = { 5,5 };
 	
 	
@@ -30,7 +30,8 @@ Enemy::Enemy(float positionX, float positionY)
 
 Enemy::~Enemy()
 {
-
+	delete enemyFSM;
+	delete utility;
 }
 
 void Enemy::render()

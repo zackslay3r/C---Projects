@@ -15,8 +15,9 @@ void fleeState::update(float dt)
 	{
 		if (behaviours->type == FLEE)
 		{
-			behaviours->behaviourWeight = 1;
+			myself->utility->runAway(myself);
 			behaviours->Update(dt);
+			
 		}
 		else
 		{

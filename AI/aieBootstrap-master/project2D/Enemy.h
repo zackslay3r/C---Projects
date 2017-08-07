@@ -7,8 +7,10 @@
 #include "gameFSM.h"
 #include "IBehavior.h"
 #include "Global.h"
+#include "UtilityAI.h"
 
 using namespace BehaviourManagement;
+class UtilityAI;
 class Enemy : public Object
 {
 public:
@@ -28,6 +30,7 @@ public:
 	Vector2 previousPos;
 	std::list<IBehavior*> m_behaviours;
 	std::list<Node*> path, closedSet, openSet;
+	UtilityAI* utility;
 	gameFSM* enemyFSM;
 };
 
