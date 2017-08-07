@@ -89,8 +89,8 @@ private:
 	Object* paddleRight;
 	Object* Ball;
 	
-	Enemy* enemy;
-	Enemy* enemy2;
+	//Enemy* enemy;
+	//Enemy* enemy2;
 
 	std::vector<Wall*> myWalls;
 	aie::Input *input;

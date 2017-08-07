@@ -22,7 +22,7 @@ Enemy::Enemy(float positionX, float positionY)
 	health = 100;
 	enemyFSM = new gameFSM();
 	
-	//velocity = { 50.0f,50.0f };
+	velocity = { 5,5 };
 	
 	
 }

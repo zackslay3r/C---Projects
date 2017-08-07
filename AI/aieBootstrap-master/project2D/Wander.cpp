@@ -1,7 +1,7 @@
 #include "Wander.h"
 #include <stdlib.h>
 #include <ctime>
-
+#include <math.h>
 
 
 
@@ -9,44 +9,60 @@ Wander::Wander(Object * myself)
 {
 	mySelf = myself;
 	type = BehaviourNames::WANDER;
+	behaviourWeight = 0.0f;
 }
 
 void Wander::Update(float dt)
 {
-	//Vector2 tempVelocity;
+	
+	// circleCentre is a clone of the enemy's position, then it is normalized
+	// then it is multiplied by the wander distance.
+	
+
 	Vector2 circleCentre;
-	circleCentre =  circleCentre + ((Enemy*)mySelf)->position;
+	circleCentre = ((Enemy*)mySelf)->velocity;
 	circleCentre.normalise();
 	circleCentre = circleCentre * wanderDistance;
 	
-	Vector2 target;
-	target.x = random() + ((Enemy*)mySelf)->position.x + circleCentre.x;
-	target.y = random() + ((Enemy*)mySelf)->position.y + circleCentre.y;
-	target.normalise(); 
-	target = target * wanderRadius;
-	
-	target *= circleCentre;
-	//target.normalise();
+	//calculate the displacement force
+	Vector2 displacement;
+	displacement = { 0,-1 };
+	displacement =  displacement * wanderRadius;
+
+	// randomly change the vector direction
+	setAngle(&displacement, wanderAngle);
+
+		// change the wanderAngle a little bit, so its not the same every frame.
+		wanderAngle += (random() * wanderJitter) - (wanderJitter * 0.5);
 	
 	float speed = 100.0f;
 
-	Vector2 v1 = mySelf->position;
+	//Vector2 v1 = mySelf->position;
 	// This is downcasting that will tell it to act as though it is a enemy pointer rather then a Object.
-	Vector2 v2 = target;
+	Vector2 v2 = circleCentre + displacement;
 
-	Vector2 v3 = v2 - v1;
+	//Vector2 v3 = v2 - v1;
 
-	v3.normalise();
+	v2.normalise();
 
-	mySelf->velocity = v3 * speed * behaviourWeight;
+	mySelf->velocity = v2 * speed * behaviourWeight;
 
 }
 
 int Wander::random()
 {
 	srand(time(NULL));
-	int rannumber = rand() % 100 + 1;
+	int rannumber = rand() % 10 + 1;
 	return rannumber;
+}
+
+void Wander::setAngle(Vector2* displacement, float wanderAngle)
+{
+	float tempFloat = 10.0f;
+
+	displacement->x = cos(wanderAngle) * tempFloat;
+	displacement->y = sin(wanderAngle) * tempFloat;
+
 }
 
 Wander::~Wander()

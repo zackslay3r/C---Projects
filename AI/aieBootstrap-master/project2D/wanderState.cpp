@@ -12,19 +12,15 @@ void wanderState::update(float dt)
 {
 	for (auto &enemys : PLAY->enemies)
 	{
-		enemys->changeToWander(enemys);
-		
+		enemys->changeToWander(enemys);	
 	}
 	for (auto &enemys : PLAY->enemies)
 	{
-	//	if (enemys->currentNode->posX != nullptr)
+		if (PLAY->myNodes.distanceCheck(enemys, 300, PLAY->player))
 		{
-
-			if (PLAY->myNodes.distanceCheck(enemys->currentNode, 300.0f, PLAY->player->closestNode))
-			{
-				enemys->changeToSeek(enemys);
-			}
+			enemys->changeToSeek(enemys);
 		}
+	
 	}
 	
 }

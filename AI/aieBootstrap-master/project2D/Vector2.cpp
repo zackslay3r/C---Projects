@@ -17,7 +17,12 @@ Vector2::Vector2(float newx, float newy)
 
 void Vector2::normalise()
 {
+	
 	float tempMag = magnitude();
+	if (tempMag == 0)
+	{
+		return;
+	}
 
 	x /= tempMag;
 	y /= tempMag;

@@ -33,10 +33,6 @@ playLoop::playLoop()
 		enemy->m_behaviours.push_front(new Seek(enemy));
 		enemy->m_behaviours.push_front(new Flee(enemy));
 		enemy->m_behaviours.push_front(new Wander(enemy));
-		for (auto &behaviours : enemy->m_behaviours)
-		{
-			behaviours->behaviourWeight = 0.0f;
-		}
 		enemy->health = 100;
 		int enemyKey;
 		enemyKey = myNodes.getIndex(enemy->position.x, enemy->position.y);
@@ -53,10 +49,14 @@ playLoop::playLoop()
 		enemy->enemyFSM->registerState(WANDER, new wanderState(enemy, enemy->enemyFSM));
 		enemy->enemyFSM->registerState(SEEK, new seekState(enemy, enemy->enemyFSM));
 		enemy->enemyFSM->registerState(FLEE, new fleeState(enemy, enemy->enemyFSM));
-		enemy->enemyFSM->pushState(SEEK);
 
-
+		enemy->enemyFSM->pushState(WANDER);
+	
 	}
+	
+		
+
+	
 
 	int tempKey;
 	tempKey = myNodes.getIndex(player->position.x, player->position.y);
@@ -346,7 +346,7 @@ void playLoop::update(float dt, GSM* gsm)
 						{
 							tempPtr = path.front();
 						}
-						timer = glfwGetTime() + 1.0;
+						timer = glfwGetTime() + 0.5;
 					}
 				}
 			}
