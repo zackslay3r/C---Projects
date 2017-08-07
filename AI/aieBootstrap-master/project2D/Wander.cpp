@@ -51,7 +51,7 @@ void Wander::Update(float dt)
 
 int Wander::random()
 {
-	srand(time(NULL));
+	
 	int rannumber = rand() % 10 + 1;
 	return rannumber;
 }

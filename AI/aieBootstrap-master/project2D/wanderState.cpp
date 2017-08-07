@@ -6,24 +6,36 @@
 class Player;
 wanderState::wanderState(Enemy * _enemy, gameFSM * _gamefsm) : IGameState(_enemy, _gamefsm)
 {
+	myself = _enemy;
 }
 
 void wanderState::update(float dt)
 {
-	for (auto &enemys : PLAY->enemies)
+
+		
+	
+	// for each enemy...
+	for (auto &behaviours : myself->m_behaviours)
 	{
-		enemys->changeToWander(enemys);	
-	}
-	for (auto &enemys : PLAY->enemies)
-	{
-		if (PLAY->myNodes.distanceCheck(enemys, 300, PLAY->player))
+		if (behaviours->type == WANDER)
 		{
-			enemys->changeToSeek(enemys);
+			behaviours->behaviourWeight = 1;
+			behaviours->Update(dt);
+		}
+		else
+		{
+			behaviours->behaviourWeight = 0;
+		}
+	}
+		// if the distance to the player is equal or less than 300...
+		if (PLAY->myNodes.distanceCheck(myself, 300, PLAY->player))
+		{
+			myself->enemyFSM->popState();
+			myself->enemyFSM->pushState(SEEK);
 		}
 	
-	}
-	
 }
+	
 
 wanderState::~wanderState()
 {

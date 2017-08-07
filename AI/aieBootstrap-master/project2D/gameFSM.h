@@ -74,6 +74,9 @@ public:
 	*/
 	IGameState* getTopState();
 
+	// keeps trace of the amount of active states while not needing to access the m_activestates list.
+	int amountOfActive = 0;
+
 private:
 	// This is using a Binary tree for the registered states.
 	std::map<int, IGameState*> m_registeredStates;

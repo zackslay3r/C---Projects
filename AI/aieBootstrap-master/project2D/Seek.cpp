@@ -1,5 +1,5 @@
 //HACK
-#pragma optimize("", off)
+//#pragma optimize("", off)
 
 #include "Seek.h"
 #include "Vector2.h"
@@ -7,20 +7,25 @@
 
 Seek::Seek(Object* myself)
 {
+	// Pass in myself and the enum type of the behaviour.
 	mySelf = myself;
 	type = BehaviourNames::SEEK;
 }
 
 void Seek::Update(float dt)
 {
+	// If the behaviour is actually active and has a weighting....
 	if (behaviourWeight > 0.0f)
 	{
-
+		// If the path is not empty...
 		if (((Enemy*)mySelf)->path.size() > 0)
 		{
+			// the default distance between nodes.
 			float distance = 50.0f;
+			// the enemy position - the position of the last node.
 			float DistX = ((Enemy*)mySelf)->position.x - ((Enemy*)mySelf)->path.back()->posX;
 			float DistY = ((Enemy*)mySelf)->position.y - ((Enemy*)mySelf)->path.back()->posY;
+
 			float x = DistX * DistX;
 			float y = DistY * DistY;
 			float xy = x + y;
@@ -54,11 +59,7 @@ void Seek::Update(float dt)
 			mySelf->velocity = {0,0 };
 		}
 
-		if (((Enemy*)mySelf)->health < 30)
-		{
-			((Enemy*)mySelf)->enemyFSM->popState();
-			((Enemy*)mySelf)->enemyFSM->pushState(FLEE);
-		}
+	
 	}
 
 

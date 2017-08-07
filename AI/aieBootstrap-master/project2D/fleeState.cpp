@@ -4,16 +4,24 @@
 
 
 
-fleeState::fleeState(Enemy * _ploop, gameFSM * _gamefsm): IGameState(_ploop, _gamefsm)
+fleeState::fleeState(Enemy * _myself, gameFSM * _gamefsm): IGameState(_myself, _gamefsm)
 {
-	
+	myself = _myself;
 }
 
 void fleeState::update(float dt)
 {
-	for (auto &enemys : PLAY->enemies)
+	for (auto &behaviours : myself->m_behaviours)
 	{
-		enemys->changeToFlee(enemys);
+		if (behaviours->type == FLEE)
+		{
+			behaviours->behaviourWeight = 1;
+			behaviours->Update(dt);
+		}
+		else
+		{
+			behaviours->behaviourWeight = 0;
+		}
 	}
 }
 

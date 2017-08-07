@@ -12,7 +12,7 @@
 #include "wanderState.h"
 #include "Wander.h"
 #include "fleeState.h"
-
+#include <ctime>
 //#include "Factory.h"
 
 using namespace StateMangement;
@@ -21,6 +21,7 @@ using namespace BehaviourManagement;
 class Player;
 playLoop::playLoop()
 {
+	srand(time(NULL));
 	myNodes.fillGameNodes();
 	m_font = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 16));
 	input = aie::Input::getInstance();
@@ -140,6 +141,9 @@ void playLoop::update(float dt, GSM* gsm)
 	for (auto &enemys : enemies)
 	{
 		enemys->enemyFSM->updateStates(dt);
+		
+		enemys->velocity.x = enemys->velocity.x / float(enemys->enemyFSM->amountOfActive);
+		enemys->velocity.y = enemys->velocity.y / float(enemys->enemyFSM->amountOfActive);
 	}
 
 

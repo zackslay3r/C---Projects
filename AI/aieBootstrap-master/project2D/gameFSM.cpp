@@ -133,6 +133,7 @@ void gameFSM::processPushState(int ID)
 {
 	// if the iter is matched and its not the end of the container, delete it so that it can get replaced
 	m_activeStates.push_back(m_registeredStates[ID]);
+	amountOfActive++;
 }
 
 void gameFSM::processPopState()
@@ -140,5 +141,6 @@ void gameFSM::processPopState()
 	if (m_activeStates.size() > 0)
 	{
 		m_activeStates.pop_back();
+		amountOfActive--;
 	}
 }
