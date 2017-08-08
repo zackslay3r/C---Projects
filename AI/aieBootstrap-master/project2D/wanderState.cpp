@@ -70,7 +70,7 @@ void wanderState::update(float dt)
 	// change the wanderAngle a little bit, so its not the same every frame.
 	wanderAngle += (random() * wanderJitter) - (wanderJitter * 0.5);
 
-	float speed = 100.0f;
+	float speed = 200.0f;
 
 	//Vector2 v1 = mySelf->position;
 	// This is downcasting that will tell it to act as though it is a enemy pointer rather then a Object.

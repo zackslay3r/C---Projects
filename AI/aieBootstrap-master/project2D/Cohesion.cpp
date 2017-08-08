@@ -53,6 +53,7 @@ Vector2 Cohesion::Update(float dt)
 		finalVec.normalise();
 		return finalVec;
 	}
+	return{ 0.0f,0.0f };
 }
 
 Cohesion::~Cohesion()

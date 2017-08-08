@@ -12,7 +12,7 @@ Avoidance::Avoidance(Object * myself, float angle)
 	mySelf = myself;
 	type = BehaviourNames::AVOIDANCE;
 	feelerAngle = angle;
-	behaviourWeight = 1.5f;
+	behaviourWeight = 5.0f;
 }
 
 Vector2 Avoidance::Update(float dt)

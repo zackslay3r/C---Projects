@@ -43,6 +43,7 @@ void Enemy::render()
 void Enemy::update(float dt)
 {
 	int nullBeheaviours = 0;
+	Vector2 tempVec;
 	for (auto &behaviours : m_behaviours)
 	{
 
@@ -52,15 +53,26 @@ void Enemy::update(float dt)
 		}
 		else
 		{
-			desiredVelocity += behaviours->Update(dt);
+			tempVec += behaviours->Update(dt);
+			if (tempVec.x == 0.0f && tempVec.y == 0.0f)
+			{
+				nullBeheaviours++;
+			}
+			else
+			{
+				desiredVelocity += tempVec;
+			}
 		}
 	}
-
+	tempVec = { 0.0f,0.0f };
 
 	// Set the velocity to be that of the desired velocity (all the velocity's of every behaviour added)
 	// divided by (the amount of behaviours the smartAI has - the amount of nullBehaviours)
-	velocity.x = desiredVelocity.x / (m_behaviours.size() - nullBeheaviours);
-	velocity.y = desiredVelocity.y / (m_behaviours.size() - nullBeheaviours);
+	if (desiredVelocity.x != 0.0f || desiredVelocity.y != 0.0)
+	{
+		velocity.x = desiredVelocity.x * 0.5f / (m_behaviours.size() - nullBeheaviours);
+		velocity.y = desiredVelocity.y * 0.5f / (m_behaviours.size() - nullBeheaviours);
+	}
 	position += velocity * dt;
 	desiredVelocity = { 0.0f, 0.0f };
 

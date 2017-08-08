@@ -42,7 +42,7 @@ Vector2 Seek::Update(float dt)
 		if (((Enemy*)mySelf)->path.size() > 0)
 		{
 			// default velocity.
-			float speed = 100.0f;
+			float speed = 200.0f;
 
 			// vector1 is our own position.
 			Vector2 v1 = mySelf->position;
@@ -54,13 +54,16 @@ Vector2 Seek::Update(float dt)
 			v3.normalise();
 
 			//this will work out the final velocity.
-			return (v3 * speed * behaviourWeight);
+			
+			v3 = v3 * speed * behaviourWeight;
+			return v3;
 			
 		}
 		// if the path is 0, we want to stop moving, please?
 		if (((Enemy*)mySelf)->path.size() <= 0)
 		{
-			mySelf->velocity = {0,0 };
+			Vector2 tempVec;
+			return tempVec;
 		}
 
 		PLAY->theBoard->isSeeking.push_back(((Enemy*)mySelf));

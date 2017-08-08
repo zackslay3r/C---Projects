@@ -28,7 +28,11 @@ Vector2 Flee::Update(float dt)
 		return (v3 * speed * behaviourWeight);
 
 	}
-
+	else
+	{
+		Vector2 tempVec;
+		return tempVec;
+	}
 
 }
 

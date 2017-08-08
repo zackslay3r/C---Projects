@@ -34,7 +34,7 @@ Vector2 Alignment::Update(float dt)
 	if (neighborCount == 0)
 	{
 		tempVector = { 0,0 };
-		mySelf->velocity = tempVector;
+		return tempVector;
 	}
 	else
 	{
