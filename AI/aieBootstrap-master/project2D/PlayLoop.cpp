@@ -50,8 +50,11 @@ playLoop::playLoop()
 		enemy->m_behaviours.push_front(new Seek(enemy));
 		enemy->m_behaviours.push_front(new Flee(enemy));
 		enemy->m_behaviours.push_front(new Wander(enemy));
+		enemy->m_behaviours.push_front(new Avoidance(enemy, 0.0f));
 		enemy->m_behaviours.push_front(new Avoidance(enemy, 35.0f));
 		enemy->m_behaviours.push_front(new Avoidance(enemy, -35.0f));
+		enemy->m_behaviours.push_front(new Avoidance(enemy, 90.0f));
+		enemy->m_behaviours.push_front(new Avoidance(enemy, -90.0f));
 		enemy->health = 100;
 		int enemyKey;
 		enemyKey = myNodes.getIndex(enemy->position.x, enemy->position.y);

@@ -42,7 +42,7 @@ Vector2 Avoidance::Update(float dt)
 		Vector2 linePos1 = mySelf->position;
 		lineEnd = rotateVector(mySelf->velocity, feelerAngle);
 		lineEnd.normalise() ;
-		lineEnd = lineEnd * 100;
+		lineEnd = lineEnd * 50;
 		lineEnd = lineEnd + mySelf->position;
 
 		// for each wall, do a collision check against the feeler line.
@@ -51,7 +51,7 @@ Vector2 Avoidance::Update(float dt)
 		{
 			
 			// if the collision check is true
-			if (lineRec(linePos1.x, linePos1.y, lineEnd.x, lineEnd.y, walls->position.x, walls->position.y, walls->scale.x, walls->scale.y))
+			if (lineRec(linePos1.x, linePos1.y, lineEnd.x, lineEnd.y, walls->position.x - 25.0f, walls->position.y - 25.0f, walls->scale.x, walls->scale.y))
 			{
 				Vector2 tempVec;
 				tempVec = (mySelf->position + lineEnd) - linePos1 ;
