@@ -36,6 +36,7 @@ private:
 		std::list<Node*> pathFinding(Node* nodeOne, Node*  nodeTwo);
 		float heuristicEstimate(Node* nodeOne, Node* nodeTwo);
 		std::list<Node*> reconstruct_path(Node* currentNode);
+		
 
 		std::list<Node*> completedClosedSet, completedOpenSet;
 		void wallSetter(int nodeKey);

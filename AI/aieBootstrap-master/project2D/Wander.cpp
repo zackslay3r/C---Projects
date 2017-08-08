@@ -12,7 +12,7 @@ Wander::Wander(Object * myself)
 	behaviourWeight = 0.0f;
 }
 
-void Wander::Update(float dt)
+Vector2 Wander::Update(float dt)
 {
 	
 
@@ -48,12 +48,9 @@ void Wander::Update(float dt)
 
 		v2.normalise();
 
-		mySelf->velocity = v2 * speed * behaviourWeight;
+		return (v2 * speed * behaviourWeight);
 
-		if (PLAY->myNodes.distanceCheck(mySelf, 300, PLAY->player))
-		{
-			((Enemy*)mySelf)->changeToSeek(mySelf);
-		}
+	
 	}
 }
 

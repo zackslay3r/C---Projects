@@ -13,7 +13,7 @@ Node::~Node()
 
 float Node::getFScore()
 {
-	return fScore;
+	return hScore + dScore;
 }
 
 float Node::getHScore()
@@ -26,10 +26,6 @@ float Node::getdScore()
 	return dScore;
 }
 
-void Node::setFScore(float newFScore)
-{
-	fScore = newFScore;
-}
 
 void Node::setHScore(float newHScore)
 {

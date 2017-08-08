@@ -11,7 +11,7 @@ public:
 	
 	Seek(Object* myself);
 	
-	void Update(float dt);
+	Vector2 Update(float dt);
 	~Seek();
 };
 

@@ -25,7 +25,7 @@ void blackBoard::seekAsWell()
 				{
 					
 					// push the active enemy to also seek and to add to the list of actively seeking enemys.
-					currentEnemies->changeToSeek(currentEnemies);
+					currentEnemies->changeToSeek();
 					isSeeking.push_back(currentEnemies);
 					}
 				}

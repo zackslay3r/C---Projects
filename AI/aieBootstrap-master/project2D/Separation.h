@@ -7,7 +7,7 @@ class Separation :
 public:
 	Separation(Object* myself);
 
-	void Update(float dt);
+	Vector2 Update(float dt);
 	~Separation();
 };
 

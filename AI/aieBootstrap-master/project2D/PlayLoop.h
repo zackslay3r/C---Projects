@@ -46,9 +46,11 @@ public:
 	*/
 	void render();	
 	std::vector<Enemy*> enemies;
-	enemyStateUser* stateEnemy;
+	std::vector<enemyStateUser*> stateEnemy;
+	int nullBeheaviours = 0;
 	Player* player;
 	blackBoard* theBoard;
+	std::vector<Wall*> myWalls;
 private:
 	/*
 	* playLoop();
@@ -97,7 +99,7 @@ private:
 	//Enemy* enemy;
 	//Enemy* enemy2;
 
-	std::vector<Wall*> myWalls;
+	
 	aie::Input *input;
 	double timer;
 	bool displayPath;

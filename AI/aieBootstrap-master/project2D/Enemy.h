@@ -20,17 +20,19 @@ public:
 	int health;
 	void render();
 	void update(float dt);
-	void changeToSeek(Object* target);
-	void changeToFlee(Object* awayFromTarget);
-	void changeToWander(Object* target);
+	void changeToSeek();
+	void changeToFlee();
+	void changeToWander();
 	Node* currentNode;
 	Node* MoveTo;
 	Object* target;
 	std::string healthString;
 	Vector2 previousPos;
+	Vector2 desiredVelocity;
 	std::list<IBehavior*> m_behaviours;
 	std::list<Node*> path, closedSet, openSet;
 	UtilityAI* utility;
+	std::list<Vector2> feelers;
 	//gameFSM* enemyFSM;
 };
 

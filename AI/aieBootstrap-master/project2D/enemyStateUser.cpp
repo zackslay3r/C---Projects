@@ -21,7 +21,7 @@ enemyStateUser::enemyStateUser(float positionX, float positionY)
 
 void enemyStateUser::render()
 {
-	PLAY->app->m_2dRenderer->setRenderColour(255, 0, 0);
+	PLAY->app->m_2dRenderer->setRenderColour(0, 255, 0);
 	PLAY->app->m_2dRenderer->drawBox(position.x, position.y, scale.x, scale.y);
 }
 

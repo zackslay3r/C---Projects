@@ -19,7 +19,7 @@ private:
 	// values that are required for calculating the distance between the start and end point with a node.
 	// F score = Final score of distance.
 	// H score = distance between the start and end. H is indiviually changed based on each node area.
-	float fScore, hScore;
+	float hScore;
 	// this is the d score, which is the distance that each step cost.
 	float dScore;
 
@@ -37,7 +37,6 @@ public:
 	float getHScore();
 	float getdScore();
 
-	void setFScore(float newFScore);
 	void setHScore(float newHScore);
 	void setdScore(float newdScore);
 	inline bool getWalkable(){return isWalkable;};

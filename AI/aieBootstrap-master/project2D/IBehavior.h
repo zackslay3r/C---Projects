@@ -6,7 +6,7 @@ class IBehavior
 {
 public:
 
-	enum BehaviourNames { SEEK, WANDER, FLEE, SEPERATION, COHESION, ALIGNMENT };
+	enum BehaviourNames { SEEK, WANDER, FLEE, SEPERATION, COHESION, ALIGNMENT, AVOIDANCE };
 	BehaviourNames type;
 
 	Object* mySelf;
@@ -14,7 +14,7 @@ public:
 	IBehavior();
 	float behaviourWeight;
 	//virtual void Update(Object* pObject,float deltaTime) = 0;
-	virtual void Update( float deltaTime) = 0;
+	virtual Vector2 Update( float deltaTime) = 0;
 	~IBehavior();
 private:
 	

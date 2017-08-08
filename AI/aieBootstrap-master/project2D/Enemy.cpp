@@ -42,19 +42,44 @@ void Enemy::render()
 
 void Enemy::update(float dt)
 {
-
+	int nullBeheaviours = 0;
 	for (auto &behaviours : m_behaviours)
 	{
-		behaviours->Update(dt);
+
+		if (behaviours->behaviourWeight <= 0.0f)
+		{
+			nullBeheaviours++;
+		}
+		else
+		{
+			desiredVelocity += behaviours->Update(dt);
+		}
 	}
-		position += velocity * dt;
+
+
+	// Set the velocity to be that of the desired velocity (all the velocity's of every behaviour added)
+	// divided by (the amount of behaviours the smartAI has - the amount of nullBehaviours)
+	velocity.x = desiredVelocity.x / (m_behaviours.size() - nullBeheaviours);
+	velocity.y = desiredVelocity.y / (m_behaviours.size() - nullBeheaviours);
+	position += velocity * dt;
+	desiredVelocity = { 0.0f, 0.0f };
+
+
+	if (PLAY->myNodes.distanceCheck(this, 300, PLAY->player))
+	{
+		changeToSeek();
+	}
+	if (health <= 30)
+	{
+		changeToFlee();
+	}
 }
 
-void Enemy::changeToSeek(Object * target)
+void Enemy::changeToSeek()
 {
 	for (auto &behaviours : m_behaviours)
 	{
-		if (behaviours->type == 0)
+		if (behaviours->type == 0 || behaviours->type == 6)
 		{
 			behaviours->behaviourWeight = 1.0f;
 		}
@@ -65,11 +90,11 @@ void Enemy::changeToSeek(Object * target)
 	}
 }
 
-void Enemy::changeToFlee(Object * awayFromTarget)
+void Enemy::changeToFlee()
 {
 	for (auto &behaviours : m_behaviours)
 	{
-		if (behaviours->type == 2)
+		if (behaviours->type == 2 || behaviours->type == 6)
 		{
 			behaviours->behaviourWeight = 1.0f;
 		}
@@ -80,15 +105,15 @@ void Enemy::changeToFlee(Object * awayFromTarget)
 	}
 }
 
-void Enemy::changeToWander(Object* target)
+void Enemy::changeToWander()
 {
 	for (auto &behaviours : m_behaviours)
-		if (behaviours->type != BehaviourID::WANDER)
+		if (behaviours->type == 1 || behaviours->type == 6)
 		{
-			behaviours->behaviourWeight = 0.0f;
+			behaviours->behaviourWeight = 1.0f;
 		}
 		else
 		{
-			behaviours->behaviourWeight = 1.0f;
+			behaviours->behaviourWeight = 0.0f;
 		}
 }

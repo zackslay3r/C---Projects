@@ -9,7 +9,7 @@ Flee::Flee(Object* myself)
 	
 }
 
-void Flee::Update(float dt)
+Vector2 Flee::Update(float dt)
 {
 	if (behaviourWeight > 0.0f)
 	{
@@ -25,7 +25,7 @@ void Flee::Update(float dt)
 
 		((Enemy*)mySelf)->utility->runAway(((Enemy*)mySelf));
 		
-		mySelf->velocity = v3 * speed * behaviourWeight;
+		return (v3 * speed * behaviourWeight);
 
 	}
 

@@ -12,6 +12,7 @@
 #include "wanderState.h"
 #include "Wander.h"
 #include "fleeState.h"
+#include "Avoidance.h"
 #include <ctime>
 //#include "Factory.h"
 
@@ -21,25 +22,40 @@ using namespace BehaviourManagement;
 class Player;
 playLoop::playLoop()
 {
+	// Initalises the blackboard.
 	theBoard = new blackBoard();
+	// Initialised the srand for later use in Wander.
 	srand(time(NULL));
+	// Fills the game nodes.
 	myNodes.fillGameNodes();
+	// The font that will be used to display health.
 	m_font = std::unique_ptr<aie::Font>(new aie::Font("./font/consolas.ttf", 16));
+	// Gets the instance of the singleton.
 	input = aie::Input::getInstance();
+	// Initalises the player.
 	player = new Player(500,500);
-	stateEnemy = new enemyStateUser(1150,600);
+	// Initalises the dumb AI.
+	stateEnemy.push_back(new enemyStateUser(1150,600));
+	// Initalises the smart AI enemies,
 	enemies.push_back(new Enemy(1200, 300));
 	enemies.push_back(new Enemy(1100, 500));
+	
+	// For all the enemys in the list, push their behaviours,
+	// set health to 100, and get their current node index.
+	// before setting their default behaviour to wander.
+	// and adding to the blackboard that they are an active enemy.
 	for (auto &enemy : enemies)
 	{
 		enemy->target = player;
 		enemy->m_behaviours.push_front(new Seek(enemy));
 		enemy->m_behaviours.push_front(new Flee(enemy));
 		enemy->m_behaviours.push_front(new Wander(enemy));
+		enemy->m_behaviours.push_front(new Avoidance(enemy, 35.0f));
+		enemy->m_behaviours.push_front(new Avoidance(enemy, -35.0f));
 		enemy->health = 100;
 		int enemyKey;
 		enemyKey = myNodes.getIndex(enemy->position.x, enemy->position.y);
-		for (int i = 0; i < 576; i++)
+		for (int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
 		{
 			if (myNodes.gameNodes[i].key == enemyKey)
 			{
@@ -49,20 +65,40 @@ playLoop::playLoop()
 				}
 			}
 		}
-		enemy->changeToWander(enemy);
+		enemy->changeToWander();
 		
 	
 		theBoard->activeEnemies.push_back(enemy);
 	}
 	
-		stateEnemy->enemyFSM->registerState(WANDER, new wanderState(stateEnemy, stateEnemy->enemyFSM));
-		stateEnemy->enemyFSM->registerState(SEEK, new seekState(stateEnemy, stateEnemy->enemyFSM));
-		stateEnemy->enemyFSM->registerState(FLEE, new fleeState(stateEnemy, stateEnemy->enemyFSM));
+	// Add the states to the dumb ai and push the WANDER state.
+	// While also setting the node key to be of the current node it is in.
+	for (auto &dumbenemies : stateEnemy)
+	{
+		
+		dumbenemies->enemyFSM->registerState(WANDER, new wanderState(dumbenemies, dumbenemies->enemyFSM));
+		dumbenemies->enemyFSM->registerState(SEEK, new seekState(dumbenemies, dumbenemies->enemyFSM));
+		dumbenemies->enemyFSM->registerState(FLEE, new fleeState(dumbenemies, dumbenemies->enemyFSM));
+		dumbenemies->enemyFSM->pushState(WANDER);
 
-		stateEnemy->enemyFSM->pushState(WANDER);
+
+		int enemyKey;
+		enemyKey = myNodes.getIndex(dumbenemies->position.x, dumbenemies->position.y);
+		for (int i = 0; i < GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
+		{
+			if (myNodes.gameNodes[i].key == enemyKey)
+			{
+				if (myNodes.gameNodes[i].getWalkable())
+				{
+					dumbenemies->currentNode = &myNodes.gameNodes[i];
+				}
+			}
+		}
+		
+	}
 
 	
-
+	// Get the current node index for the player.
 	int tempKey;
 	tempKey = myNodes.getIndex(player->position.x, player->position.y);
 	for (int i = 0; i < 576; i++)
@@ -76,17 +112,7 @@ playLoop::playLoop()
 		}
 	}
 
-
-	//enemy = new Enemy(1200,300);
-	//enemy->target = player;
-	//enemy->m_behaviours.push_front(new Seek(enemy));
-	//enemy->m_behaviours.push_front(new Flee(enemy));
-	//enemy->health = 100;
-	//enemy2 = new Enemy(1100, 500);
-	//enemy2->target = player;
-	//enemy2->m_behaviours.push_front(new Seek(enemy2));
-	//enemy2->m_behaviours.push_front(new Flee(enemy2));
-
+	// Create the inital walls in the game.
 	for (int i = 0; i <= GAMESETTINGS->NODE_ARRAY_LENGTH; i++)
 	{
 		if (myNodes.gameNodes[i].getWalkable() == false)
@@ -94,15 +120,10 @@ playLoop::playLoop()
 			myWalls.push_back(new Wall(myNodes.gameNodes[i].posX, myNodes.gameNodes[i].posY));
 		}
 	}
+	// set the timer to be 0.
 	timer = 0.0;
 
-	//for (auto &behaviours : enemies)
-	//{
-	//	for (auto &enemys : behaviours->m_behaviours)
-	//	{
-	//		enemys->behaviourWeight = 0.0f;
-	//	}
-	//}
+
 }
 playLoop::~playLoop()
 {
@@ -128,66 +149,55 @@ void playLoop::update(float dt, GSM* gsm)
 {
 	
 	
-
+	// Set the previous position of the player before the update.
 	Vector2 prevPos = player->position;
+	// Update the player.
+	player->update(dt);
+	
+	// Set the enemy's previous position to be that of its current before it moves.
 	for (auto &enemys : enemies)
 	{
 		enemys->previousPos = enemys->position;
 	}
-
-	player->update(dt);
+	// Set the dumbAi's previous position to be that of its current before it updates.
+	for (auto &dumbenemies : stateEnemy)
+	{
+		dumbenemies->previousPos = dumbenemies->position;
+	}
 	
-
+	
+	// SmartEnemies update.
 	for (auto &enemys : enemies)
 	{
 		enemys->update(dt);
 
 	}
-	stateEnemy->update(dt);
-	
-	
+	// Dumbenemies Update.
+	for (auto &dumbenemies : stateEnemy)
+	{
+		dumbenemies->update(dt);
+	}
+	// for all the behaviours in the smartEnemys,
+	// check if they are not having a weight and if not, index a counter for the amount of null behaviours.
 	for (auto &enemys : enemies)
 	{
-		int nullBeheaviours = 0;
-		for (auto &behaviours : enemys->m_behaviours)
-		{
-			if (behaviours->behaviourWeight <= 0.0f)
-			{
-				nullBeheaviours++;
-			}
-		}
-		enemys->velocity.x = enemys->velocity.x / float(enemys->m_behaviours.size() - nullBeheaviours);
-		enemys->velocity.y = enemys->velocity.y / float(enemys->m_behaviours.size() - nullBeheaviours);
+	
 
 	}
 	
-	for (auto &enemys : enemies)
-	{
-		
-	}
-		bool reversedplayers = false;
+	// Set the reversedplayers boolean to false.
+	bool reversedplayers = false;
 	
-
+	// for all the walls, check to see if they are colliding with the player.
 	for (auto &walls : myWalls)
 	{
 		if (checkCollide(player, walls))
 		{
-			/*	if (player->velocity.x > 0)
-			{
-			player->velocity.x -= player->velocity.x + 1.5f;
-			}
-			if (player->velocity.x < 0)
-			{
-			player->velocity.x += player->velocity.x + 1.5f;
-			}
-			if (player->velocity.y > 0)
-			{
-			player->velocity.y -= player->velocity.y + 1.5f;
-			}
-			if (player->velocity.y < 0)
-			{
-			player->velocity.y += player->velocity.y + 1.5f;
-			}*/
+
+			// if the bool is false, set it to true, make the position of the player as it was
+			// in the previous frame and set its velocity to bounce back the player.
+			// This will only happen once every frame.
+
 			if (!reversedplayers)
 			{
 				player->position = prevPos;
@@ -199,7 +209,8 @@ void playLoop::update(float dt, GSM* gsm)
 			//player->velocity = { 0.0f, 0.0f };
 		}
 	}
-		for (auto &enemys : enemies)
+		// This does the exact same thing for smartAI enemies.
+	/*	for (auto &enemys : enemies)
 		{
 			bool reversedenemies = false;
 			for (auto &walls : myWalls)
@@ -216,10 +227,29 @@ void playLoop::update(float dt, GSM* gsm)
 					}
 				}
 			}
-		}
-	
+		}*/
+		
+		// This does the exact same thing for dumbAI enemies.
+		for (auto &dumbenemies : stateEnemy)
+		{
+			bool reverseddumbenemies = false;
+			for (auto &walls : myWalls)
+			{
+				if (checkCollide(dumbenemies, walls))
+				{
+					if (!reverseddumbenemies)
+					{
+						dumbenemies->position = dumbenemies->previousPos;
+						reverseddumbenemies = true;
+						dumbenemies->velocity = dumbenemies->velocity * -1.0f;
 
-	//enemy2->update(dt);
+						break;
+					}
+				}
+			}
+		}
+
+		// This function is responsible for creating walls mid game.
 		if (input->isMouseButtonDown(aie::INPUT_MOUSE_BUTTON_LEFT))
 		{
 			int keyCheckerCount = 0;
@@ -363,11 +393,13 @@ void playLoop::update(float dt, GSM* gsm)
 			
 			/*std::list<Node*> path;
 			Node* tempPtr;*/
+			
 
+			// if the timer ticks over, reget all enemies and player's currentNodes.
 			if (glfwGetTime() > timer)
 			{
 				
-				
+				// Smart enemies
 				for (auto &enemys : enemies)
 				{
 
@@ -384,6 +416,24 @@ void playLoop::update(float dt, GSM* gsm)
 						}
 					}
 				}
+				// dumb enemies
+				for (auto &dumbenemies : stateEnemy)
+				{
+
+					int enemyKey;
+					enemyKey = myNodes.getIndex(dumbenemies->position.x, dumbenemies->position.y);
+					for (int i = 0; i < 576; i++)
+					{
+						if (myNodes.gameNodes[i].key == enemyKey)
+						{
+							if (myNodes.gameNodes[i].getWalkable())
+							{
+								dumbenemies->currentNode = &myNodes.gameNodes[i];
+							}
+						}
+					}
+				}
+				// Player
 				int tempKey;
 				tempKey = myNodes.getIndex(player->position.x, player->position.y);
 				for (int i = 0; i < 576; i++)
@@ -399,7 +449,7 @@ void playLoop::update(float dt, GSM* gsm)
 
 				
 				// for all the enemies, draw their path
-
+				// smart enemies
 				for (auto &enemys : enemies)
 				{
 					if (enemys->currentNode != nullptr && player->closestNode != nullptr)
@@ -418,11 +468,41 @@ void playLoop::update(float dt, GSM* gsm)
 						{
 							tempPtr = path.front();
 						}
+						
+						//increment the timer.
 						timer = glfwGetTime() + 0.5;
+					}
+				}
+
+
+				// for all the enemies, draw their path
+				// dumb enemies
+				for (auto &dumbenemies : stateEnemy)
+				{
+					if (dumbenemies->currentNode != nullptr && player->closestNode != nullptr)
+					{
+						dumbenemies->path.clear();
+						//path = myNodes.pathFinding(enemy->currentNode, player->closestNode);
+						dumbenemies->path = myNodes.pathFinding(dumbenemies->currentNode, player->closestNode);
+						dumbenemies->closedSet = myNodes.completedClosedSet;
+						dumbenemies->openSet = myNodes.completedOpenSet;
+						if (path.size() <= 0)
+						{
+							dumbenemies->velocity = { 0.0f,0.0f };
+							tempPtr = nullptr;
+						}
+						else
+						{
+							tempPtr = path.front();
+						}
+						
 					}
 				}
 			}
 			
+			
+			
+			// for all the smart enemies, check if they are getting damaged.
 			for (auto &enemys : enemies)
 			{
 				enemys->healthString = std::to_string(enemys->health);
@@ -455,7 +535,8 @@ void playLoop::update(float dt, GSM* gsm)
 			}*/
 			
 
-
+			// make sure they dont go out of the screen!
+			//Player
 			if (player->position.y < 25)
 			{
 				player->position.y = 25;
@@ -472,7 +553,7 @@ void playLoop::update(float dt, GSM* gsm)
 			{
 				player->position.x = 1575;
 			}
-
+			//smart enemies
 			for (auto &enemys : enemies)
 			{
 
@@ -494,7 +575,28 @@ void playLoop::update(float dt, GSM* gsm)
 				}
 				
 			}
-			
+			//dumb enemies
+			for (auto &dumbenemies : stateEnemy)
+			{
+
+				if (dumbenemies->position.y < 25)
+				{
+					dumbenemies->position.y = 25;
+				}
+				if (dumbenemies->position.y > 875)
+				{
+					dumbenemies->position.y = 875;
+				}
+				if (dumbenemies->position.x < 25)
+				{
+					dumbenemies->position.x = 25;
+				}
+				if (dumbenemies->position.x > 1575)
+				{
+					dumbenemies->position.x = 1575;
+				}
+
+			}
 		
 				
 			
@@ -505,7 +607,7 @@ void playLoop::update(float dt, GSM* gsm)
 void playLoop::render()
 {
 	
-	
+	// draw both smart and dumbAI's path
 	PLAY->app->m_2dRenderer->setRenderColour(255, 255, 255);
 	for (auto &enemys : enemies)
 	{
@@ -517,6 +619,28 @@ void playLoop::render()
 			{
 				// if the end of the path is hit, stop the loop.
 				if (var == enemys->path.front())
+				{
+					continue;
+				}
+
+
+				PLAY->app->m_2dRenderer->drawLine(tempPtr->posX, tempPtr->posY, var->posX, var->posY, 1.0f, 0);
+				tempPtr = var;
+			}
+		}
+	}
+
+
+	for (auto &dumbenemies : stateEnemy)
+	{
+		if (dumbenemies->path.size() > 0)
+		{
+
+			tempPtr = dumbenemies->path.front();
+			for (auto &var : dumbenemies->path)
+			{
+				// if the end of the path is hit, stop the loop.
+				if (var == dumbenemies->path.front())
 				{
 					continue;
 				}
@@ -642,6 +766,21 @@ void playLoop::render()
 	{
 		PLAY->app->m_2dRenderer->drawText(m_font.get(), enemys->healthString.c_str(), enemys->position.x, enemys->position.y + 30.0f);
 	}
+	
+	
+	for (auto &enemys : enemies)
+	{
+		for (auto &enemyfeelers : enemys->m_behaviours)
+		{
+			if (enemyfeelers->type == IBehavior::AVOIDANCE)
+			{
+
+			PLAY->app->m_2dRenderer->drawLine(enemys->position.x, enemys->position.y, 
+				((Avoidance*)enemyfeelers)->lineEnd.x, ((Avoidance*)enemyfeelers)->lineEnd.y, 5);
+			}
+
+		}
+	}
 	/*if (displayPath == true)
 	{*/
 
@@ -669,7 +808,11 @@ void playLoop::render()
 	player->render();
 	//enemy->render();
 	//enemy2->render();
-	stateEnemy->render();
+	for (auto &dumbenemies : stateEnemy)
+	{
+		dumbenemies->render();
+	}
+	
 	for (auto &enemies : enemies)
 	{
 		enemies->render();

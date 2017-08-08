@@ -6,9 +6,10 @@ Alignment::Alignment(Object * myself)
 {
 	mySelf = myself;
 	type = BehaviourNames::ALIGNMENT;
+	behaviourWeight = 1.5;
 }
 
-void Alignment::Update(float dt)
+Vector2 Alignment::Update(float dt)
 {
 	// this is the temp vector that will store the velocity calculated.
 	Vector2 tempVector;
@@ -21,7 +22,7 @@ void Alignment::Update(float dt)
 	{
 		if (mySelf != enemys)
 		{
-			if (PLAY->myNodes.distanceCheck(mySelf, 250, enemys))
+			if (PLAY->myNodes.distanceCheck(mySelf, 200, enemys))
 			{
 				tempVector.x += enemys->velocity.x;
 				tempVector.y += enemys->velocity.y;
@@ -35,10 +36,13 @@ void Alignment::Update(float dt)
 		tempVector = { 0,0 };
 		mySelf->velocity = tempVector;
 	}
-	tempVector.x /= neighborCount;
-	tempVector.y /= neighborCount;
-	tempVector.normalise();
-	mySelf->velocity = tempVector;
+	else
+	{
+		tempVector.x /= neighborCount;
+		tempVector.y /= neighborCount;
+		tempVector.normalise();
+		return tempVector;
+	}
 }
 
 Alignment::~Alignment()

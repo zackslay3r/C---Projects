@@ -6,9 +6,10 @@ Cohesion::Cohesion(Object * myself)
 {
 	mySelf = myself;
 	type = BehaviourNames::COHESION;
+	behaviourWeight = 1.0;
 }
 
-void Cohesion::Update(float dt)
+Vector2 Cohesion::Update(float dt)
 {
 
 	// this is the temp vector that will store the velocity calculated.
@@ -22,7 +23,7 @@ void Cohesion::Update(float dt)
 	{
 		if (mySelf != enemys)
 		{
-			if (PLAY->myNodes.distanceCheck(mySelf, 250, enemys))
+			if (PLAY->myNodes.distanceCheck(mySelf, 300, enemys))
 			{
 				tempVector.x += enemys->position.x;
 				tempVector.y += enemys->position.y;
@@ -36,13 +37,22 @@ void Cohesion::Update(float dt)
 		tempVector = { 0,0 };
 		mySelf->velocity = tempVector;
 	}
-	tempVector.x /= neighborCount;
-	tempVector.y /= neighborCount;
-	Vector2 finalVec;
-	finalVec = { tempVector.x - mySelf->position.x, tempVector.y - mySelf->position.y };
+	else
+	{
+		tempVector.x /= neighborCount;
+		tempVector.y /= neighborCount;
+		
+		
+		tempVector.x *= behaviourWeight;
+		tempVector.y *= behaviourWeight;
 
-	finalVec.normalise();
-	mySelf->velocity = finalVec;
+
+		Vector2 finalVec;
+		finalVec = { tempVector.x - mySelf->position.x, tempVector.y - mySelf->position.y };
+
+		finalVec.normalise();
+		return finalVec;
+	}
 }
 
 Cohesion::~Cohesion()

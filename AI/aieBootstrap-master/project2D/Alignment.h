@@ -7,7 +7,7 @@ class Alignment :
 public:
 	Alignment(Object* myself);
 
-	void Update(float dt);
+	Vector2 Update(float dt);
 	~Alignment();
 };
 

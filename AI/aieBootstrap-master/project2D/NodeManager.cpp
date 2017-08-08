@@ -188,7 +188,6 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 		{
 			gameNodes[i].setdScore(INFINITY);
 			gameNodes[i].previousNode = nullptr;
-			gameNodes[i].setFScore(INFINITY);
 			gameNodes[i].setHScore(INFINITY);
 		}
 
@@ -197,15 +196,14 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 		startNode->setdScore(0);
 
 
-		startNode->setFScore(heuristicEstimate(startNode, endNode) * e);
+		startNode->setHScore(heuristicEstimate(startNode, endNode) * e);
 		Node* node_current = nullptr;
+		std::list<Node* >::iterator iter;
 		while (openSet.size() > 0)
 		{
 			// tempNode to evaluate against for finding the finish.
 
 
-			std::list<Node* >::iterator iter;
-			Node* tempNode;
 			float tempF = FLT_MAX;
 
 			// Loops though the open set and will set the current node to the one with the lowest Fscore.
@@ -213,11 +211,11 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 			{
 				if ((*iter)->getFScore() < tempF)
 				{
-					tempNode = *iter;
+					node_current = *iter;
 					tempF = (*iter)->getFScore();
 				}
 			}
-			node_current = tempNode;
+
 			// if the current key is equal to the endNode key, we have found the endNode
 			if (node_current->key == endNode->key)
 			{
@@ -233,57 +231,53 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 
 
 			std::list<Edge* >::iterator edgeIter;
-			std::list<edgePair> neighbours;
+			Node* node_temp = nullptr;
 			for (edgeIter = node_current->links.begin(); edgeIter != node_current->links.end(); ++edgeIter)
 			{
+				float TempD = 0;
 				if ((*edgeIter)->keyOne != node_current->key)
 				{
-
-					neighbours.push_front({ (*edgeIter)->edgeDistance,&gameNodes[(*edgeIter)->keyOne] });
+					TempD = (*edgeIter)->edgeDistance;
+					node_temp = &gameNodes[(*edgeIter)->keyOne];
 				}
 				if ((*edgeIter)->keyTwo != node_current->key)
 				{
-					neighbours.push_front({ (*edgeIter)->edgeDistance,&gameNodes[(*edgeIter)->keyTwo] });
+					TempD = (*edgeIter)->edgeDistance;
+					node_temp = &gameNodes[(*edgeIter)->keyTwo];
 				}
-
-
-
-
-			}
-
-
-			for (auto &var : neighbours)
-			{
-				if (var.node->getWalkable() == false)
+				
+				
+				if (node_temp->getWalkable() == false)
 				{
 					continue;
 				}
-				if (std::find(closedSet.begin(), closedSet.end(), var.node) != closedSet.end())
+				if (std::find(closedSet.begin(), closedSet.end(), node_temp) != closedSet.end())
 				{
 					continue;
 				}
-				if (std::find(openSet.begin(), openSet.end(), var.node) == openSet.end())
+				if (std::find(openSet.begin(), openSet.end(), node_temp) == openSet.end())
 				{
-					openSet.push_back(var.node);
+					openSet.push_back(node_temp);
 				}
 
 
-				float teneative_gScore = (node_current->getdScore() + var.edgeDistance);
-				if (teneative_gScore >= var.node->getdScore())
+				float teneative_gScore = (node_current->getdScore() + TempD);
+				if (teneative_gScore >= node_temp->getdScore())
 				{
 					continue;
 				}
 
 
-				var.node->previousNode = node_current;
-				var.node->setdScore(teneative_gScore);
-				var.node->setFScore(var.node->getdScore() + heuristicEstimate(var.node, endNode) * e);
+				node_temp->previousNode = node_current;
+				node_temp->setdScore(teneative_gScore);
+				node_temp->setHScore((heuristicEstimate(node_temp, endNode) * e));
 
-
+			
 			}
 			completedClosedSet = closedSet;
-			completedOpenSet = openSet;
+			completedOpenSet = openSet;			
 		}
+			
 		// This is the previous node to backtrack from
 
 		// gSco
@@ -293,7 +287,7 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 
 float NodeManager::heuristicEstimate(Node * nodeOne, Node * nodeTwo)
 {
-	float x, y, h;
+	/*float x, y, h;
 	x = abs(nodeOne->posX - nodeTwo->posX);
 	y = abs(nodeOne->posY - nodeTwo->posY);
 	if (x > y)
@@ -303,9 +297,9 @@ float NodeManager::heuristicEstimate(Node * nodeOne, Node * nodeTwo)
 	else
 	{
 		h = 14 * x + 10 * (y - x);
-	}
-	
-
+	}*/
+	Vector2 dis = { nodeOne->posX - nodeTwo->posX,nodeOne->posY - nodeTwo->posY };
+	float h = dis.magnitude();
 	return h;
 }
 

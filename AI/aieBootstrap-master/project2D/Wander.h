@@ -8,7 +8,7 @@ class Wander :
 {
 public:
 	Wander(Object* myself);
-	void Update(float dt);
+	Vector2 Update(float dt);
 	int random();
 	float wanderRadius = 50.0f;
 	float wanderDistance = 100.0f;

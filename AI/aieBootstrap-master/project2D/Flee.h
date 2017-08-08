@@ -5,7 +5,7 @@ class Flee :
 {
 public:
 	Flee(Object* myself);
-	void Update(float dt);
+	Vector2 Update(float dt);
 	~Flee();
 };
 

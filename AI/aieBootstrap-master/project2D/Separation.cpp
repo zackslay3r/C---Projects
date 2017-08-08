@@ -5,9 +5,10 @@ Separation::Separation(Object * myself)
 {
 	mySelf = myself;
 	type = BehaviourNames::SEPERATION;
+	behaviourWeight = 2;
 }
 
-void Separation::Update(float dt)
+Vector2 Separation::Update(float dt)
 {
 	// this is the temp vector that will store the velocity calculated.
 	Vector2 tempVector;
@@ -20,7 +21,7 @@ void Separation::Update(float dt)
 	{
 		if (mySelf != enemys)
 		{
-			if (PLAY->myNodes.distanceCheck(mySelf, 250, enemys))
+			if (PLAY->myNodes.distanceCheck(mySelf, 100, enemys))
 			{
 				tempVector.x += enemys->position.x - mySelf->position.x;
 				tempVector.y += enemys->position.y - mySelf->position.y;
@@ -34,14 +35,20 @@ void Separation::Update(float dt)
 		tempVector = { 0,0 };
 		mySelf->velocity = tempVector;
 	}
-	tempVector.x /= neighborCount;
-	tempVector.y /= neighborCount;
-	
-	tempVector.x *= -1.0f;
-	tempVector.y *= -1.0f;
+	else
+	{
+		tempVector.x /= neighborCount;
+		tempVector.y /= neighborCount;
 
-	tempVector.normalise();
-	mySelf->velocity = tempVector;
+		tempVector.x *= behaviourWeight;
+		tempVector.y *= behaviourWeight;
+
+		tempVector.x *= -1.0f;
+		tempVector.y *= -1.0f;
+
+		tempVector.normalise();
+		 return tempVector;
+	}
 }
 
 Separation::~Separation()

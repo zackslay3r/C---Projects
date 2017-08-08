@@ -12,7 +12,7 @@ Seek::Seek(Object* myself)
 	type = BehaviourNames::SEEK;
 }
 
-void Seek::Update(float dt)
+Vector2 Seek::Update(float dt)
 {
 	// If the behaviour is actually active and has a weighting....
 	if (behaviourWeight > 0.0f)
@@ -54,7 +54,7 @@ void Seek::Update(float dt)
 			v3.normalise();
 
 			//this will work out the final velocity.
-			mySelf->velocity = v3 * speed * behaviourWeight;
+			return (v3 * speed * behaviourWeight);
 			
 		}
 		// if the path is 0, we want to stop moving, please?
@@ -66,10 +66,7 @@ void Seek::Update(float dt)
 		PLAY->theBoard->isSeeking.push_back(((Enemy*)mySelf));
 		PLAY->theBoard->seekAsWell();
 		
-		if (((Enemy*)mySelf)->health <= 30)
-		{
-			((Enemy*)mySelf)->changeToFlee(((Enemy*)mySelf));
-		}
+	
 	}
 
 

@@ -7,7 +7,7 @@ class Cohesion :
 public:
 	Cohesion(Object* myself);
 
-	void Update(float dt);
+	Vector2 Update(float dt);
 	~Cohesion();
 };
 
