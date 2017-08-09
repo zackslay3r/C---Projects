@@ -5,7 +5,7 @@ Separation::Separation(Object * myself)
 {
 	mySelf = myself;
 	type = BehaviourNames::SEPERATION;
-	behaviourWeight = 2;
+	behaviourWeight = 10.0f;
 }
 
 Vector2 Separation::Update(float dt)
@@ -14,6 +14,8 @@ Vector2 Separation::Update(float dt)
 	Vector2 tempVector;
 	// This is the amount of neighbours each enemy will have.
 	int neighborCount = 0;
+	// default speed
+	float speed = 100.0f;
 
 	// Loop though all our enemies and if they are not the same and are within a certain distance,
 	// add to the temporary vector the enemy velocitys vector and increment the neighbour count
@@ -49,6 +51,7 @@ Vector2 Separation::Update(float dt)
 		if (tempVector.x != 0.0f && tempVector.y != 0.0f)
 		{
 			tempVector.normalise();
+			tempVector * speed;
 			return tempVector;
 		}
 		else

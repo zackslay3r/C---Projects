@@ -27,7 +27,7 @@ public:
 	Node* MoveTo;
 	Object* target;
 	float maxSpeed = 150;
-	float minSpeed = 50;
+	float minSpeed = 0;
 	std::string healthString;
 	Vector2 previousPos;
 	Vector2 desiredVelocity;

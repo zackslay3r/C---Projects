@@ -41,8 +41,8 @@ playLoop::playLoop()
 	stateEnemy.push_back(new enemyStateUser(1150,600));
 	// Initalises the smart AI enemies,
 	enemies.push_back(new Enemy(1200, 300));
-	enemies.push_back(new Enemy(1100, 500));
-	
+	enemies.push_back(new Enemy(800, 500));
+
 	// For all the enemys in the list, push their behaviours,
 	// set health to 100, and get their current node index.
 	// before setting their default behaviour to wander.
@@ -54,12 +54,12 @@ playLoop::playLoop()
 		enemy->m_behaviours.push_front(new Flee(enemy));
 		enemy->m_behaviours.push_front(new Wander(enemy));
 		//enemy->m_behaviours.push_front(new Avoidance(enemy, 0.0f));
-		enemy->m_behaviours.push_front(new Avoidance(enemy, 35.0f, 3.0f));
-		enemy->m_behaviours.push_front(new Avoidance(enemy, -35.0f, 3.0f));
-		enemy->m_behaviours.push_front(new Avoidance(enemy, 0.0f, 6.0f));
-		enemy->m_behaviours.push_front(new Alignment(enemy));
-		enemy->m_behaviours.push_front(new Separation(enemy));
-		enemy->m_behaviours.push_front(new Cohesion(enemy));
+		enemy->m_behaviours.push_front(new Avoidance(enemy, 35.0f, 5.0f));
+		enemy->m_behaviours.push_front(new Avoidance(enemy, -35.0f, 5.0f));
+		enemy->m_behaviours.push_front(new Avoidance(enemy, 0.0f, 10.0f));
+		//enemy->m_behaviours.push_front(new Alignment(enemy));
+		//enemy->m_behaviours.push_front(new Separation(enemy));
+		//enemy->m_behaviours.push_front(new Cohesion(enemy));
 		//enemy->m_behaviours.push_front(new Avoidance(enemy, 90.0f));
 		//enemy->m_behaviours.push_front(new Avoidance(enemy, -90.0f));
 		enemy->health = 100;
@@ -467,6 +467,47 @@ void playLoop::update(float dt, GSM* gsm)
 						enemys->path.clear();
 						//path = myNodes.pathFinding(enemy->currentNode, player->closestNode);
 						enemys->path = myNodes.pathFinding(enemys->currentNode, player->closestNode);
+						
+						
+							
+									std::list<Node*>::iterator startIter;
+									std::list<Node*>::iterator middleIter;
+									std::list<Node*>::iterator endIter;
+
+									startIter = enemys->path.begin();
+
+								//for (auto &path : enemys->path)
+								while (startIter != enemys->path.end())
+								{
+									middleIter = startIter;
+									middleIter++;
+									if (middleIter == enemys->path.end())
+									{
+										break;
+									}
+									endIter = middleIter;
+									endIter++;
+									if (endIter == enemys->path.end())
+									{
+										break;
+									}
+									
+									if (nodeCollision({ (*startIter)->posX,(*startIter)->posY },
+										{ (*endIter)->posX,(*endIter)->posY }))//hit wall
+									{
+										startIter = middleIter;									
+									}
+									else // no wall
+									{
+										enemys->path.remove((*middleIter));
+									}
+								}
+
+							
+						
+						
+						
+						
 						enemys->closedSet = myNodes.completedClosedSet;
 						enemys->openSet = myNodes.completedOpenSet;
 						if (path.size() <= 0)
@@ -827,6 +868,52 @@ void playLoop::render()
 	{
 		enemies->render();
 	}
+}
+
+bool playLoop::lineLine(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
+{
+	// calculate the direction of the lines
+	float uA = ((x4 - x3)*(y1 - y3) - (y4 - y3)*(x1 - x3)) / ((y4 - y3)*(x2 - x1) - (x4 - x3)*(y2 - y1));
+	float uB = ((x2 - x1)*(y1 - y3) - (y2 - y1)*(x1 - x3)) / ((y4 - y3)*(x2 - x1) - (x4 - x3)*(y2 - y1));
+
+	// if uA and uB are between 0-1, lines are colliding
+	if (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1) {
+
+		return true;
+	}
+	return false;
+
+}
+
+bool playLoop::lineRec(float x1, float y1, float x2, float y2, float rx, float ry, float rw, float rh)
+{
+	// check if the line has hit any of the rectangle's sides
+	// uses the Line/Line function below
+	bool left = lineLine(x1, y1, x2, y2, rx, ry, rx, ry + rh);
+	bool right = lineLine(x1, y1, x2, y2, rx + rw, ry, rx + rw, ry + rh);
+	bool top = lineLine(x1, y1, x2, y2, rx, ry, rx + rw, ry);
+	bool bottom = lineLine(x1, y1, x2, y2, rx, ry + rh, rx + rw, ry + rh);
+
+	// if ANY of the above are true, the line
+	// has hit the rectangle
+	if (left || right || top || bottom) {
+		return true;
+	}
+	return false;
+}
+
+bool playLoop::nodeCollision(Vector2 pos1, Vector2 pos2)
+{
+	
+	for (auto &walls : PLAY->myWalls)
+	{
+		if (lineRec(pos1.x, pos1.y, pos2.x, pos2.y, walls->position.x, walls->position.y, walls->scale.x, walls->scale.y))
+		{
+			return true;
+		}
+	
+	}
+	return false;
 }
 
 

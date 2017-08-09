@@ -51,6 +51,9 @@ public:
 	Player* player;
 	blackBoard* theBoard;
 	std::vector<Wall*> myWalls;
+	bool lineLine(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+	bool lineRec(float x1, float y1, float x2, float y2, float rx, float ry, float rw, float rh);
+	bool nodeCollision(Vector2 pos1, Vector2 pos2);
 private:
 	/*
 	* playLoop();

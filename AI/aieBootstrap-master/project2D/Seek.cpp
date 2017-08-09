@@ -66,8 +66,7 @@ Vector2 Seek::Update(float dt)
 			return tempVec;
 		}
 
-		PLAY->theBoard->isSeeking.push_back(((Enemy*)mySelf));
-		PLAY->theBoard->seekAsWell();
+		
 		
 	
 	}

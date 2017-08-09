@@ -118,6 +118,7 @@ void Enemy::update(float dt)
 	}
 
 
+	
 }
 
 void Enemy::changeToSeek()
@@ -136,6 +137,8 @@ void Enemy::changeToSeek()
 		{
 		case IBehavior::SEEK:
 			behaviours->behaviourWeight = 1.0f;
+			PLAY->theBoard->isSeeking.push_back(((Enemy*)this));
+			PLAY->theBoard->seekAsWell();
 			break;
 		case IBehavior::COHESION:
 			break;

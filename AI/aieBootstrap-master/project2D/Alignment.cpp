@@ -6,7 +6,7 @@ Alignment::Alignment(Object * myself)
 {
 	mySelf = myself;
 	type = BehaviourNames::ALIGNMENT;
-
+	behaviourWeight = 7.0f;
 }
 
 Vector2 Alignment::Update(float dt)
@@ -15,7 +15,9 @@ Vector2 Alignment::Update(float dt)
 	Vector2 tempVector;
 	// This is the amount of neighbours each enemy will have.
 	int neighborCount = 0;
-
+	
+	float speed = 100.0f;
+	// 
 	// Loop though all our enemies and if they are not the same and are within a certain distance,
 	// add to the temporary vector the enemy velocitys vector and increment the neighbour count
 	for (auto &enemys : PLAY->enemies)
@@ -41,6 +43,7 @@ Vector2 Alignment::Update(float dt)
 		tempVector.x /= neighborCount;
 		tempVector.y /= neighborCount;
 		tempVector.normalise();
+		tempVector = tempVector * speed;
 		return tempVector;
 	}
 }
