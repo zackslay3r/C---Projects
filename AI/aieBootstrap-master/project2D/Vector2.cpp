@@ -67,7 +67,22 @@ Vector2 Vector2::operator*(float scalar)
 	return Vector2(x*scalar, y*scalar);
 }
 
+Vector2 Vector2::normalised()
+{
+	float tempMag = magnitude();
+
+	Vector2 tempVec(x / tempMag, y / tempMag);
+
+
+	return tempVec;
+}
+
 float Vector2::magnitude()
 {
 	return sqrt((x*x) + (y*y));
+}
+
+float Vector2::sqrMagnitude()
+{
+	return ((x*x) + (y*y));
 }

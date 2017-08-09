@@ -7,12 +7,12 @@
 
 
 
-Avoidance::Avoidance(Object * myself, float angle)
+Avoidance::Avoidance(Object * myself, float angle, float weighting)
 {
 	mySelf = myself;
 	type = BehaviourNames::AVOIDANCE;
 	feelerAngle = angle;
-	behaviourWeight = 5.0f;
+	behaviourWeight = weighting;
 }
 
 Vector2 Avoidance::Update(float dt)
@@ -42,7 +42,7 @@ Vector2 Avoidance::Update(float dt)
 		Vector2 linePos1 = mySelf->position;
 		lineEnd = rotateVector(mySelf->velocity, feelerAngle);
 		lineEnd.normalise() ;
-		lineEnd = lineEnd * 50;
+		lineEnd = lineEnd * 100;
 		lineEnd = lineEnd + mySelf->position;
 
 		// for each wall, do a collision check against the feeler line.
@@ -54,8 +54,37 @@ Vector2 Avoidance::Update(float dt)
 			if (lineRec(linePos1.x, linePos1.y, lineEnd.x, lineEnd.y, walls->position.x - 25.0f, walls->position.y - 25.0f, walls->scale.x, walls->scale.y))
 			{
 				Vector2 tempVec;
-				tempVec = (mySelf->position + lineEnd) - linePos1 ;
+			/*	tempVec = (mySelf->position + lineEnd) - linePos1 ;
+				tempVec.normalise()*/
+				tempVec = mySelf->velocity;
 				tempVec.normalise();
+
+				/*if (feelerAngle > 0)
+				{
+					//right normal
+					Vector2 normal = Vector2(tempVec.y, -tempVec.x);
+					
+					//normal = normal * cosf(feelerAngle * (GAMESETTINGS->pi / 180.0f));
+
+					return normal * speed;
+				}
+				else if (feelerAngle < 0)
+				{
+					//left normal
+					Vector2 normal = Vector2(-tempVec.y, tempVec.x);
+
+					//scale the normal by the angle
+					//normal = normal * cosf(feelerAngle * (GAMESETTINGS->pi / 180.0f));
+
+					return normal * speed;
+				}
+				else*/
+				{
+					//backwards
+					Vector2 back = linePos1 - lineEnd;// tempVec * -1.0f;
+					back.normalise();
+					return back * speed;
+				}
 				if (tempVec.x != 0.0f && tempVec.y != 0.0f)
 				{
 					return (tempVec * speed);

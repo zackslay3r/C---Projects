@@ -10,8 +10,8 @@ public:
 	Wander(Object* myself);
 	Vector2 Update(float dt);
 	int random();
-	float wanderRadius = 50.0f;
-	float wanderDistance = 100.0f;
+	float wanderRadius = 200;
+	float wanderDistance = 150;
 	float wanderJitter = 0.1f;
 	float wanderAngle = 0.0f;
 

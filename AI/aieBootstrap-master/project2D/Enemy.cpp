@@ -53,30 +53,61 @@ void Enemy::update(float dt)
 		}
 		else
 		{
-			tempVec += behaviours->Update(dt);
+			tempVec = behaviours->Update(dt);
 			if (tempVec.x == 0.0f && tempVec.y == 0.0f)
 			{
 				nullBeheaviours++;
 			}
 			else
 			{
+		
 				desiredVelocity += tempVec;
+				
 			}
 		}
 	}
-	tempVec = { 0.0f,0.0f };
-
 	// Set the velocity to be that of the desired velocity (all the velocity's of every behaviour added)
 	// divided by (the amount of behaviours the smartAI has - the amount of nullBehaviours)
-	if (desiredVelocity.x != 0.0f || desiredVelocity.y != 0.0)
+	float TotalActiveBeheaviours = (m_behaviours.size() - nullBeheaviours);
+	if (desiredVelocity.x != 0.0f && desiredVelocity.y != 0.0)
 	{
-		velocity.x = desiredVelocity.x * 0.5f / (m_behaviours.size() - nullBeheaviours);
-		velocity.y = desiredVelocity.y * 0.5f / (m_behaviours.size() - nullBeheaviours);
+		desiredVelocity.x = desiredVelocity.x  / TotalActiveBeheaviours;
+		desiredVelocity.y = desiredVelocity.y  / TotalActiveBeheaviours;
 	}
+	if (desiredVelocity.sqrMagnitude() <  (minSpeed*minSpeed))
+	{
+		if (desiredVelocity.x != 0.0f || desiredVelocity.y != 0.0)
+		{
+			desiredVelocity = desiredVelocity.normalised() * minSpeed;
+		}
+	}
+	else if (desiredVelocity.sqrMagnitude() >  (maxSpeed*maxSpeed))
+	{
+		desiredVelocity = desiredVelocity.normalised() * maxSpeed;
+	}
+
+
+	if (TotalActiveBeheaviours > 0)
+	{
+		velocity = (velocity + velocity + velocity + desiredVelocity)*0.25f;
+	}
+
+	if (velocity.sqrMagnitude() < (minSpeed*minSpeed))
+	{
+		if (velocity.x != 0.0f || velocity.y != 0.0)
+		{
+			velocity = velocity.normalised() * minSpeed;
+		}
+	}
+	else if (velocity.sqrMagnitude() > (maxSpeed*maxSpeed))
+	{
+		velocity = velocity.normalised() * maxSpeed;
+	}
+
 	position += velocity * dt;
 	desiredVelocity = { 0.0f, 0.0f };
 
-
+	
 	if (PLAY->myNodes.distanceCheck(this, 300, PLAY->player))
 	{
 		changeToSeek();
@@ -85,18 +116,36 @@ void Enemy::update(float dt)
 	{
 		changeToFlee();
 	}
+
+
 }
 
 void Enemy::changeToSeek()
 {
 	for (auto &behaviours : m_behaviours)
 	{
-		if (behaviours->type == 0 || behaviours->type == 6)
+		/*if (behaviours->type == IBehavior::SEEK || behaviours->type == IBehavior::AVOIDANCE)
 		{
 			behaviours->behaviourWeight = 1.0f;
 		}
 		else
 		{
+			behaviours->behaviourWeight = 0.0f;
+		}*/
+		switch (behaviours->type)
+		{
+		case IBehavior::SEEK:
+			behaviours->behaviourWeight = 1.0f;
+			break;
+		case IBehavior::COHESION:
+			break;
+		case IBehavior::ALIGNMENT:
+			break;
+		case IBehavior::SEPERATION:
+			break;
+		case IBehavior::AVOIDANCE:
+			break;
+		default:
 			behaviours->behaviourWeight = 0.0f;
 		}
 	}
@@ -106,12 +155,28 @@ void Enemy::changeToFlee()
 {
 	for (auto &behaviours : m_behaviours)
 	{
-		if (behaviours->type == 2 || behaviours->type == 6)
+		/*if (behaviours->type == IBehavior::FLEE || behaviours->type == IBehavior::AVOIDANCE)
 		{
 			behaviours->behaviourWeight = 1.0f;
 		}
 		else
 		{
+			behaviours->behaviourWeight = 0.0f;
+		}*/
+		switch (behaviours->type)
+		{
+		case IBehavior::FLEE:
+			behaviours->behaviourWeight = 1.0f;
+			break;
+		case IBehavior::COHESION:
+			break;
+		case IBehavior::ALIGNMENT:
+			break;
+		case IBehavior::SEPERATION:
+			break;
+		case IBehavior::AVOIDANCE:
+			break;
+		default:
 			behaviours->behaviourWeight = 0.0f;
 		}
 	}
@@ -120,12 +185,30 @@ void Enemy::changeToFlee()
 void Enemy::changeToWander()
 {
 	for (auto &behaviours : m_behaviours)
-		if (behaviours->type == 1 || behaviours->type == 6)
+	{
+	/*	if (behaviours->type == IBehavior::WANDER || behaviours->type == IBehavior::AVOIDANCE)
 		{
 			behaviours->behaviourWeight = 1.0f;
 		}
 		else
 		{
 			behaviours->behaviourWeight = 0.0f;
+		}*/
+		switch (behaviours->type)
+		{
+		case IBehavior::WANDER: 
+		behaviours->behaviourWeight = 1.0f;
+		break;
+		case IBehavior::COHESION:
+		break;
+		case IBehavior::ALIGNMENT:
+		break;
+		case IBehavior::SEPERATION:
+		break;
+		case IBehavior::AVOIDANCE:
+		break;
+		default:
+		behaviours->behaviourWeight = 0.0f;
 		}
+	}
 }

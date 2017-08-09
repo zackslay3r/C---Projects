@@ -13,6 +13,9 @@
 #include "Wander.h"
 #include "fleeState.h"
 #include "Avoidance.h"
+#include "Alignment.h"
+#include "Separation.h"
+#include "Cohesion.h"
 #include <ctime>
 //#include "Factory.h"
 
@@ -50,11 +53,15 @@ playLoop::playLoop()
 		enemy->m_behaviours.push_front(new Seek(enemy));
 		enemy->m_behaviours.push_front(new Flee(enemy));
 		enemy->m_behaviours.push_front(new Wander(enemy));
-		enemy->m_behaviours.push_front(new Avoidance(enemy, 0.0f));
-		enemy->m_behaviours.push_front(new Avoidance(enemy, 35.0f));
-		enemy->m_behaviours.push_front(new Avoidance(enemy, -35.0f));
-		enemy->m_behaviours.push_front(new Avoidance(enemy, 90.0f));
-		enemy->m_behaviours.push_front(new Avoidance(enemy, -90.0f));
+		//enemy->m_behaviours.push_front(new Avoidance(enemy, 0.0f));
+		enemy->m_behaviours.push_front(new Avoidance(enemy, 35.0f, 3.0f));
+		enemy->m_behaviours.push_front(new Avoidance(enemy, -35.0f, 3.0f));
+		enemy->m_behaviours.push_front(new Avoidance(enemy, 0.0f, 6.0f));
+		enemy->m_behaviours.push_front(new Alignment(enemy));
+		enemy->m_behaviours.push_front(new Separation(enemy));
+		enemy->m_behaviours.push_front(new Cohesion(enemy));
+		//enemy->m_behaviours.push_front(new Avoidance(enemy, 90.0f));
+		//enemy->m_behaviours.push_front(new Avoidance(enemy, -90.0f));
 		enemy->health = 100;
 		int enemyKey;
 		enemyKey = myNodes.getIndex(enemy->position.x, enemy->position.y);
@@ -464,7 +471,7 @@ void playLoop::update(float dt, GSM* gsm)
 						enemys->openSet = myNodes.completedOpenSet;
 						if (path.size() <= 0)
 						{
-							enemys->velocity = { 0.0f,0.0f };
+							//enemys->velocity = { 0.0f,0.0f };
 							tempPtr = nullptr;
 						}
 						else

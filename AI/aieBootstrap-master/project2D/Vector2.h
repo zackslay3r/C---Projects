@@ -79,12 +79,22 @@ public:
 	*/
 	void normalise();
 
+
+	/*	Vector2 normalised();
+	*	This function returns a Vector2 that has been normalised.
+	*
+	*
+	*	@returns Vector2
+	*/
+	Vector2 normalised();
+
 	/*	float magnitude();
 	*	This function returns a 'float' value that is the magnitude of a Vector2.
 	*
 	*	@returns 'float'
 	*/
 	float magnitude();
+	float sqrMagnitude();
 
 
 	~Vector2();

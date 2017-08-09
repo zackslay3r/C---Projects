@@ -35,7 +35,7 @@ Vector2 Cohesion::Update(float dt)
 	if (neighborCount == 0)
 	{
 		tempVector = { 0,0 };
-		mySelf->velocity = tempVector;
+		return tempVector;
 	}
 	else
 	{
@@ -53,7 +53,8 @@ Vector2 Cohesion::Update(float dt)
 		finalVec.normalise();
 		return finalVec;
 	}
-	return{ 0.0f,0.0f };
+	Vector2 emptyVec;
+	return emptyVec;
 }
 
 Cohesion::~Cohesion()

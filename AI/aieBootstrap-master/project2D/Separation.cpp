@@ -32,8 +32,8 @@ Vector2 Separation::Update(float dt)
 	}
 	if (neighborCount == 0)
 	{
-		tempVector = { 0,0 };
-		mySelf->velocity = tempVector;
+		Vector2 empty;
+		return empty;
 	}
 	else
 	{
@@ -46,8 +46,16 @@ Vector2 Separation::Update(float dt)
 		tempVector.x *= -1.0f;
 		tempVector.y *= -1.0f;
 
-		tempVector.normalise();
-		 return tempVector;
+		if (tempVector.x != 0.0f && tempVector.y != 0.0f)
+		{
+			tempVector.normalise();
+			return tempVector;
+		}
+		else
+		{
+			Vector2 empty;
+			return empty;
+		}
 	}
 }
 

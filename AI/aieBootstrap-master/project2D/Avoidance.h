@@ -4,7 +4,7 @@ class Avoidance : public IBehavior
 {
 public:
 	// This behaviour will be cloned for as many feelers as
-	Avoidance(Object* myself, float angle);
+	Avoidance(Object* myself, float angle, float weighting);
 
 	Vector2 Update(float dt);
 	

@@ -21,7 +21,7 @@ Vector2 Seek::Update(float dt)
 		if (((Enemy*)mySelf)->path.size() > 0)
 		{
 			// the default distance between nodes.
-			float distance = 50.0f;
+			float distance = 150.0f;
 			// the enemy position - the position of the last node.
 			float DistX = ((Enemy*)mySelf)->position.x - ((Enemy*)mySelf)->path.back()->posX;
 			float DistY = ((Enemy*)mySelf)->position.y - ((Enemy*)mySelf)->path.back()->posY;
