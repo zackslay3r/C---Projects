@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "NodeManager.h"
 #include <list>
+#include <string>
+
 NodeManager nodes;
 Player::Player()
 {
@@ -55,8 +57,17 @@ void Player::update(float DT)
 		velocity.x += 2.0f;
 	}
 	
-	
-	
+	for (auto &enemies : PLAY->enemies)
+	{
+		enemies->healthString = std::to_string(enemies->health);
+		if (input->isKeyDown(aie::INPUT_KEY_SPACE))
+		{
+			if (PLAY->checkCollide(this, enemies))
+			{
+				enemies->health -= 0.5f;
+			}
+		}
+	}
 	position += velocity * DT;
 }
 

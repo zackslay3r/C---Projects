@@ -45,6 +45,12 @@ playLoop::playLoop()
 	enemies.push_back(new Enemy(1200, 300));
 	enemies.push_back(new Enemy(800, 500));
 
+	// Initalises the flock.
+	flock.push_back(new FlockCube(600, 600));
+	flock.push_back(new FlockCube(500, 600));
+	flock.push_back(new FlockCube(600, 700));
+	flock.push_back(new FlockCube(700, 700));
+
 	// For all the enemys in the list, push their behaviours,
 	// set health to 100, and get their current node index.
 	// before setting their default behaviour to wander.
@@ -108,6 +114,15 @@ playLoop::playLoop()
 			}
 		}
 		
+
+		for (auto &flockcubes : flock)
+		{ 
+			flockcubes->m_behaviours.push_front(new Alignment(flockcubes));
+			flockcubes->m_behaviours.push_front(new Separation(flockcubes));
+			flockcubes->m_behaviours.push_front(new Cohesion(flockcubes));
+		}
+
+
 	}
 
 	
@@ -190,12 +205,10 @@ void playLoop::update(float dt, GSM* gsm)
 	{
 		dumbenemies->update(dt);
 	}
-	// for all the behaviours in the smartEnemys,
-	// check if they are not having a weight and if not, index a counter for the amount of null behaviours.
-	for (auto &enemys : enemies)
-	{
 	
-
+	for (auto &flockcubes : flock)
+	{
+		flockcubes->update(dt);
 	}
 	
 	// Set the reversedplayers boolean to false.
@@ -557,17 +570,17 @@ void playLoop::update(float dt, GSM* gsm)
 			
 			
 			// for all the smart enemies, check if they are getting damaged.
-			for (auto &enemys : enemies)
+			/*for (auto &enemys : enemies)
 			{
 				enemys->healthString = std::to_string(enemys->health);
-				if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
+				if (input->isKeyDown(aie::INPUT_KEY_SPACE))
 				{
 					if (checkCollide(player, enemys))
 					{
-						enemys->health -= 10;
+						enemys->health -= 1;
 					}
 				}
-			}
+			}*/
 			// for all the enemies update them.
 			
 			/*if (myNodes.distanceCheck(player->closestNode, 150, enemy->currentNode))
@@ -870,6 +883,11 @@ void playLoop::render()
 	for (auto &enemies : enemies)
 	{
 		enemies->render();
+	}
+	
+	for (auto &flockcubes : flock)
+	{
+		flockcubes->render();
 	}
 }
 

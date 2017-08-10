@@ -10,6 +10,7 @@ public:
 
 	void runAway(Enemy* allEnemies);
 	void runAway(enemyStateUser* stateEnemy);
+
 	~UtilityAI();
 };
 

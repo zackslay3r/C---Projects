@@ -99,6 +99,7 @@
     <ClCompile Include="enemyStateUser.cpp" />
     <ClCompile Include="Flee.cpp" />
     <ClCompile Include="fleeState.cpp" />
+    <ClCompile Include="FlockCube.cpp" />
     <ClCompile Include="gameFSM.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Global.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="Exeception.h" />
     <ClInclude Include="Flee.h" />
     <ClInclude Include="fleeState.h" />
+    <ClInclude Include="FlockCube.h" />
     <ClInclude Include="gameFSM.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Global.h" />

@@ -17,7 +17,7 @@ public:
 	Enemy();
 	Enemy(float positionX, float positionY);
 	~Enemy();
-	int health;
+	double health;
 	void render();
 	void update(float dt);
 	void changeToSeek();

@@ -19,7 +19,7 @@ Enemy::Enemy(float positionX, float positionY)
 	position.y = positionY;
 	scale.x = 25.0f;
 	scale.y = 25.0f;
-	health = 100;
+	health = 100.0;
 
 	utility = new UtilityAI();
 	velocity = { 5,5 };
@@ -107,7 +107,8 @@ void Enemy::update(float dt)
 
 	if (TotalActiveBeheaviours > 0)
 	{
-		velocity = (velocity + velocity + velocity + desiredVelocity)*0.25f;
+		//velocity = (velocity + velocity + velocity + desiredVelocity)*0.25f;
+		velocity = desiredVelocity;
 	}
 
 	if (velocity.sqrMagnitude() < (minSpeed*minSpeed))

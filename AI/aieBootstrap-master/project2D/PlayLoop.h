@@ -7,9 +7,11 @@
 #include "Enemy.h"
 #include "blackBoard.h"
 #include "enemyStateUser.h"
+#include "FlockCube.h"
 class Player;
 class Enemy;
 class enemyStateUser;
+class FlockCube;
 #define PLAY playLoop::getInstance()
 /*
 * class playLoop
@@ -47,6 +49,7 @@ public:
 	void render();	
 	std::vector<Enemy*> enemies;
 	std::vector<enemyStateUser*> stateEnemy;
+	std::vector<FlockCube*> flock;
 	int nullBeheaviours = 0;
 	Player* player;
 	blackBoard* theBoard;
@@ -54,6 +57,7 @@ public:
 	bool lineLine(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
 	bool lineRec(float x1, float y1, float x2, float y2, float rx, float ry, float rw, float rh);
 	bool nodeCollision(Vector2 pos1, Vector2 pos2);
+	bool checkCollide(Object* obj1, Object* obj2);
 private:
 	/*
 	* playLoop();
@@ -89,15 +93,7 @@ private:
 	* returns bool - true or false.
 	*
 	*/
-	bool checkCollide(Object* obj1, Object* obj2);
-	
-	int ScoreOne, ScoreTwo;
-	float winnerTimer;
-	char *playerWinnerText;
-	
-	Object* paddleLeft;
-	Object* paddleRight;
-	Object* Ball;
+
 	
 	//Enemy* enemy;
 	//Enemy* enemy2;
