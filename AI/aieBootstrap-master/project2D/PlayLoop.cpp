@@ -6,7 +6,7 @@
 #include "Player.h"
 #include <GLFW/glfw3.h>
 #include "Enemy.h"
-#include "Seek.h"
+#include "MoveAlongPath.h"
 #include "Flee.h"
 #include "seekState.h"
 #include "wanderState.h"
@@ -16,6 +16,8 @@
 #include "Alignment.h"
 #include "Separation.h"
 #include "Cohesion.h"
+
+#include "Seeking.h"
 #include <ctime>
 //#include "Factory.h"
 
@@ -50,7 +52,8 @@ playLoop::playLoop()
 	for (auto &enemy : enemies)
 	{
 		enemy->target = player;
-		enemy->m_behaviours.push_front(new Seek(enemy));
+		enemy->m_behaviours.push_front(new MoveAlongPath(enemy));
+		enemy->m_behaviours.push_front(new Seeking(enemy));
 		enemy->m_behaviours.push_front(new Flee(enemy));
 		enemy->m_behaviours.push_front(new Wander(enemy));
 		//enemy->m_behaviours.push_front(new Avoidance(enemy, 0.0f));

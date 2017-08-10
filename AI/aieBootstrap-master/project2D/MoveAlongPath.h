@@ -1,17 +1,13 @@
 #pragma once
 #include "IBehavior.h"
 #include "Global.h"
-class Seek : public IBehavior
+class MoveAlongPath : public IBehavior
 {
 public:
-
 	
-	
-	
-	
-	Seek(Object* myself);
+	MoveAlongPath(Object* myself);
 	
 	Vector2 Update(float dt);
-	~Seek();
+	~MoveAlongPath();
 };
 

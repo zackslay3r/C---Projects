@@ -21,6 +21,7 @@ public:
 	void render();
 	void update(float dt);
 	void changeToSeek();
+	void changeToFollowPath();
 	void changeToFlee();
 	void changeToWander();
 	Node* currentNode;

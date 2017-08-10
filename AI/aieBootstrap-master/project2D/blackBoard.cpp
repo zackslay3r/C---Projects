@@ -59,6 +59,26 @@ void blackBoard::seekAsWell()
 	}
 }
 
+bool blackBoard::usePathFollow(Enemy * myself)
+{
+	// If the path (after smoothing) only has the start and end node, just use the seek behaviour.
+	if (myself->path.size() <= 2)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
+bool blackBoard::usePathFollow(enemyStateUser * myself)
+{
+	return false;
+}
+
+
+
 bool blackBoard::distanceCheck(Enemy * myself, float distance, Enemy * otherEnemy)
 {
 	Vector2 tempVector;

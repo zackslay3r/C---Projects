@@ -1,18 +1,18 @@
 //HACK
 //#pragma optimize("", off)
 
-#include "Seek.h"
+#include "MoveAlongPath.h"
 #include "Vector2.h"
 #include "Enemy.h"
 
-Seek::Seek(Object* myself)
+MoveAlongPath::MoveAlongPath(Object* myself)
 {
 	// Pass in myself and the enum type of the behaviour.
 	mySelf = myself;
-	type = BehaviourNames::SEEK;
+	type = BehaviourNames::MOVEALONGPATH;
 }
 
-Vector2 Seek::Update(float dt)
+Vector2 MoveAlongPath::Update(float dt)
 {
 	// If the behaviour is actually active and has a weighting....
 	if (behaviourWeight > 0.0f)
@@ -75,6 +75,6 @@ Vector2 Seek::Update(float dt)
 }
 
 
-Seek::~Seek()
+MoveAlongPath::~MoveAlongPath()
 {
 }

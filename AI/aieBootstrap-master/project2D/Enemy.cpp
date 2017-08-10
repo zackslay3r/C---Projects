@@ -1,5 +1,5 @@
 #include "Enemy.h"
-#include "Seek.h"
+#include "MoveAlongPath.h"
 #include "seekState.h"
 
 #include <string>
@@ -42,6 +42,24 @@ void Enemy::render()
 
 void Enemy::update(float dt)
 {
+	for (auto &behaviours : m_behaviours)
+	{
+		if (behaviours->type == IBehavior::MOVEALONGPATH && behaviours->behaviourWeight > 0.0f)
+		{
+			if (!PLAY->theBoard->usePathFollow(this))
+			{
+				changeToSeek();
+			}
+		}
+		if (behaviours->type == IBehavior::SEEK && behaviours->behaviourWeight > 0.0f)
+		{
+			if (PLAY->theBoard->usePathFollow(this))
+			{
+				changeToFollowPath();
+			}
+		}
+	}
+	
 	int nullBeheaviours = 0;
 	Vector2 tempVec;
 	for (auto &behaviours : m_behaviours)
@@ -110,7 +128,7 @@ void Enemy::update(float dt)
 	
 	if (PLAY->myNodes.distanceCheck(this, 300, PLAY->player))
 	{
-		changeToSeek();
+		changeToFollowPath();
 	}
 	if (health <= 30)
 	{
@@ -125,17 +143,36 @@ void Enemy::changeToSeek()
 {
 	for (auto &behaviours : m_behaviours)
 	{
-		/*if (behaviours->type == IBehavior::SEEK || behaviours->type == IBehavior::AVOIDANCE)
-		{
-			behaviours->behaviourWeight = 1.0f;
-		}
-		else
-		{
-			behaviours->behaviourWeight = 0.0f;
-		}*/
+	
 		switch (behaviours->type)
 		{
 		case IBehavior::SEEK:
+			behaviours->behaviourWeight = 1.0f;
+			PLAY->theBoard->isSeeking.push_back(((Enemy*)this));
+			PLAY->theBoard->seekAsWell();
+			break;
+		case IBehavior::COHESION:
+			break;
+		case IBehavior::ALIGNMENT:
+			break;
+		case IBehavior::SEPERATION:
+			break;
+		case IBehavior::AVOIDANCE:
+			break;
+		default:
+			behaviours->behaviourWeight = 0.0f;
+		}
+	}
+}
+
+void Enemy::changeToFollowPath()
+{
+	for (auto &behaviours : m_behaviours)
+	{
+
+		switch (behaviours->type)
+		{
+		case IBehavior::MOVEALONGPATH:
 			behaviours->behaviourWeight = 1.0f;
 			PLAY->theBoard->isSeeking.push_back(((Enemy*)this));
 			PLAY->theBoard->seekAsWell();
@@ -158,14 +195,7 @@ void Enemy::changeToFlee()
 {
 	for (auto &behaviours : m_behaviours)
 	{
-		/*if (behaviours->type == IBehavior::FLEE || behaviours->type == IBehavior::AVOIDANCE)
-		{
-			behaviours->behaviourWeight = 1.0f;
-		}
-		else
-		{
-			behaviours->behaviourWeight = 0.0f;
-		}*/
+	
 		switch (behaviours->type)
 		{
 		case IBehavior::FLEE:

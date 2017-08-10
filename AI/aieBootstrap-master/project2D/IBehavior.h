@@ -6,7 +6,7 @@ class IBehavior
 {
 public:
 
-	enum BehaviourNames { SEEK, WANDER, FLEE, SEPERATION, COHESION, ALIGNMENT, AVOIDANCE };
+	enum BehaviourNames { MOVEALONGPATH, SEEK, WANDER, FLEE, SEPERATION, COHESION, ALIGNMENT, AVOIDANCE };
 	BehaviourNames type;
 
 	Object* mySelf;

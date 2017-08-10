@@ -113,7 +113,8 @@
     <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayLoop.cpp" />
-    <ClCompile Include="Seek.cpp" />
+    <ClCompile Include="MoveAlongPath.cpp" />
+    <ClCompile Include="Seeking.cpp" />
     <ClCompile Include="seekState.cpp" />
     <ClCompile Include="Separation.cpp" />
     <ClCompile Include="SplashState.cpp" />
@@ -151,7 +152,8 @@
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayLoop.h" />
-    <ClInclude Include="Seek.h" />
+    <ClInclude Include="MoveAlongPath.h" />
+    <ClInclude Include="Seeking.h" />
     <ClInclude Include="seekState.h" />
     <ClInclude Include="Separation.h" />
     <ClInclude Include="SplashState.h" />
