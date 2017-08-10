@@ -1,5 +1,5 @@
 #include "FlockCube.h"
-
+#include "PlayLoop.h"
 
 
 
@@ -49,7 +49,7 @@ void FlockCube::update(float dt)
 			desiredVelocity.x = desiredVelocity.x / TotalActiveBeheaviours;
 			desiredVelocity.y = desiredVelocity.y / TotalActiveBeheaviours;
 		}
-		if (desiredVelocity.sqrMagnitude() <  (minSpeed*minSpeed))
+	/*	if (desiredVelocity.sqrMagnitude() <  (minSpeed*minSpeed))
 		{
 			if (desiredVelocity.x != 0.0f || desiredVelocity.y != 0.0)
 			{
@@ -59,7 +59,7 @@ void FlockCube::update(float dt)
 		else if (desiredVelocity.sqrMagnitude() >  (maxSpeed*maxSpeed))
 		{
 			desiredVelocity = desiredVelocity.normalised() * maxSpeed;
-		}
+		}*/
 
 
 		if (TotalActiveBeheaviours > 0)

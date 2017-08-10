@@ -5,7 +5,7 @@ Separation::Separation(Object * myself)
 {
 	mySelf = myself;
 	type = BehaviourNames::SEPERATION;
-	behaviourWeight = 10.0f;
+	behaviourWeight = 8.0f;
 }
 
 Vector2 Separation::Update(float dt)
@@ -19,14 +19,14 @@ Vector2 Separation::Update(float dt)
 
 	// Loop though all our enemies and if they are not the same and are within a certain distance,
 	// add to the temporary vector the enemy velocitys vector and increment the neighbour count
-	for (auto &enemys : PLAY->enemies)
+	for (auto &flockcubes : PLAY->flock)
 	{
-		if (mySelf != enemys)
+		if (mySelf != flockcubes)
 		{
-			if (PLAY->myNodes.distanceCheck(mySelf, 100, enemys))
+			if (PLAY->myNodes.distanceCheck(mySelf, 100, flockcubes))
 			{
-				tempVector.x += enemys->position.x - mySelf->position.x;
-				tempVector.y += enemys->position.y - mySelf->position.y;
+				tempVector.x += flockcubes->position.x - mySelf->position.x;
+				tempVector.y += flockcubes->position.y - mySelf->position.y;
 				neighborCount++;
 			}
 		}
@@ -45,8 +45,8 @@ Vector2 Separation::Update(float dt)
 		tempVector.x *= behaviourWeight;
 		tempVector.y *= behaviourWeight;
 
-		tempVector.x *= -1.0f;
-		tempVector.y *= -1.0f;
+		tempVector.x *= 1.0f;
+		tempVector.y *= 1.0f;
 
 		if (tempVector.x != 0.0f && tempVector.y != 0.0f)
 		{

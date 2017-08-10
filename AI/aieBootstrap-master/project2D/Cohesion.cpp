@@ -6,7 +6,7 @@ Cohesion::Cohesion(Object * myself)
 {
 	mySelf = myself;
 	type = BehaviourNames::COHESION;
-	behaviourWeight = 5.0f;
+	behaviourWeight = 1.0f;
 }
 
 Vector2 Cohesion::Update(float dt)
@@ -20,14 +20,14 @@ Vector2 Cohesion::Update(float dt)
 	float speed = 100.0f;
 	// Loop though all our enemies and if they are not the same and are within a certain distance,
 	// add to the temporary vector the enemy velocitys vector and increment the neighbour count
-	for (auto &enemys : PLAY->enemies)
+	for (auto &flockcubes : PLAY->flock)
 	{
-		if (mySelf != enemys)
+		if (mySelf != flockcubes)
 		{
-			if (PLAY->myNodes.distanceCheck(mySelf, 300, enemys))
+			if (PLAY->myNodes.distanceCheck(mySelf, 300, flockcubes))
 			{
-				tempVector.x += enemys->position.x;
-				tempVector.y += enemys->position.y;
+				tempVector.x += flockcubes->position.x;
+				tempVector.y += flockcubes->position.y;
 				neighborCount++;
 			}
 		}

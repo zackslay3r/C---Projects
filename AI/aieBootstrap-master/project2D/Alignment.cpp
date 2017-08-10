@@ -6,7 +6,7 @@ Alignment::Alignment(Object * myself)
 {
 	mySelf = myself;
 	type = BehaviourNames::ALIGNMENT;
-	behaviourWeight = 7.0f;
+	behaviourWeight = 2.0f;
 }
 
 Vector2 Alignment::Update(float dt)
@@ -20,14 +20,14 @@ Vector2 Alignment::Update(float dt)
 	// 
 	// Loop though all our enemies and if they are not the same and are within a certain distance,
 	// add to the temporary vector the enemy velocitys vector and increment the neighbour count
-	for (auto &enemys : PLAY->enemies)
+	for (auto &flockcubes: PLAY->flock)
 	{
-		if (mySelf != enemys)
+		if (mySelf != flockcubes)
 		{
-			if (PLAY->myNodes.distanceCheck(mySelf, 200, enemys))
+			if (PLAY->myNodes.distanceCheck(mySelf, 200, flockcubes))
 			{
-				tempVector.x += enemys->velocity.x;
-				tempVector.y += enemys->velocity.y;
+				tempVector.x += flockcubes->velocity.x;
+				tempVector.y += flockcubes->velocity.y;
 				neighborCount++;
 			}
 		}
