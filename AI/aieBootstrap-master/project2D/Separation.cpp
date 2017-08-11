@@ -5,7 +5,7 @@ Separation::Separation(Object * myself)
 {
 	mySelf = myself;
 	type = BehaviourNames::SEPERATION;
-	behaviourWeight = 8.0f;
+	behaviourWeight = 2.0f;
 }
 
 Vector2 Separation::Update(float dt)
@@ -23,7 +23,7 @@ Vector2 Separation::Update(float dt)
 	{
 		if (mySelf != flockcubes)
 		{
-			if (PLAY->myNodes.distanceCheck(mySelf, 100, flockcubes))
+			if (PLAY->myNodes.distanceCheck(mySelf, 400, flockcubes))
 			{
 				tempVector.x += flockcubes->position.x - mySelf->position.x;
 				tempVector.y += flockcubes->position.y - mySelf->position.y;
@@ -42,16 +42,16 @@ Vector2 Separation::Update(float dt)
 		tempVector.x /= neighborCount;
 		tempVector.y /= neighborCount;
 
-		tempVector.x *= behaviourWeight;
-		tempVector.y *= behaviourWeight;
+		//tempVector.x *= behaviourWeight;
+		//tempVector.y *= behaviourWeight;
 
-		tempVector.x *= 1.0f;
-		tempVector.y *= 1.0f;
+		tempVector.x *= -1.0f;
+		tempVector.y *= -1.0f;
 
 		if (tempVector.x != 0.0f && tempVector.y != 0.0f)
 		{
 			tempVector.normalise();
-			tempVector * speed;
+			tempVector * speed * behaviourWeight;
 			return tempVector;
 		}
 		else

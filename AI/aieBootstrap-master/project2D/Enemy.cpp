@@ -10,7 +10,7 @@ Enemy::Enemy()
 	position.y = 0.0f;
 	scale.x = 25.0f;
 	scale.y = 25.0f;
-
+	type = AgentType::BEHAVIOURUSINGENEMY;
 }
 
 Enemy::Enemy(float positionX, float positionY)

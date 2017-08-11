@@ -10,8 +10,9 @@ FlockCube::FlockCube(float positionX, float positionY)
 	position.y = positionY;
 	scale.x = 10.0f;
 	scale.y = 10.0f;
-	velocity.x = 5.0f;
-	velocity.y = 5.0f;
+	//velocity.x = 5.0f;
+	//velocity.y = 5.0f;
+	type = AgentType::FLOCKCUBE;
 }
 
 void FlockCube::render()
@@ -85,6 +86,30 @@ void FlockCube::update(float dt)
 	}
 }
 
+
+void FlockCube::changeToSeek()
+{
+	for (auto &behaviours : m_behaviours)
+	{
+
+		switch (behaviours->type)
+		{
+		case IBehavior::SEEK:
+			behaviours->behaviourWeight = 1.0f;
+			break;
+		case IBehavior::COHESION:
+			break;
+		case IBehavior::ALIGNMENT:
+			break;
+		case IBehavior::SEPERATION:
+			break;
+		case IBehavior::AVOIDANCE:
+			break;
+		default:
+			behaviours->behaviourWeight = 0.0f;
+		}
+	}
+}
 
 FlockCube::~FlockCube()
 {

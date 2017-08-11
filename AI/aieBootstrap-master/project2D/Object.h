@@ -17,7 +17,8 @@ class Object
 {
 public:
 
-	
+	enum AgentType {PLAYER, BEHAVIOURUSINGENEMY, STATEUSINGENEMY, FLOCKCUBE};
+	AgentType type;
 	/*
 	* Object();
 	*

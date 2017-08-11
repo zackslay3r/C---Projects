@@ -120,6 +120,9 @@ playLoop::playLoop()
 			flockcubes->m_behaviours.push_front(new Alignment(flockcubes));
 			flockcubes->m_behaviours.push_front(new Separation(flockcubes));
 			flockcubes->m_behaviours.push_front(new Cohesion(flockcubes));
+			flockcubes->m_behaviours.push_front(new Seeking(flockcubes));
+			flockcubes->target = player;
+			flockcubes->changeToSeek();
 		}
 
 

@@ -6,7 +6,7 @@ Alignment::Alignment(Object * myself)
 {
 	mySelf = myself;
 	type = BehaviourNames::ALIGNMENT;
-	behaviourWeight = 2.0f;
+	behaviourWeight = 1.0f;
 }
 
 Vector2 Alignment::Update(float dt)
@@ -24,7 +24,7 @@ Vector2 Alignment::Update(float dt)
 	{
 		if (mySelf != flockcubes)
 		{
-			if (PLAY->myNodes.distanceCheck(mySelf, 200, flockcubes))
+			if (PLAY->myNodes.distanceCheck(mySelf, 300, flockcubes))
 			{
 				tempVector.x += flockcubes->velocity.x;
 				tempVector.y += flockcubes->velocity.y;
@@ -43,7 +43,7 @@ Vector2 Alignment::Update(float dt)
 		tempVector.x /= neighborCount;
 		tempVector.y /= neighborCount;
 		tempVector.normalise();
-		tempVector = tempVector * speed;
+		tempVector = tempVector * speed * behaviourWeight;
 		return tempVector;
 	}
 }

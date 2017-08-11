@@ -16,6 +16,7 @@ enemyStateUser::enemyStateUser(float positionX, float positionY)
 	enemyFSM = new gameFSM();
 	utility = new UtilityAI();
 	velocity = { 5,5 };
+	type = AgentType::STATEUSINGENEMY;
 
 }
 

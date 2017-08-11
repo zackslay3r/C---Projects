@@ -45,15 +45,15 @@ Vector2 Cohesion::Update(float dt)
 		tempVector.y /= neighborCount;
 		
 		
-		tempVector.x *= behaviourWeight;
-		tempVector.y *= behaviourWeight;
+		//tempVector.x *= behaviourWeight;
+		//tempVector.y *= behaviourWeight;
 
 
 		Vector2 finalVec;
-		finalVec = { tempVector.x - mySelf->position.x, tempVector.y - mySelf->position.y };
+		finalVec = { tempVector.x - mySelf->velocity.x, tempVector.y - mySelf->velocity.y };
 
 		finalVec.normalise();
-		finalVec = finalVec * speed;
+		finalVec = finalVec * speed * behaviourWeight;
 		return finalVec;
 	}
 	Vector2 emptyVec;

@@ -11,6 +11,7 @@ Player::Player()
 	scale.x = 25.0f;
 	scale.y = 25.0f;
 	input = aie::Input::getInstance();
+	type = AgentType::PLAYER;
 }
 
 Player::Player(float positionX, float positionY)
