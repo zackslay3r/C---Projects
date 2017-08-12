@@ -45,7 +45,7 @@ void blackBoard::seekAsWell()
 				if (isSeeking.size() < activeEnemies.size())
 				{
 					// and the distance between a seeking and non seeking enemy is less then 200....
-					if (distanceCheck(seekingEnemies, 500.0f, currentEnemies))
+					if (distanceCheck(seekingEnemies, 300.0f, currentEnemies))
 					{
 
 						// push the active enemy to also seek and to add to the list of actively seeking enemys.

@@ -12,7 +12,7 @@ FlockCube::FlockCube(float positionX, float positionY)
 	scale.y = 10.0f;
 	//velocity.x = 5.0f;
 	//velocity.y = 5.0f;
-	type = AgentType::FLOCKCUBE;
+	
 }
 
 void FlockCube::render()

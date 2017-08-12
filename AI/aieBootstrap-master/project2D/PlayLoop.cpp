@@ -39,6 +39,7 @@ playLoop::playLoop()
 	input = aie::Input::getInstance();
 	// Initalises the player.
 	player = new Player(500,500);
+	player->type = Object::AgentType::PLAYER;
 	// Initalises the dumb AI.
 	stateEnemy.push_back(new enemyStateUser(1150,600));
 	// Initalises the smart AI enemies,
@@ -71,6 +72,7 @@ playLoop::playLoop()
 		//enemy->m_behaviours.push_front(new Cohesion(enemy));
 		//enemy->m_behaviours.push_front(new Avoidance(enemy, 90.0f));
 		//enemy->m_behaviours.push_front(new Avoidance(enemy, -90.0f));
+		enemy->type = Object::AgentType::BEHAVIOURUSINGENEMY;
 		enemy->health = 100;
 		int enemyKey;
 		enemyKey = myNodes.getIndex(enemy->position.x, enemy->position.y);
@@ -99,7 +101,7 @@ playLoop::playLoop()
 		dumbenemies->enemyFSM->registerState(SEEK, new seekState(dumbenemies, dumbenemies->enemyFSM));
 		dumbenemies->enemyFSM->registerState(FLEE, new fleeState(dumbenemies, dumbenemies->enemyFSM));
 		dumbenemies->enemyFSM->pushState(WANDER);
-
+		dumbenemies->type = Object::AgentType::STATEUSINGENEMY;
 
 		int enemyKey;
 		enemyKey = myNodes.getIndex(dumbenemies->position.x, dumbenemies->position.y);
@@ -122,6 +124,7 @@ playLoop::playLoop()
 			flockcubes->m_behaviours.push_front(new Cohesion(flockcubes));
 			flockcubes->m_behaviours.push_front(new Seeking(flockcubes));
 			flockcubes->target = player;
+			flockcubes->type = Object::AgentType::FLOCKCUBE;
 			flockcubes->changeToSeek();
 		}
 

@@ -10,7 +10,7 @@ Seeking::Seeking(Object * myself)
 
 Vector2 Seeking::Update(float dt)
 {
-	if (mySelf->type == ((Object*)type)->BEHAVIOURUSINGENEMY)
+	if (mySelf->type == Object::AgentType::BEHAVIOURUSINGENEMY)
 	{
 		if (behaviourWeight > 0.0f)
 		{
@@ -36,7 +36,7 @@ Vector2 Seeking::Update(float dt)
 			return tempVec;
 		}
 	}
-	if ((mySelf->type == ((Object*)type)->FLOCKCUBE))
+	if (mySelf->type == Object::AgentType::FLOCKCUBE)
 	{
 	
 		behaviourWeight = 0.5f;
