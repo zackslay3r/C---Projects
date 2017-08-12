@@ -6,7 +6,7 @@ Alignment::Alignment(Object * myself)
 {
 	mySelf = myself;
 	type = BehaviourNames::ALIGNMENT;
-	behaviourWeight = 1.0f;
+	behaviourWeight = 1.5f;
 }
 
 Vector2 Alignment::Update(float dt)

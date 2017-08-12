@@ -23,7 +23,7 @@ Vector2 Separation::Update(float dt)
 	{
 		if (mySelf != flockcubes)
 		{
-			if (PLAY->myNodes.distanceCheck(mySelf, 400, flockcubes))
+			if (PLAY->myNodes.distanceCheck(mySelf, 150, flockcubes))
 			{
 				tempVector.x += flockcubes->position.x - mySelf->position.x;
 				tempVector.y += flockcubes->position.y - mySelf->position.y;

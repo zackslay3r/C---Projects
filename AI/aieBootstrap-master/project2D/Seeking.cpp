@@ -39,7 +39,7 @@ Vector2 Seeking::Update(float dt)
 	if (mySelf->type == Object::AgentType::FLOCKCUBE)
 	{
 	
-		behaviourWeight = 0.5f;
+		behaviourWeight = 0.9f;
 			
 			// default speed scalar.
 			float speed = 100.0f;

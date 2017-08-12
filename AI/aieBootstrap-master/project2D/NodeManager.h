@@ -3,6 +3,8 @@
 #include "Edge.h"
 #include "Global.h"
 #include "Object.h"
+
+#include <functional>
 class NodeManager
 {
 private:
@@ -15,13 +17,13 @@ private:
 		
 
 	public:
-		
 		struct edgePair
 		{
 			float edgeDistance;
 			Node* node;
 
 		};
+		
 		
 		
 		float getNodeSize();
@@ -34,7 +36,10 @@ private:
 		bool showNodes, showSquares, showKeys , showClosedSet, showOpenSet = false;
 		void withinDistance(Node* nodeOne, Node* nodeTwo);
 		std::list<Node*> pathFinding(Node* nodeOne, Node*  nodeTwo);
+		std::list<Node*> pathFinding(Node * startNode, Node * endNode) { return pathFinding(startNode, endNode, nullptr); };
 		float heuristicEstimate(Node* nodeOne, Node* nodeTwo);
+
+		
 		std::list<Node*> reconstruct_path(Node* currentNode);
 		
 

@@ -91,6 +91,7 @@ playLoop::playLoop()
 	
 		theBoard->activeEnemies.push_back(enemy);
 	}
+
 	
 	// Add the states to the dumb ai and push the WANDER state.
 	// While also setting the node key to be of the current node it is in.
@@ -119,15 +120,29 @@ playLoop::playLoop()
 
 		for (auto &flockcubes : flock)
 		{ 
+			int flockKey = 1;
+			
+			flockcubes->id = flockKey;
+			flockKey++;
+			if(flockcubes->id == 1)
+			{
+			flockcubes->m_behaviours.push_front(new Seeking(flockcubes));
+			flockcubes->target = player;
+			flockcubes->changeToSeek();
+			flockcubes->type = Object::AgentType::FLOCKCUBE;
 			flockcubes->m_behaviours.push_front(new Alignment(flockcubes));
 			flockcubes->m_behaviours.push_front(new Separation(flockcubes));
 			flockcubes->m_behaviours.push_front(new Cohesion(flockcubes));
-			flockcubes->m_behaviours.push_front(new Seeking(flockcubes));
-			flockcubes->target = player;
-			flockcubes->type = Object::AgentType::FLOCKCUBE;
-			flockcubes->changeToSeek();
+			}
+			else
+			{
+				flockcubes->m_behaviours.push_front(new Alignment(flockcubes));
+				flockcubes->m_behaviours.push_front(new Separation(flockcubes));
+				flockcubes->m_behaviours.push_front(new Cohesion(flockcubes));
+				flockcubes->type = Object::AgentType::FLOCKCUBE;
+			}
 		}
-
+		
 
 	}
 

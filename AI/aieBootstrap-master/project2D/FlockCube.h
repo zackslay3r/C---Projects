@@ -17,6 +17,7 @@ public:
 	Vector2 desiredVelocity;
 	Object* target;
 	void changeToSeek();
+	int id;
 	~FlockCube();
 };
 

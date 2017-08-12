@@ -50,22 +50,12 @@ void FlockCube::update(float dt)
 			desiredVelocity.x = desiredVelocity.x / TotalActiveBeheaviours;
 			desiredVelocity.y = desiredVelocity.y / TotalActiveBeheaviours;
 		}
-	/*	if (desiredVelocity.sqrMagnitude() <  (minSpeed*minSpeed))
-		{
-			if (desiredVelocity.x != 0.0f || desiredVelocity.y != 0.0)
-			{
-				desiredVelocity = desiredVelocity.normalised() * minSpeed;
-			}
-		}
-		else if (desiredVelocity.sqrMagnitude() >  (maxSpeed*maxSpeed))
-		{
-			desiredVelocity = desiredVelocity.normalised() * maxSpeed;
-		}*/
+	
 
 
 		if (TotalActiveBeheaviours > 0)
 		{
-			//velocity = (velocity + velocity + velocity + desiredVelocity)*0.25f;
+			
 			velocity = desiredVelocity;
 		}
 

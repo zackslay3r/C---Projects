@@ -24,7 +24,7 @@ Vector2 Cohesion::Update(float dt)
 	{
 		if (mySelf != flockcubes)
 		{
-			if (PLAY->myNodes.distanceCheck(mySelf, 300, flockcubes))
+			if (PLAY->myNodes.distanceCheck(mySelf, 450, flockcubes))
 			{
 				tempVector.x += flockcubes->position.x;
 				tempVector.y += flockcubes->position.y;
