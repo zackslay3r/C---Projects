@@ -25,8 +25,12 @@ private:
 		// the size of which node will be spaced against.
 		float nodeSize = 50;
 		
-
-	public:
+		// These are the 3 custom heuristic's.
+		std::function<float(Node* startNode, Node* endNode)> heuristicEuclidean;
+		std::function<float(Node* startNode, Node* endNode)> heuristicManhattian;
+		std::function<float(Node* startNode, Node* endNode)> heuristicDiagonal;
+	
+public:
 		struct edgePair
 		{
 			float edgeDistance;
@@ -101,7 +105,7 @@ private:
 		*/
 		//std::list<Node*> pathFinding(Node* nodeOne, Node*  nodeTwo);
 		//std::list<Node*> pathFinding(Node * startNode, Node * endNode, std::function<float()> heuristicEstimate(Node* nodeOne, Node* nodeTwo)) { return pathFinding(startNode, endNode, nullptr); };
-		std::list<Node*> pathFinding(Node * startNode, Node * endNode, std::function<float(Node* startNode2, Node* endNode2)> func);
+		std::list<Node*> pathFinding(Node * startNode, Node * endNode, std::function<float(Node* startNode2, Node* endNode2)> heuristic);
 		std::list<Node*> pathFinding(Node * startNode, Node * endNode) { return pathFinding(startNode, endNode, nullptr); };
 
 
@@ -112,7 +116,7 @@ private:
 		* it takes two Node*'s as parameters and returns a float value.
 		*
 		*/
-		float heuristicEstimate(Node* nodeOne, Node* nodeTwo);
+		/*float heuristicEstimate(Node* nodeOne, Node* nodeTwo);*/
 
 		/*
 		* std::list<Node*> reconstruct_path(Node* currentNode);

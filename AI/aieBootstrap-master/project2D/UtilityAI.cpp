@@ -13,7 +13,7 @@ void UtilityAI::runAway(Enemy* myself)
 
 	tempHealth = myself->health;
 
-	double damagedHealth = 50.0 - tempHealth;
+	int damagedHealth = 50 - int(tempHealth);
 
 	int wantToFlee;
 
@@ -24,10 +24,10 @@ void UtilityAI::runAway(Enemy* myself)
 			if (behaviours->type == FLEE)
 			{
 
-				wantToFlee = damagedHealth * 0.5;
+				wantToFlee =int(double(damagedHealth) * 0.5);
 
-				damagedHealth = damagedHealth / 10.0;
-				behaviours->behaviourWeight = 1 * (damagedHealth * wantToFlee);
+				damagedHealth = damagedHealth / 10;
+				behaviours->behaviourWeight = 1.1f * (damagedHealth * wantToFlee);
 			}
 		}
 
@@ -36,9 +36,9 @@ void UtilityAI::runAway(Enemy* myself)
 
 void UtilityAI::runAway(enemyStateUser * stateEnemy)
 {
-	float tempHealth = 0;
+	float tempHealth = 0.0f;
 
-	tempHealth = stateEnemy->health / 10;
+	tempHealth = float(stateEnemy->health) / 10.0f;
 	if (tempHealth <= 3.0)
 	{
 		for (auto &behaviours : stateEnemy->m_behaviours)

@@ -14,7 +14,7 @@ namespace BehaviourManagement {
 #define GAMESETTINGS GameSettings::getInstance()
 class GameSettings {
 public:
-	const float pi = 3.14159265358979323846;
+	const float pi = 3.14159265358979323846f;
 	const int windowHeight = 900;
 	const int windowLength = 1600;
 	const int gridSize = 50;

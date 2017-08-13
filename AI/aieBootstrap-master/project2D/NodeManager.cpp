@@ -4,11 +4,41 @@
 
 
 
+
 NodeManager::NodeManager()
 {
 	gameNodes = new Node[GAMESETTINGS->NODE_ARRAY_LENGTH];
 	//gameEdges = new Edge[8];
 	std::list<Edge*> gameEdges;
+
+	heuristicEuclidean = [](Node* nodeOne, Node* nodeTwo)->float
+	{
+		Vector2 dis = { nodeOne->posX - nodeTwo->posX,nodeOne->posY - nodeTwo->posY };
+		float h = dis.magnitude();
+		return h;
+	};
+	heuristicManhattian = [](Node* nodeOne, Node* nodeTwo)->float
+	{
+		float HScore;
+		HScore = (abs(nodeOne->posX - nodeTwo->posX) + abs(nodeOne->posY - nodeTwo->posY));
+		return HScore;
+	};
+	heuristicDiagonal = [](Node* nodeOne, Node* nodeTwo)->float
+	{
+		float Hscore;
+
+		float xDist = abs(nodeOne->posX - nodeTwo->posX);
+		float yDist = abs(nodeOne->posY - nodeTwo->posY);
+		if (xDist > yDist)
+		{
+			Hscore = 1.414213f * yDist + (xDist - yDist);
+		}
+		else
+		{
+			Hscore = 1.414213f * xDist + (yDist - xDist);
+		}
+		return Hscore;
+	};
 }
 
 
@@ -167,8 +197,12 @@ float NodeManager::magnitude(float x, float y)
 
 
 
-std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
+std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode, std::function<float(Node* startNode2, Node* endNode2)> heuristic)
 {
+	//Use default heuristic if none given.
+	if (!heuristic) heuristic = heuristicEuclidean;
+
+
 	if (endNode->getWalkable())
 	{
 		// This is for the closed set of nodes.
@@ -193,7 +227,7 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 		startNode->setdScore(0);
 
 
-		startNode->setHScore(heuristicEstimate(startNode, endNode) * e);
+		startNode->setHScore(heuristic(startNode, endNode) * e);
 		Node* node_current = nullptr;
 		std::list<Node* >::iterator iter;
 		while (openSet.size() > 0)
@@ -267,7 +301,7 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 
 				node_temp->previousNode = node_current;
 				node_temp->setdScore(teneative_gScore);
-				node_temp->setHScore((heuristicEstimate(node_temp, endNode) * e));
+				node_temp->setHScore((heuristic(node_temp, endNode) * e));
 
 			
 			}
@@ -280,13 +314,13 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 	return std::list<Node *>();
 }
 
-float NodeManager::heuristicEstimate(Node * nodeOne, Node * nodeTwo)
-{
-
-	Vector2 dis = { nodeOne->posX - nodeTwo->posX,nodeOne->posY - nodeTwo->posY };
-	float h = dis.magnitude();
-	return h;
-}
+//float NodeManager::heuristicEstimate(Node * nodeOne, Node * nodeTwo)
+//{
+//
+//	Vector2 dis = { nodeOne->posX - nodeTwo->posX,nodeOne->posY - nodeTwo->posY };
+//	float h = dis.magnitude();
+//	return h;
+//}
 
 std::list<Node*> NodeManager::reconstruct_path(Node * currentNode)
 {

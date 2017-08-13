@@ -68,7 +68,7 @@ void wanderState::update(float dt)
 	setAngle(&displacement, wanderAngle);
 
 	// change the wanderAngle a little bit, so its not the same every frame.
-	wanderAngle += (random() * wanderJitter) - (wanderJitter * 0.5);
+	wanderAngle += (float(random()) * wanderJitter) - (wanderJitter * 0.5f);
 
 	float speed = 200.0f;
 
