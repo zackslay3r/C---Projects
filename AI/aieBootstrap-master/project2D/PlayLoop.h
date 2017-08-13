@@ -54,6 +54,7 @@ public:
 	Player* player;
 	blackBoard* theBoard;
 	std::vector<Wall*> myWalls;
+	
 	bool lineLine(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
 	bool lineRec(float x1, float y1, float x2, float y2, float rx, float ry, float rw, float rh);
 	bool nodeCollision(Vector2 pos1, Vector2 pos2);
@@ -76,28 +77,7 @@ private:
 	
 	std::unique_ptr<aie::Font> m_font, m_stateFont;
 	
-	/*
-	* bool checkCollide(float x1, float y1, float width1, float height1, float x2, float y2, float width2, float height2);
-	*
-	* This function is responsible for checking the collisions between two objects.
-	*
-	* @parameter 1 x1 - position of the first object on the x axis
-	* @parameter 2 y1 - position of the first object on the y axis
-	* @parameter 3 width1 - width of the first object
-	* @parameter 4 height1 -  height of the first object
-	* @parameter 5 x2 - position of the second object on the x axis
-	* @parameter 6 y2 - position of the second object on the y axis
-	* @parameter 7 width2 - width of the second object
-	* @parameter 8 height2 - width of the second object
-	*
-	* returns bool - true or false.
-	*
-	*/
-
 	
-	//Enemy* enemy;
-	//Enemy* enemy2;
-
 	
 	aie::Input *input;
 	double timer;
@@ -108,12 +88,6 @@ private:
 
 	
 	
-	/*	 void updateStateTimer(float dt);
-	*	This function is responsible for updating the timer in the playloop.
-	*
-	*	parameter 1 dt - Delta Time.
-	*
-	*	@returns void
-	*/
+
 	bool TimerTick(float dt);
 };

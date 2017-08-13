@@ -165,10 +165,7 @@ float NodeManager::magnitude(float x, float y)
 	return sqrt((x*x) + (y*y));
 }
 
-void NodeManager::withinDistance(Node* nodeOne, Node* nodeTwo)
-{
-	//nodeOne->links.push_front();
-}
+
 
 std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 {
@@ -278,26 +275,14 @@ std::list<Node*> NodeManager::pathFinding(Node * startNode, Node * endNode)
 			completedOpenSet = openSet;			
 		}
 			
-		// This is the previous node to backtrack from
 
-		// gSco
 	}
 	return std::list<Node *>();
 }
 
 float NodeManager::heuristicEstimate(Node * nodeOne, Node * nodeTwo)
 {
-	/*float x, y, h;
-	x = abs(nodeOne->posX - nodeTwo->posX);
-	y = abs(nodeOne->posY - nodeTwo->posY);
-	if (x > y)
-	{
-		h = 14 * y + 10 * (x - y);
-	}
-	else
-	{
-		h = 14 * x + 10 * (y - x);
-	}*/
+
 	Vector2 dis = { nodeOne->posX - nodeTwo->posX,nodeOne->posY - nodeTwo->posY };
 	float h = dis.magnitude();
 	return h;

@@ -4,6 +4,9 @@
 #include "Vector2.h"
 #include "IBehavior.h"
 #include <list>
+
+// Forward declaration of a class.
+class IBehavior;
 /*
 * class Object
 *
@@ -12,11 +15,10 @@
 *
 * @author - Zackary Direen, Academy of Interactive Entertainment, 2017
 */
-class IBehavior;
 class Object
 {
 public:
-
+	// This is an AgentType, which will be used for each Agent.
 	enum AgentType {PLAYER, BEHAVIOURUSINGENEMY, STATEUSINGENEMY, FLOCKCUBE};
 	AgentType type;
 	/*
@@ -33,8 +35,7 @@ public:
 	// These values help determine the size of a particular object based on widith and height.
 	Vector2 scale;
 
-	/// This object class does not need a update function, as we are are going to get the other states to update the objects for us.
-	
+
 	/*	 void render();
 	*	This function is a virtual function that is responsible for drawing the objects. 
 	*
@@ -42,11 +43,17 @@ public:
 	*/
 	virtual void render() = 0;
 	
+	/*	 void update(float DT);
+	*	This function is a virtual function that is responsible for updating the objects.
+	*
+	*	@returns void
+	*/
 	virtual void update(float DT) = 0;
 	// This is the object destructor.
 	~Object();
 
 protected:
+	// This is a list of IBehaviours.
 	std::list<IBehavior*> m_behaviours;
 
 };

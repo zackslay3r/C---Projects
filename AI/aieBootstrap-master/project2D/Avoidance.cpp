@@ -18,26 +18,10 @@ Avoidance::Avoidance(Object * myself, float angle, float weighting)
 Vector2 Avoidance::Update(float dt)
 {
 	
-	//((Enemy*)mySelf)->feelers.clear();
-		//float feelerAngle = 0.25 * GAMESETTINGS->pi;
+
 		float pushAngle = -feelerAngle;
 		float speed = 100.0f;
-		
-		///* ahead starts off as myself's position.
-		//Vector2 ahead = mySelf->position;
-		//
-		// then get the normalised velocity..
-		//Vector2 tempVec = mySelf->velocity;
-		//tempVec.normalise();
-		//
-		//and add that to ahead...
-		//ahead = ahead + tempVec;
-
-		// then times by the max distance that can be in front of the object.
-		//ahead = ahead * 300.0f;
-
-		// make a second ahead vector, but cut that length in half.
-		//Vector2 ahead2 = ahead * 0.5;*/
+	
 
 		Vector2 linePos1 = mySelf->position;
 		lineEnd = rotateVector(mySelf->velocity, feelerAngle);
@@ -54,31 +38,11 @@ Vector2 Avoidance::Update(float dt)
 			if (lineRec(linePos1.x, linePos1.y, lineEnd.x, lineEnd.y, walls->position.x - 25.0f, walls->position.y - 25.0f, walls->scale.x, walls->scale.y))
 			{
 				Vector2 tempVec;
-			/*	tempVec = (mySelf->position + lineEnd) - linePos1 ;
-				tempVec.normalise()*/
+
 				tempVec = mySelf->velocity;
 				tempVec.normalise();
 
-				/*if (feelerAngle > 0)
-				{
-					//right normal
-					Vector2 normal = Vector2(tempVec.y, -tempVec.x);
-					
-					//normal = normal * cosf(feelerAngle * (GAMESETTINGS->pi / 180.0f));
 
-					return normal * speed;
-				}
-				else if (feelerAngle < 0)
-				{
-					//left normal
-					Vector2 normal = Vector2(-tempVec.y, tempVec.x);
-
-					//scale the normal by the angle
-					//normal = normal * cosf(feelerAngle * (GAMESETTINGS->pi / 180.0f));
-
-					return normal * speed;
-				}
-				else*/
 				{
 					//backwards
 					Vector2 back = linePos1 - lineEnd;// tempVec * -1.0f;
@@ -102,7 +66,7 @@ Vector2 Avoidance::Update(float dt)
 			}
 			
 		}
-	//((Enemy*)mySelf)->feelers.push_back(linePos2);
+
 }
 
 Vector2 Avoidance::rotateVector(Vector2 feelerPos, float degrees)

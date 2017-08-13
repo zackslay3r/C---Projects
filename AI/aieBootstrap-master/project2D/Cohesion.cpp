@@ -2,6 +2,10 @@
 #include "PlayLoop.h"
 
 
+Cohesion::Cohesion()
+{
+}
+
 Cohesion::Cohesion(Object * myself)
 {
 	mySelf = myself;

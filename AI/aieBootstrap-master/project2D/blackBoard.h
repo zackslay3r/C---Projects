@@ -1,26 +1,22 @@
 #pragma once
 #include <list>
-enum eBlackBoardDataType { type_float, type_int, type_char, type_bool, type_pointer };
 
+
+// Forward declaration of classes.
 class Enemy;
 class enemyStateUser;
 class Player;
-//struct BlackBoardData 
-//{
-//	eBlackBoardDataType type;
-//};
-//
-//union type
-//{
-//	float floatValue;
-//	int intValue;
-//	char charValue;
-//	bool boolValue;
-//	void* pointerValue;
-//};
 
 
 
+/*
+* class blackBoard
+*
+* this is the blackboard class, which enemys will send information to to determine whether or not they will change behaviours based on the influence 
+* other enemys.
+*
+* @author - Zackary Direen, Academy of Interactive Entertainment, 2017
+*/
 class blackBoard
 {
 public:
@@ -36,6 +32,7 @@ public:
 	void seekAsWell();
 	
 	// this function will be called by the enemy in its update to determine whether or not it should seek using the path.
+	// it takes a parameter of type Enemy* or enemyStateUser* and returns a bool.
 	bool usePathFollow(Enemy* myself);
 	bool usePathFollow(enemyStateUser* myself);
 	

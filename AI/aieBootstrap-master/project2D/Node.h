@@ -32,12 +32,15 @@ public:
 	~Node();
 	// an array of Node pointers that will enable for directional movement later.
 	std::list<Edge* > links;
-	//This function returns fScore.
+	//This function returns FScore of type float.
 	float getFScore();
+	//This function returns HScore of type float.
 	float getHScore();
+	//This function returns DScore of type float.
 	float getdScore();
-
+	//This function sets the HScore of type float.
 	void setHScore(float newHScore);
+	//This function sets the DScore of type float.
 	void setdScore(float newdScore);
 	inline bool getWalkable(){return isWalkable;};
 	inline void setWalkable(bool tf) {isWalkable = tf;};

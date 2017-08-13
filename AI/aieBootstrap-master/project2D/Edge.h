@@ -4,13 +4,6 @@
 // is the the actual distance between the two points.
 class Edge
 {
-private:
-
-
-	// This are the two Nodes, startNode and endNode.
-
-	/*Node* nodeOne;
-	Node* nodeTwo;*/
 public:
 	int keyOne;
 	int keyTwo;
@@ -20,9 +13,6 @@ public:
 
 	char edgeColour;
 
-	// this function returns the gScore.
-		
-	void getEdges();
 	Edge();
 	~Edge();
 };

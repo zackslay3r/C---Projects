@@ -10,8 +10,7 @@ FlockCube::FlockCube(float positionX, float positionY)
 	position.y = positionY;
 	scale.x = 10.0f;
 	scale.y = 10.0f;
-	//velocity.x = 5.0f;
-	//velocity.y = 5.0f;
+
 	
 }
 

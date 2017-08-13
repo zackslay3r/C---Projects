@@ -12,7 +12,7 @@ namespace aie {
 	class Font;
 }
 /*
-* class IState
+* class IGameState
 *
 * this is the blueprint of each of the states within the game and what all states will have in my game.
 *
@@ -23,7 +23,7 @@ class IGameState {
 public:
 	IGameState(enemyStateUser*_enemyStateUser, gameFSM *_gsm) : enemy(_enemyStateUser), gamefsm(_gsm) {};
 
-	/* virtual ~IState() = default;
+	/* virtual ~IGameState() = default;
 	* This is the virtual destructor for every state.
 	* This is called when the main program has reached the end of its scope and this will be called on every state.
 	*/
